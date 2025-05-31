@@ -1,0 +1,225 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#1a1a2e" />
+  
+  <!-- Star field -->
+  <g id="stars">
+    <!-- Small stars -->
+    <g fill="#ffffff" opacity="0.7">
+      <circle cx="50" cy="40" r="1" />
+      <circle cx="120" cy="70" r="1" />
+      <circle cx="200" cy="30" r="1" />
+      <circle cx="280" cy="50" r="1" />
+      <circle cx="350" cy="20" r="1" />
+      <circle cx="420" cy="60" r="1" />
+      <circle cx="500" cy="40" r="1" />
+      <circle cx="580" cy="30" r="1" />
+      <circle cx="650" cy="50" r="1" />
+      <circle cx="720" cy="20" r="1" />
+      <circle cx="780" cy="70" r="1" />
+      <!-- More stars scattered throughout -->
+      <circle cx="80" cy="120" r="1" />
+      <circle cx="150" cy="150" r="1" />
+      <circle cx="230" cy="110" r="1" />
+      <circle cx="310" cy="130" r="1" />
+      <circle cx="380" cy="100" r="1" />
+      <circle cx="450" cy="140" r="1" />
+      <circle cx="530" cy="120" r="1" />
+      <circle cx="610" cy="110" r="1" />
+      <circle cx="680" cy="130" r="1" />
+      <circle cx="750" cy="100" r="1" />
+      <!-- And many more stars across the upper part of the image -->
+    </g>
+    
+    <!-- Medium stars -->
+    <g fill="#ffffff" opacity="0.8">
+      <circle cx="100" cy="50" r="1.5" />
+      <circle cx="250" cy="40" r="1.5" />
+      <circle cx="400" cy="30" r="1.5" />
+      <circle cx="550" cy="50" r="1.5" />
+      <circle cx="700" cy="40" r="1.5" />
+      <!-- More medium stars scattered -->
+      <circle cx="180" cy="80" r="1.5" />
+      <circle cx="330" cy="70" r="1.5" />
+      <circle cx="480" cy="60" r="1.5" />
+      <circle cx="630" cy="80" r="1.5" />
+    </g>
+    
+    <!-- Large stars -->
+    <g fill="#ffffff">
+      <circle cx="75" cy="25" r="2" />
+      <circle cx="225" cy="15" r="2" />
+      <circle cx="375" cy="25" r="2" />
+      <circle cx="525" cy="15" r="2" />
+      <circle cx="675" cy="25" r="2" />
+    </g>
+  </g>
+  
+  <!-- Major Celestial Bodies -->
+  <!-- Sun -->
+  <circle cx="400" cy="100" r="30" fill="url(#sunGradient)" />
+  <defs>
+    <radialGradient id="sunGradient">
+      <stop offset="0%" stop-color="#fff7d6" />
+      <stop offset="40%" stop-color="#ffdb4d" />
+      <stop offset="100%" stop-color="#ff8c00" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Planets with their orbits and frequency lines -->
+  <!-- Inner Planet (Venus-like) -->
+  <circle cx="400" cy="100" r="60" fill="none" stroke="#a335ee" stroke-width="0.5" opacity="0.6" />
+  <circle cx="450" cy="130" r="10" fill="#e580ff" />
+  <path d="M 400 100 L 450 130" stroke="#e580ff" stroke-width="1.5" opacity="0.7" />
+  
+  <!-- Earth-like Planet -->
+  <circle cx="400" cy="100" r="100" fill="none" stroke="#33ccff" stroke-width="0.5" opacity="0.6" />
+  <circle cx="350" cy="180" r="15" fill="#4ddbff" />
+  <path d="M 400 100 L 350 180" stroke="#4ddbff" stroke-width="1.5" opacity="0.7" />
+  
+  <!-- Mars-like Planet -->
+  <circle cx="400" cy="100" r="140" fill="none" stroke="#ff3333" stroke-width="0.5" opacity="0.6" />
+  <circle cx="500" cy="200" r="12" fill="#ff6666" />
+  <path d="M 400 100 L 500 200" stroke="#ff6666" stroke-width="1.5" opacity="0.7" />
+  
+  <!-- Jupiter-like Planet -->
+  <circle cx="400" cy="100" r="200" fill="none" stroke="#e6b800" stroke-width="0.5" opacity="0.6" />
+  <circle cx="300" cy="270" r="25" fill="#ffd633" />
+  <path d="M 400 100 L 300 270" stroke="#ffd633" stroke-width="1.5" opacity="0.7" />
+  
+  <!-- Saturn-like Planet -->
+  <circle cx="400" cy="100" r="250" fill="none" stroke="#cc9900" stroke-width="0.5" opacity="0.6" />
+  <circle cx="500" cy="330" r="20" fill="#ffcc00" />
+  <path d="M 400 100 L 500 330" stroke="#ffcc00" stroke-width="1.5" opacity="0.7" />
+  
+  <!-- Lunar Body -->
+  <circle cx="350" cy="180" r="30" fill="none" stroke="#b3b3cc" stroke-width="0.5" opacity="0.6" />
+  <circle cx="350" cy="150" r="5" fill="#e6e6ff" />
+  <path d="M 350 180 L 350 150" stroke="#e6e6ff" stroke-width="1" opacity="0.7" />
+  
+  <!-- Resonance Points on Earth -->
+  <g id="resonancePoints">
+    <!-- Northern Resonance Point -->
+    <circle cx="300" cy="270" r="8" fill="#00ff00" opacity="0.8" />
+    <circle cx="300" cy="270" r="15" fill="none" stroke="#00ff00" stroke-width="2" opacity="0.5">
+      <animate attributeName="r" values="15;20;15" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <!-- Second pulse wave -->
+    <circle cx="300" cy="270" r="25" fill="none" stroke="#00ff00" stroke-width="1.5" opacity="0.3">
+      <animate attributeName="r" values="25;40;25" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="4s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Southern Resonance Point (weakening) -->
+    <circle cx="410" cy="330" r="6" fill="#00ccff" opacity="0.5" />
+    <circle cx="410" cy="330" r="12" fill="none" stroke="#00ccff" stroke-width="1.5" opacity="0.3">
+      <animate attributeName="r" values="12;15;12" dur="6s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="6s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Eastern Resonance Point -->
+    <circle cx="520" cy="290" r="7" fill="#ff9900" opacity="0.7" />
+    <circle cx="520" cy="290" r="14" fill="none" stroke="#ff9900" stroke-width="1.8" opacity="0.4">
+      <animate attributeName="r" values="14;18;14" dur="4.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.4;0.2;0.4" dur="4.5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Western Resonance Point -->
+    <circle cx="220" cy="320" r="7" fill="#cc33ff" opacity="0.7" />
+    <circle cx="220" cy="320" r="14" fill="none" stroke="#cc33ff" stroke-width="1.8" opacity="0.4">
+      <animate attributeName="r" values="14;18;14" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.4;0.2;0.4" dur="5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Central Resonance Point (Resonara) -->
+    <circle cx="380" cy="300" r="10" fill="#ffff00" opacity="0.9" />
+    <circle cx="380" cy="300" r="18" fill="none" stroke="#ffff00" stroke-width="2.2" opacity="0.6">
+      <animate attributeName="r" values="18;25;18" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.6;0.3;0.6" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <!-- Second pulse wave -->
+    <circle cx="380" cy="300" r="30" fill="none" stroke="#ffff00" stroke-width="1.5" opacity="0.3">
+      <animate attributeName="r" values="30;50;30" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Harmonic Ley Lines connecting resonance points -->
+  <g id="leyLines" opacity="0.6">
+    <path d="M 300 270 L 380 300" stroke="#80ffaa" stroke-width="2">
+      <animate attributeName="stroke-width" values="2;3;2" dur="4s" repeatCount="indefinite" />
+    </path>
+    <path d="M 380 300 L 410 330" stroke="#80d4ff" stroke-width="1.5">
+      <animate attributeName="stroke-width" values="1.5;2;1.5" dur="6s" repeatCount="indefinite" />
+    </path>
+    <path d="M 380 300 L 520 290" stroke="#ffcc80" stroke-width="2">
+      <animate attributeName="stroke-width" values="2;3;2" dur="4.5s" repeatCount="indefinite" />
+    </path>
+    <path d="M 380 300 L 220 320" stroke="#e680ff" stroke-width="2">
+      <animate attributeName="stroke-width" values="2;3;2" dur="5s" repeatCount="indefinite" />
+    </path>
+    <!-- Hidden connection between Northern and Southern shown by Twins -->
+    <path d="M 300 270 L 410 330" stroke="#ffffff" stroke-width="1" stroke-dasharray="5,5" opacity="0.4" />
+    <!-- Hidden connection between Eastern and Western shown by Twins -->
+    <path d="M 520 290 L 220 320" stroke="#ffffff" stroke-width="1" stroke-dasharray="5,5" opacity="0.4" />
+  </g>
+  
+  <!-- Silent Deserts -->
+  <g id="silentDeserts">
+    <path d="M 160 380 Q 200 350, 240 380 T 320 380 T 400 380 T 480 380 T 560 380 T 640 380" 
+          fill="none" stroke="#330033" stroke-width="30" opacity="0.7" />
+    <!-- Void frequency emanations (subtle) -->
+    <path d="M 160 380 Q 200 350, 240 380 T 320 380 T 400 380 T 480 380 T 560 380 T 640 380" 
+          fill="none" stroke="#9900cc" stroke-width="2" opacity="0.3">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="10s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Crystal City of Resonara -->
+  <g id="resonaraCity">
+    <polygon points="380,300 370,310 390,310" fill="#ffffcc" opacity="0.9" />
+    <line x1="380" y1="300" x2="380" y2="280" stroke="#ffffcc" stroke-width="2" />
+    <circle cx="380" cy="280" r="2" fill="#ffffcc" />
+    <text x="393" y="310" fill="#ffffff" font-family="Arial" font-size="10">Resonara</text>
+  </g>
+  
+  <!-- Nightsong Academy -->
+  <g id="nightsongAcademy">
+    <polygon points="300,270 290,280 310,280" fill="#ccffff" opacity="0.8" />
+    <text x="313" y="275" fill="#ffffff" font-family="Arial" font-size="8">Nightsong Academy</text>
+  </g>
+  
+  <!-- Legend -->
+  <g id="legend" transform="translate(20, 430)">
+    <rect width="180" height="150" fill="#1a1a2e" stroke="#ffffff" stroke-width="1" opacity="0.7" />
+    <text x="10" y="20" fill="#ffffff" font-family="Arial" font-size="12" font-weight="bold">The Harmony Map</text>
+    
+    <!-- Resonance Points -->
+    <circle cx="20" cy="40" r="5" fill="#ffff00" />
+    <text x="30" y="43" fill="#ffffff" font-family="Arial" font-size="10">Resonance Point</text>
+    
+    <!-- Ley Lines -->
+    <line x1="10" y1="60" x2="25" y2="60" stroke="#80ffaa" stroke-width="2" />
+    <text x="30" y="63" fill="#ffffff" font-family="Arial" font-size="10">Harmonic Ley Line</text>
+    
+    <!-- Silent Desert -->
+    <rect x="10" y="75" width="15" height="5" fill="#330033" opacity="0.7" />
+    <text x="30" y="83" fill="#ffffff" font-family="Arial" font-size="10">Silent Desert</text>
+    
+    <!-- Void Frequency -->
+    <line x1="10" y1="100" x2="25" y2="100" stroke="#9900cc" stroke-width="2" opacity="0.7" />
+    <text x="30" y="103" fill="#ffffff" font-family="Arial" font-size="10">Void Frequency</text>
+    
+    <!-- Cities -->
+    <polygon points="17,115 13,120 21,120" fill="#ffffcc" opacity="0.9" />
+    <text x="30" y="123" fill="#ffffff" font-family="Arial" font-size="10">City/Academy</text>
+    
+    <!-- Hidden Connections -->
+    <line x1="10" y1="140" x2="25" y2="140" stroke="#ffffff" stroke-width="1" stroke-dasharray="3,3" />
+    <text x="30" y="143" fill="#ffffff" font-family="Arial" font-size="10">Hidden Connection</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="30" fill="#ffffff" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle">The Harmony Map of Resonara</text>
+</svg>

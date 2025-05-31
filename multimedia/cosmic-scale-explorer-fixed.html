@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Scale Explorer - Stable Version</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a1128;
+            margin: 0;
+            padding: 20px;
+            color: #e2e2e2;
+            line-height: 1.6;
+        }
+        
+        .cosmic-scale-explorer {
+            background-color: #0a1128;
+            border-radius: 10px;
+            padding: 20px;
+            color: #e2e2e2;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(0, 174, 255, 0.2);
+        }
+        
+        h2 {
+            text-align: center;
+            color: #7b9fff;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(100, 150, 255, 0.3);
+        }
+        
+        .explorer-intro {
+            text-align: center;
+            color: #aac4ff;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .scale-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .scale-btn {
+            background-color: #1a2649;
+            color: #aac4ff;
+            border: 1px solid #3d5a9d;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        
+        .scale-btn:hover {
+            background-color: #263563;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scale-btn.active {
+            background-color: #3d5a9d;
+            color: white;
+            box-shadow: 0 0 15px rgba(123, 159, 255, 0.3);
+        }
+        
+        .canvas-container {
+            width: 100%;
+            height: 450px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: #000510;
+        }
+        
+        .canvas-container canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .object-selection {
+            margin-bottom: 20px;
+        }
+        
+        .object-selection h3 {
+            color: #7b9fff;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .object-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .object-btn {
+            background-color: rgba(61, 90, 157, 0.3);
+            color: #e2e2e2;
+            border: 1px solid rgba(123, 159, 255, 0.3);
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 13px;
+        }
+        
+        .object-btn:hover {
+            background-color: rgba(61, 90, 157, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .object-btn.active {
+            background-color: #3d5a9d;
+            color: white;
+            box-shadow: 0 0 10px rgba(123, 159, 255, 0.5);
+        }
+        
+        .scale-comparison {
+            background-color: rgba(18, 31, 61, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .scale-comparison h3 {
+            color: #7b9fff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .scale-comparison p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .warp-info {
+            border-top: 1px solid rgba(123, 159, 255, 0.3);
+            padding-top: 10px;
+        }
+        
+        .warp-info h4 {
+            color: #aac4ff;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .warp-info ul {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .warp-info li {
+            margin-bottom: 5px;
+        }
+        
+        .warp-info strong {
+            color: #aac4ff;
+        }
+        
+        .note {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-scale-explorer">
+        <h2>Cosmic Scale Explorer</h2>
+        <p class="explorer-intro">Explore the vast differences in scale from our Solar System to the Local Group of galaxies.</p>
+        
+        <div class="controls">
+            <div class="scale-buttons">
+                <button class="scale-btn active" data-scale="solar">Solar System</button>
+                <button class="scale-btn" data-scale="stars">Nearby Stars</button>
+                <button class="scale-btn" data-scale="galaxy">Milky Way</button>
+                <button class="scale-btn" data-scale="local">Local Group</button>
+            </div>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="cosmic-canvas"></canvas>
+        </div>
+        
+        <div class="object-selection">
+            <h3>Select an object to learn more:</h3>
+            <div class="object-buttons" id="object-buttons">
+                <!-- Buttons will be added dynamically -->
+            </div>
+        </div>
+        
+        <div class="scale-comparison">
+            <h3>Warp Drive Implications</h3>
+            <p>
+                At chemical rocket speeds (~20,000 mph), reaching even the nearest star would take ~70,000 years. 
+                A warp drive could theoretically allow travel to nearby stars within a human lifetime by warping 
+                the fabric of spacetime, creating a "bubble" where the starship resides in flat spacetime while 
+                space itself contracts ahead and expands behind.
+            </p>
+            <div class="warp-info" id="warp-info" style="display: none;">
+                <!-- Warp info will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state object
+        const state = {
+            currentScale: 'solar',
+            selectedObject: null
+        };
+        
+        // Get canvas context
+        const canvas = document.getElementById('cosmic-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Star systems data
+        const starSystems = [
+            {
+                name: "Solar System",
+                distance: 0, // Light years from Earth
+                description: "Our home star system with 8 planets, dwarf planets, and countless asteroids and comets.",
+                hasHabitableZone: true,
+                color: "#FDB813" // Yellow-orange
+            },
+            {
+                name: "Alpha Centauri",
+                distance: 4.37,
+                description: "The closest star system to our Sun, consisting of three stars: Alpha Centauri A, Alpha Centauri B, and Proxima Centauri.",
+                hasHabitableZone: true,
+                color: "#F8C471" // Slightly yellow
+            },
+            {
+                name: "Barnard's Star",
+                distance: 5.96,
+                description: "A red dwarf star and the fourth nearest known individual star to the Sun.",
+                hasHabitableZone: false,
+                color: "#E74C3C" // Red
+            },
+            {
+                name: "Sirius",
+                distance: 8.6,
+                description: "The brightest star in Earth's night sky, actually a binary star system consisting of Sirius A and a white dwarf companion, Sirius B.",
+                hasHabitableZone: true,
+                color: "#3498DB" // Blue-white
+            },
+            {
+                name: "Epsilon Eridani",
+                distance: 10.5,
+                description: "A star with potential exoplanets and a dust disk, similar to our early solar system.",
+                hasHabitableZone: true,
+                color: "#F4D03F" // Yellow
+            },
+            {
+                name: "Tau Ceti",
+                distance: 11.9,
+                description: "A Sun-like star with a planetary system containing at least four exoplanets.",
+                hasHabitableZone: true,
+                color: "#F5B041" // Orange
+            },
+            {
+                name: "Procyon",
+                distance: 11.46,
+                description: "A binary star system composed of a white-yellow main sequence star and a white dwarf.",
+                hasHabitableZone: true,
+                color: "#D4EFFC" // Almost white
+            },
+            {
+                name: "Gliese 581",
+                distance: 20.4,
+                description: "A red dwarf star with a planetary system that has been the subject of habitability studies.",
+                hasHabitableZone: true,
+                color: "#C0392B" // Dark red
+            },
+            {
+                name: "Trappist-1",
+                distance: 39.6,
+                description: "An ultracool dwarf star with seven Earth-sized planets, several potentially in the habitable zone.",
+                hasHabitableZone: true,
+                color: "#8E44AD" // Purple-red
+            }
+        ];
+        
+        // Galaxy data
+        const galaxyData = {
+            milkyWay: {
+                name: "Milky Way",
+                diameter: 100000, // Light years
+                description: "Our home spiral galaxy containing 100-400 billion stars, including our Sun. The Milky Way is part of the Local Group of galaxies."
+            },
+            localGroup: {
+                name: "Local Group",
+                members: [
+                    { name: "Milky Way", type: "Spiral galaxy", diameter: 100000 },
+                    { name: "Andromeda (M31)", type: "Spiral galaxy", diameter: 220000 },
+                    { name: "Triangulum (M33)", type: "Spiral galaxy", diameter: 60000 },
+                    { name: "Large Magellanic Cloud", type: "Irregular dwarf galaxy", diameter: 14000 },
+                    { name: "Small Magellanic Cloud", type: "Irregular dwarf galaxy", diameter: 7000 }
+                ],
+                description: "A group of more than 54 galaxies that includes our Milky Way. The group itself spans about 10 million light years in diameter."
+            }
+        };
+        
+        // UTILITY FUNCTIONS
+        
+        // Safe radius function - ensures radius is always positive
+        function safeRadius(value, minimum = 0.1) {
+            return Math.max(minimum, Math.abs(value || 0));
+        }
+        
+        // Safe random function - ensures consistent pseudo-random values
+        function safeRandom(seed, min = 0, max = 1) {
+            // Generate a value between 0-1 based on the seed
+            const value = ((Math.sin(seed * 12.9898 + 78.233) * 43758.5453) % 1);
+            // Scale to the desired range and ensure it's positive
+            return min + Math.abs(value) * (max - min);
+        }
+        
+        // Initialize canvas size
+        function initCanvas() {
+            // Ensure minimum canvas dimensions
+            const minWidth = 300;
+            const minHeight = 200;
+            
+            canvas.width = Math.max(minWidth, canvas.offsetWidth);
+            canvas.height = Math.max(minHeight, canvas.offsetHeight);
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Scale buttons
+            document.querySelectorAll('.scale-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.scale-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    state.currentScale = this.dataset.scale;
+                    updateObjectButtons();
+                    render();
+                });
+            });
+            
+            // Window resize handler
+            window.addEventListener('resize', function() {
+                initCanvas();
+                render();
+            });
+        }
+        
+        // Update object selection buttons
+        function updateObjectButtons() {
+            const container = document.getElementById('object-buttons');
+            container.innerHTML = '';
+            
+            let buttons = [];
+            
+            switch(state.currentScale) {
+                case 'solar':
+                    buttons = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"];
+                    break;
+                case 'stars':
+                    buttons = starSystems.map(system => system.name);
+                    break;
+                case 'galaxy':
+                    buttons = ["Solar System"];
+                    break;
+                case 'local':
+                    buttons = galaxyData.localGroup.members.map(galaxy => galaxy.name);
+                    break;
+            }
+            
+            buttons.forEach(name => {
+                const button = document.createElement('button');
+                button.className = `object-btn ${state.selectedObject === name ? 'active' : ''}`;
+                button.textContent = name;
+                button.addEventListener('click', () => handleObjectClick(name));
+                container.appendChild(button);
+            });
+            
+            // Reset selected object if it doesn't exist in the current scale
+            if (state.selectedObject && !buttons.includes(state.selectedObject)) {
+                state.selectedObject = null;
+            }
+            
+            // Update warp info display
+            updateWarpInfo();
+        }
+        
+        // Object selection handler
+        function handleObjectClick(object) {
+            const buttons = document.querySelectorAll('.object-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent === object) {
+                    if (btn.classList.contains('active')) {
+                        btn.classList.remove('active');
+                        state.selectedObject = null;
+                    } else {
+                        buttons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        state.selectedObject = object;
+                    }
+                }
+            });
+            
+            // Update warp info display
+            updateWarpInfo();
+            
+            // Redraw with selection
+            render();
+        }
+        
+        // Update warp travel info display
+        function updateWarpInfo() {
+            const infoContainer = document.getElementById('warp-info');
+            
+            if (state.currentScale === 'stars' && state.selectedObject && state.selectedObject !== 'Solar System') {
+                const selectedSystem = starSystems.find(system => system.name === state.selectedObject);
+                if (selectedSystem) {
+                    infoContainer.innerHTML = `
+                        <h4>Theoretical Travel to ${selectedSystem.name}:</h4>
+                        <ul>
+                            <li><strong>Chemical Rocket:</strong> ${(selectedSystem.distance * 70000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} years</li>
+                            <li><strong>10% Light Speed:</strong> ${(selectedSystem.distance * 10).toFixed(1)} years</li>
+                            <li><strong>Warp Factor 1 (Light Speed):</strong> ${selectedSystem.distance.toFixed(2)} years</li>
+                            <li><strong>Warp Factor 3 (~27c):</strong> ${(selectedSystem.distance / 27).toFixed(2)} years</li>
+                            <li><strong>Warp Factor 5 (~214c):</strong> ${(selectedSystem.distance / 214).toFixed(2)} years</li>
+                        </ul>
+                        <p class="note">Note: Warp factors based on theoretical calculations from the Alcubierre metric.</p>
+                    `;
+                    infoContainer.style.display = 'block';
+                } else {
+                    infoContainer.style.display = 'none';
+                }
+            } else {
+                infoContainer.style.display = 'none';
+            }
+        }
+        
+        // RENDERING FUNCTIONS
+        
+        // Main render function
+        function render() {
+            // Make sure canvas is properly initialized with valid dimensions
+            if (canvas.width < 1 || canvas.height < 1) {
+                initCanvas();
+            }
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background
+            drawBackground(ctx, canvas, state.currentScale);
+            
+            // Draw scale-specific content
+            switch(state.currentScale) {
+                case 'solar':
+                    drawSolarSystem(ctx, canvas);
+                    break;
+                case 'stars':
+                    drawNearbySystems(ctx, canvas);
+                    break;
+                case 'galaxy':
+                    drawGalaxy(ctx, canvas);
+                    break;
+                case 'local':
+                    drawLocalGroup(ctx, canvas);
+                    break;
+            }
+        }
+        
+        // Draw background
+        function drawBackground(ctx, canvas, scale) {
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#000510');
+            gradient.addColorStop(1, '#00030A');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw stars based on scale (more distant = more stars)
+            const starCount = scale === 'solar' ? 200 : 
+                            scale === 'stars' ? 500 :
+                            scale === 'galaxy' ? 800 : 1000;
+            
+            // Draw stars
+            for (let i = 0; i < starCount; i++) {
+                // Generate consistent values for each star
+                const seedX = i * 0.37 + canvas.width * 0.5;
+                const seedY = i * 0.23 + canvas.height * 0.5;
+                
+                const x = safeRandom(seedX, 0, canvas.width);
+                const y = safeRandom(seedY, 0, canvas.height);
+                const radius = safeRandom(seedX + 5, 0.5, 1.5);
+                const opacity = safeRandom(seedX + 10, 0.2, 0.9);
+                
+                // Draw star with safe radius
+                ctx.beginPath();
+                ctx.arc(x, y, safeRadius(radius), 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                ctx.fill();
+            }
+            
+            // Add a few colorful stars
+            for (let i = 0; i < starCount / 10; i++) {
+                // Generate consistent values for each colored star
+                const seedX = i * 0.53 + canvas.width * 0.3;
+                const seedY = i * 0.37 + canvas.height * 0.7;
+                
+                const x = safeRandom(seedX, 0, canvas.width);
+                const y = safeRandom(seedY, 0, canvas.height);
+                const radius = safeRandom(seedX + 5, 0.5, 2);
+                const opacity = safeRandom(seedX + 10, 0.2, 0.9);
+                
+                // Random star colors that are deterministic
+                const useBlueScale = safeRandom(seedX + 20, 0, 1) > 0.5;
+                const hue = safeRandom(seedX + 15, 0, 60) + (useBlueScale ? 180 : 0);
+                const saturation = safeRandom(seedX + 25, 60, 100);
+                const lightness = safeRandom(seedX + 30, 70, 100);
+                
+                ctx.beginPath();
+                ctx.arc(x, y, safeRadius(radius), 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`;
+                ctx.fill();
+            }
+        }
+        
+        // Draw the solar system
+        function drawSolarSystem(ctx, canvas) {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            // Draw sun
+            const sunRadius = safeRadius(Math.min(canvas.width, canvas.height) * 0.05, 10);
+            const sunGradient = ctx.createRadialGradient(
+                centerX, centerY, 0,
+                centerX, centerY, sunRadius
+            );
+            sunGradient.addColorStop(0, '#ffffff');
+            sunGradient.addColorStop(0.2, '#fff9c4');
+            sunGradient.addColorStop(0.5, '#ffd54f');
+            sunGradient.addColorStop(0.8, '#ff9800');
+            sunGradient.addColorStop(1, '#e65100');
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, sunRadius, 0, Math.PI * 2);
+            ctx.fillStyle = sunGradient;
+            ctx.fill();
+            
+            // Add sun glow
+            const glowRadius = safeRadius(sunRadius * 2);
+            const glowGradient = ctx.createRadialGradient(
+                centerX, centerY, sunRadius,
+                centerX, centerY, glowRadius
+            );
+            glowGradient.addColorStop(0, 'rgba(255, 150, 50, 0.5)');
+            glowGradient.addColorStop(1, 'rgba(255, 150, 50, 0)');
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, glowRadius, 0, Math.PI * 2);
+            ctx.fillStyle = glowGradient;
+            ctx.fill();
+            
+            // Define planets data
+            const planets = [
+                { name: "Mercury", distance: 0.4, radius: 2, color: "#A79B8F" },
+                { name: "Venus", distance: 0.7, radius: 4, color: "#E6BE8A" },
+                { name: "Earth", distance: 1.0, radius: 4, color: "#64B5F6", moon: { distance: 0.1, radius: 1, color: "#BDBDBD" } },
+                { name: "Mars", distance: 1.5, radius: 3, color: "#E57373" },
+                { name: "Jupiter", distance: 5.2, radius: 10, color: "#FFD54F" },
+                { name: "Saturn", distance: 9.5, radius: 8, color: "#FFE082", rings: true },
+                { name: "Uranus", distance: 19.2, radius: 6, color: "#81D4FA" },
+                { name: "Neptune", distance: 30.1, radius: 6, color: "#4FC3F7" }
+            ];
+            
+            // Scale factor for the solar system to fit canvas
+            const availableRadius = Math.min(canvas.width, canvas.height) / 2 - sunRadius - 30;
+            const scaleFactor = availableRadius / 40;
+            
+            // Draw the habitable zone
+            const innerHZRadius = safeRadius(0.9 * scaleFactor);
+            const outerHZRadius = safeRadius(1.2 * scaleFactor);
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, outerHZRadius, 0, Math.PI * 2);
+            ctx.arc(centerX, centerY, innerHZRadius, 0, Math.PI * 2, true);
+            ctx.fillStyle = 'rgba(100, 255, 100, 0.05)';
+            ctx.fill();
+            
+            // Draw orbit paths
+            planets.forEach(planet => {
+                const orbitRadius = safeRadius(planet.distance * scaleFactor);
+                
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, orbitRadius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.stroke();
+            });
+            
+            // Draw planets
+            planets.forEach((planet, i) => {
+                // Position planets evenly around the sun
+                const angleSpacing = (2 * Math.PI) / planets.length;
+                const angle = i * angleSpacing;
+                const orbitRadius = safeRadius(planet.distance * scaleFactor);
+                
+                const x = centerX + Math.cos(angle) * orbitRadius;
+                const y = centerY + Math.sin(angle) * orbitRadius;
+                
+                // Draw planet with safe radius
+                const planetRadius = safeRadius(planet.radius);
+                
+                ctx.beginPath();
+                ctx.arc(x, y, planetRadius, 0, Math.PI * 2);
+                ctx.fillStyle = planet.color;
+                ctx.fill();
+                
+                // Draw rings for Saturn
+                if (planet.rings) {
+                    ctx.beginPath();
+                    ctx.ellipse(
+                        x, y, 
+                        safeRadius(planetRadius * 2), 
+                        safeRadius(planetRadius * 0.5), 
+                        angle, 0, Math.PI * 2
+                    );
+                    ctx.strokeStyle = 'rgba(255, 224, 130, 0.7)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.lineWidth = 1;
+                }
+                
+                // Draw moon if present
+                if (planet.moon) {
+                    const moonAngle = angle + Math.PI / 4; // Offset from planet
+                    const moonDistance = safeRadius(planet.moon.distance * scaleFactor);
+                    const moonX = x + Math.cos(moonAngle) * moonDistance;
+                    const moonY = y + Math.sin(moonAngle) * moonDistance;
+                    const moonRadius = safeRadius(planet.moon.radius);
+                    
+                    ctx.beginPath();
+                    ctx.arc(moonX, moonY, moonRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = planet.moon.color;
+                    ctx.fill();
+                }
+                
+                // Add highlight if selected
+                if (state.selectedObject === planet.name) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, safeRadius(planetRadius + 5), 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.lineWidth = 1;
+                    
+                    // Draw info box
+                    drawInfoBox(ctx, planet.name, `Distance from Sun: ${planet.distance} AU`, x, y - planetRadius - 20);
+                }
+            });
+            
+            // Draw info label if nothing selected
+            if (!state.selectedObject) {
+                drawScaleInfo(ctx, canvas, "Solar System", "Scale: 1 pixel ≈ 2 million km");
+            }
+        }
+        
+        // Draw nearby star systems
+        function drawNearbySystems(ctx, canvas) {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            // Scale factor for stars - ensure it fits the canvas
+            const maxDistance = 40; // Light years
+            const availableRadius = Math.min(canvas.width, canvas.height) / 2 - 20;
+            const scaleFactor = availableRadius / maxDistance;
+            
+            // Draw our Sun at the center
+            drawStar(ctx, centerX, centerY, 8, "#FDB813", "Solar System", true);
+            
+            // Draw distance rings
+            [5, 10, 20, 30, 40].forEach(distance => {
+                const ringRadius = safeRadius(distance * scaleFactor);
+                
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(100, 150, 255, 0.1)';
+                ctx.stroke();
+                
+                // Label the distance ring
+                ctx.fillStyle = 'rgba(100, 150, 255, 0.3)';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText(`${distance} ly`, centerX + ringRadius + 5, centerY);
+            });
+            
+            // Draw each star system
+            starSystems.forEach((system, i) => {
+                if (system.distance <= maxDistance && system.name !== "Solar System") {
+                    // Place stars evenly around the circle at their respective distances
+                    const angle = (i * Math.PI * 0.5) % (Math.PI * 2);
+                    const distanceRadius = safeRadius(system.distance * scaleFactor);
+                    
+                    const x = centerX + Math.cos(angle) * distanceRadius;
+                    const y = centerY + Math.sin(angle) * distanceRadius;
+                    
+                    // Calculate star size based on star type (ensure positive size)
+                    const size = safeRadius(4 + Math.sin(i) * 2);
+                    
+                    // Draw the star
+                    drawStar(ctx, x, y, size, system.color, system.name);
+                    
+                    // Draw habitable zone if applicable
+                    if (system.hasHabitableZone) {
+                        const hzRadius = safeRadius(size * 1.5);
+                        
+                        ctx.beginPath();
+                        ctx.arc(x, y, hzRadius, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(100, 255, 100, 0.1)';
+                        ctx.fill();
+                    }
+                    
+                    // Add highlight if selected
+                    if (state.selectedObject === system.name) {
+                        const highlightRadius = safeRadius(size + 5);
+                        
+                        ctx.beginPath();
+                        ctx.arc(x, y, highlightRadius, 0, Math.PI * 2);
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                        ctx.lineWidth = 1;
+                        
+                        // Draw travel time line
+                        drawTravelTimeLine(ctx, centerX, centerY, x, y, system.distance);
+                        
+                        // Draw info box
+                        drawInfoBox(ctx, system.name, `Distance: ${system.distance} light years\n${system.description}`, x, y - size - 20);
+                    }
+                }
+            });
+            
+            // Draw info label if nothing selected
+            if (!state.selectedObject) {
+                drawScaleInfo(ctx, canvas, "Nearby Star Systems", "Scale: 1 pixel ≈ 60 billion km (0.067 light years)");
+            }
+        }
+        
+        // Draw travel time line
+        function drawTravelTimeLine(ctx, fromX, fromY, toX, toY, distance) {
+            // Draw line connecting the systems
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.stroke();
+            
+            // Calculate travel times
+            const lightspeedYears = distance;
+            const tenPercentLightspeedYears = distance * 10;
+            const chemicalRocketYears = distance * 70000;
+            
+            // Format large numbers
+            const formatNumber = (num) => {
+                if (num >= 1000) {
+                    return `${(num / 1000).toFixed(1)}k`;
+                }
+                return num.toFixed(1);
+            };
+            
+            // Draw travel time labels
+            const midX = (fromX + toX) / 2;
+            const midY = (fromY + toY) / 2;
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            
+            // Add background for readability
+            const lines = [
+                `Travel Time at Different Speeds:`,
+                `Light Speed: ${lightspeedYears.toFixed(1)} years`,
+                `10% Light Speed: ${tenPercentLightspeedYears.toFixed(1)} years`,
+                `Chemical Rocket: ${formatNumber(chemicalRocketYears)} years`
+            ];
+            
+            const lineHeight = 16;
+            const padding = 5;
+            const boxWidth = 220;
+            const boxHeight = lines.length * lineHeight + padding * 2;
+            
+            ctx.fillStyle = 'rgba(0, 10, 30, 0.7)';
+            ctx.fillRect(midX - boxWidth/2, midY - 40, boxWidth, boxHeight);
+            ctx.strokeStyle = 'rgba(100, 150, 255, 0.3)';
+            ctx.strokeRect(midX - boxWidth/2, midY - 40, boxWidth, boxHeight);
+            
+            // Draw text
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            lines.forEach((line, i) => {
+                ctx.fillText(line, midX, midY - 25 + i * lineHeight);
+            });
+        }
+        
+        // Draw the Milky Way galaxy
+        function drawGalaxy(ctx, canvas) {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            // Draw the galactic disk with safe size
+            const galaxyRadius = safeRadius(Math.min(canvas.width, canvas.height) * 0.4, 50);
+            
+            // Create a spiral pattern
+            const armCount = 5;
+            
+            // Draw the galaxy arms
+            for (let arm = 0; arm < armCount; arm++) {
+                const baseAngle = (arm / armCount) * Math.PI * 2;
+                
+                // Draw one spiral arm
+                for (let i = 0; i < 300; i++) {
+                    const distance = safeRadius((i / 300) * galaxyRadius);
+                    const angle = baseAngle + (i / 30) * 0.5;
+                    
+                    const x = centerX + Math.cos(angle) * distance;
+                    const y = centerY + Math.sin(angle) * distance;
+                    
+                    // Vary size and opacity based on position
+                    const starSize = safeRadius(0.5 + Math.abs(Math.sin(i * 0.1)) * 1.5);
+                    const opacity = 0.3 + Math.abs(Math.cos(i * 0.05)) * 0.7;
+                    
+                    // Decide star color based on distance from center
+                    const distanceRatio = distance / galaxyRadius;
+                    let hue;
+                    if (distanceRatio < 0.2) {
+                        hue = 40 + (i % 20); // Yellow/orange near center
+                    } else if (distanceRatio > 0.7) {
+                        hue = 200 + (i % 40); // Blue at edges
+                    } else {
+                        hue = (i % 100) > 70 ? 40 + (i % 20) : 200 + (i % 40);
+                    }
+                    
+                    // Draw the star
+                    ctx.beginPath();
+                    ctx.arc(x, y, starSize, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${hue}, 80%, 70%, ${opacity})`;
+                    ctx.fill();
+                }
+            }
+            
+            // Draw galactic center with safe size
+            const centerGlowRadius = safeRadius(galaxyRadius * 0.2, 10);
+            const centerGradient = ctx.createRadialGradient(
+                centerX, centerY, 0,
+                centerX, centerY, centerGlowRadius
+            );
+            centerGradient.addColorStop(0, 'rgba(255, 230, 150, 0.8)');
+            centerGradient.addColorStop(0.4, 'rgba(255, 200, 100, 0.5)');
+            centerGradient.addColorStop(1, 'rgba(255, 150, 50, 0)');
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, centerGlowRadius, 0, Math.PI * 2);
+            ctx.fillStyle = centerGradient;
+            ctx.fill();
+            
+            // Indicate our solar system's position
+            const solarSystemX = centerX + galaxyRadius * 0.6;
+            const solarSystemY = centerY;
+            
+            // Draw our solar system
+            ctx.beginPath();
+            ctx.arc(solarSystemX, solarSystemY, safeRadius(3), 0, Math.PI * 2);
+            ctx.fillStyle = '#FDB813';
+            ctx.fill();
+            
+            // Add glow
+            const solarGlowRadius = safeRadius(6);
+            const glowGradient = ctx.createRadialGradient(
+                solarSystemX, solarSystemY, safeRadius(3),
+                solarSystemX, solarSystemY, solarGlowRadius
+            );
+            glowGradient.addColorStop(0, 'rgba(253, 184, 19, 0.7)');
+            glowGradient.addColorStop(1, 'rgba(253, 184, 19, 0)');
+            
+            ctx.beginPath();
+            ctx.arc(solarSystemX, solarSystemY, solarGlowRadius, 0, Math.PI * 2);
+            ctx.fillStyle = glowGradient;
+            ctx.fill();
+            
+            // Add label
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Solar System', solarSystemX, solarSystemY - 10);
+            
+            // Draw info label
+            if (!state.selectedObject) {
+                drawScaleInfo(ctx, canvas, "Milky Way Galaxy", "Scale: 1 pixel ≈ 250 light years");
+            } else if (state.selectedObject === "Solar System") {
+                drawInfoBox(ctx, "Solar System", "Our location in the Milky Way Galaxy, approximately 26,000 light years from the galactic center.", solarSystemX, solarSystemY - 20);
+            }
+        }
+        
+        // Draw the local group of galaxies
+        function drawLocalGroup(ctx, canvas) {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            // Draw the Milky Way with safe sizes
+            const mwRadiusX = safeRadius(50, 10);
+            const mwRadiusY = safeRadius(20, 5);
+            drawGalaxyShape(ctx, centerX, centerY, mwRadiusX, mwRadiusY, 0.6, "Milky Way", "#A5D6A7");
+            
+            // Draw Andromeda (M31) with safe sizes
+            const andromedaX = centerX - 150;
+            const andromedaY = centerY - 50;
+            const andRadiusX = safeRadius(65, 15);
+            const andRadiusY = safeRadius(25, 8);
+            drawGalaxyShape(ctx, andromedaX, andromedaY, andRadiusX, andRadiusY, 0.7, "Andromeda (M31)", "#81C784");
+            
+            // Draw Triangulum (M33) with safe sizes
+            const triangulumX = centerX + 120;
+            const triangulumY = centerY - 70;
+            const triRadiusX = safeRadius(30, 8);
+            const triRadiusY = safeRadius(20, 5);
+            drawGalaxyShape(ctx, triangulumX, triangulumY, triRadiusX, triRadiusY, 0.5, "Triangulum (M33)", "#4DB6AC");
+            
+            // Draw Large Magellanic Cloud with safe sizes
+            const lmcX = centerX + 80;
+            const lmcY = centerY + 100;
+            const lmcRadiusX = safeRadius(20, 5);
+            const lmcRadiusY = safeRadius(15, 4);
+            drawGalaxyShape(ctx, lmcX, lmcY, lmcRadiusX, lmcRadiusY, 0.5, "Large Magellanic Cloud", "#4FC3F7", true);
+            
+            // Draw Small Magellanic Cloud with safe sizes
+            const smcX = centerX + 40;
+            const smcY = centerY + 70;
+            const smcRadiusX = safeRadius(10, 3);
+            const smcRadiusY = safeRadius(8, 2);
+            drawGalaxyShape(ctx, smcX, smcY, smcRadiusX, smcRadiusY, 0.5, "Small Magellanic Cloud", "#4FC3F7", true);
+            
+            // Add distance line between Milky Way and Andromeda
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(andromedaX, andromedaY);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.stroke();
+            
+            // Add distance label
+            const midX = (centerX + andromedaX) / 2;
+            const midY = (centerY + andromedaY) / 2;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText("2.5 million light years", midX, midY - 5);
+            
+            // Draw info for selected galaxy
+            if (state.selectedObject) {
+                let selectedX, selectedY;
+                let description;
+                
+                // Determine selected galaxy position and description
+                switch(state.selectedObject) {
+                    case "Milky Way":
+                        selectedX = centerX;
+                        selectedY = centerY;
+                        description = galaxyData.localGroup.members[0].type + "\nDiameter: ~100,000 light years\nOur home galaxy containing 100-400 billion stars.";
+                        break;
+                    case "Andromeda (M31)":
+                        selectedX = andromedaX;
+                        selectedY = andromedaY;
+                        description = galaxyData.localGroup.members[1].type + "\nDiameter: ~220,000 light years\nThe largest galaxy in the Local Group, on a collision course with the Milky Way.";
+                        break;
+                    case "Triangulum (M33)":
+                        selectedX = triangulumX;
+                        selectedY = triangulumY;
+                        description = galaxyData.localGroup.members[2].type + "\nDiameter: ~60,000 light years\nThe third-largest galaxy in the Local Group.";
+                        break;
+                    case "Large Magellanic Cloud":
+                        selectedX = lmcX;
+                        selectedY = lmcY;
+                        description = galaxyData.localGroup.members[3].type + "\nDiameter: ~14,000 light years\nA satellite galaxy of the Milky Way.";
+                        break;
+                    case "Small Magellanic Cloud":
+                        selectedX = smcX;
+                        selectedY = smcY;
+                        description = galaxyData.localGroup.members[4].type + "\nDiameter: ~7,000 light years\nA satellite galaxy of the Milky Way.";
+                        break;
+                }
+                
+                if (selectedX && selectedY) {
+                    drawInfoBox(ctx, state.selectedObject, description, selectedX, selectedY - 40);
+                }
+            } else {
+                // Draw info label if nothing selected
+                drawScaleInfo(ctx, canvas, "Local Group of Galaxies", "Scale: 1 pixel ≈ 10,000 light years");
+            }
+        }
+        
+        // Helper to draw a galaxy shape
+        function drawGalaxyShape(ctx, x, y, radiusX, radiusY, tilt, name, color, isIrregular = false) {
+            // Ensure positive radii
+            radiusX = safeRadius(radiusX, 5);
+            radiusY = safeRadius(radiusY, 3);
+            
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(tilt * Math.PI);
+            
+            // Draw galaxy shape
+            if (isIrregular) {
+                // Draw irregular galaxy
+                ctx.beginPath();
+                
+                // Use a safe method to generate stars
+                for (let i = 0; i < 150; i++) {
+                    const seed = i * 10.3;
+                    const angle = safeRandom(seed, 0, Math.PI * 2);
+                    const distance = safeRandom(seed + 1, 0, radiusX);
+                    const starX = Math.cos(angle) * distance;
+                    const starY = Math.sin(angle) * distance * 0.7;
+                    const starSize = safeRadius(safeRandom(seed + 2, 0.5, 2));
+                    
+                    ctx.moveTo(starX, starY);
+                    ctx.arc(starX, starY, starSize, 0, Math.PI * 2);
+                }
+                
+                ctx.fillStyle = color || 'rgba(255, 255, 255, 0.5)';
+                ctx.globalAlpha = 0.7;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            } else {
+                // Draw spiral galaxy
+                ctx.beginPath();
+                ctx.ellipse(0, 0, radiusX, radiusY, 0, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.fill();
+                
+                // Draw spiral arms
+                for (let arm = 0; arm < 2; arm++) {
+                    const baseAngle = (arm / 2) * Math.PI;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    
+                    for (let i = 0; i <= 100; i++) {
+                        const t = i / 100;
+                        const angle = baseAngle + t * Math.PI * 2;
+                        const distance = t * radiusX;
+                        
+                        const spiralX = Math.cos(angle) * distance;
+                        const spiralY = Math.sin(angle) * distance * (radiusY / radiusX);
+                        
+                        if (i === 0) {
+                            ctx.moveTo(spiralX, spiralY);
+                        } else {
+                            ctx.lineTo(spiralX, spiralY);
+                        }
+                    }
+                    
+                    ctx.strokeStyle = color || 'rgba(255, 255, 255, 0.5)';
+                    ctx.lineWidth = 3;
+                    ctx.globalAlpha = 0.5;
+                    ctx.stroke();
+                    ctx.globalAlpha = 1.0;
+                }
+            }
+            
+            // Add name label
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(name, 0, radiusY + 15);
+            
+            // Add highlight if selected
+            if (state.selectedObject === name) {
+                ctx.beginPath();
+                ctx.ellipse(0, 0, radiusX + 5, radiusY + 5, 0, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            
+            ctx.restore();
+        }
+        
+        // Helper to draw a star
+        function drawStar(ctx, x, y, radius, color, name, isOurSun = false) {
+            // Ensure positive radius
+            radius = safeRadius(radius, 1);
+            
+            // Draw the star
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            
+            // Create a radial gradient for the star
+            const starGradient = ctx.createRadialGradient(
+                x, y, 0,
+                x, y, radius
+            );
+            starGradient.addColorStop(0, '#ffffff');
+            starGradient.addColorStop(0.5, color);
+            starGradient.addColorStop(1, color);
+            
+            ctx.fillStyle = starGradient;
+            ctx.fill();
+            
+            // Add glow effect with safe radius
+            const glowRadius = safeRadius(radius * 1.5);
+            ctx.beginPath();
+            ctx.arc(x, y, glowRadius, 0, Math.PI * 2);
+            
+            // Create color with opacity
+            const glowColor = color + '80'; // 50% opacity
+            const fadeColor = color + '00'; // 0% opacity
+            
+            const glowGradient = ctx.createRadialGradient(
+                x, y, radius,
+                x, y, glowRadius
+            );
+            glowGradient.addColorStop(0, glowColor);
+            glowGradient.addColorStop(1, fadeColor);
+            
+            ctx.fillStyle = glowGradient;
+            ctx.fill();
+            
+            // Highlight our sun if applicable
+            if (isOurSun) {
+                const sunHighlightRadius = safeRadius(radius * 1.2);
+                ctx.beginPath();
+                ctx.arc(x, y, sunHighlightRadius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+            
+            // Add name label
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(name, x, y + radius + 15);
+        }
+        
+        // Helper to draw info box
+        function drawInfoBox(ctx, title, content, x, y) {
+            const lines = content.split('\n');
+            const lineHeight = 16;
+            const padding = 10;
+            
+            // Ensure we don't get error in text measurement
+            ctx.save();
+            ctx.font = '12px Arial';
+            
+            // Measure text width safely
+            const measureText = (text) => {
+                try {
+                    return ctx.measureText(text).width;
+                } catch (error) {
+                    return 200; // Fallback width
+                }
+            };
+            
+            // Calculate max line width safely
+            let maxLineWidth = 0;
+            try {
+                maxLineWidth = Math.max(
+                    ...lines.map(line => measureText(line)), 
+                    measureText(title)
+                );
+            } catch (error) {
+                maxLineWidth = 200; // Fallback width
+            }
+            
+            const boxWidth = maxLineWidth + padding * 2;
+            const boxHeight = (lines.length + 1) * lineHeight + padding * 2;
+            
+            // Draw box background
+            ctx.fillStyle = 'rgba(0, 10, 30, 0.8)';
+            ctx.fillRect(x - boxWidth/2, y, boxWidth, boxHeight);
+            ctx.strokeStyle = 'rgba(100, 150, 255, 0.5)';
+            ctx.strokeRect(x - boxWidth/2, y, boxWidth, boxHeight);
+            
+            // Draw title
+            ctx.fillStyle = '#7b9fff';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(title, x, y + padding + lineHeight/2);
+            
+            // Draw content
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = '12px Arial';
+            lines.forEach((line, i) => {
+                ctx.fillText(line, x, y + padding + (i + 1.5) * lineHeight);
+            });
+            
+            ctx.restore();
+        }
+        
+        // Helper to draw scale info
+        function drawScaleInfo(ctx, canvas, title, scaleInfo) {
+            ctx.fillStyle = 'rgba(100, 150, 255, 0.8)';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(title, canvas.width / 2, 25);
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.font = '12px Arial';
+            ctx.fillText(scaleInfo, canvas.width / 2, 45);
+        }
+        
+        // Initialize and start
+        function init() {
+            initCanvas();
+            setupEventListeners();
+            updateObjectButtons();
+            render();
+        }
+        
+        // Start everything when the page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>

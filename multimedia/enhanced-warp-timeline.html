@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Warp Drive Development Timeline</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a1128;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(50, 100, 255, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 60%, rgba(50, 100, 255, 0.03) 0%, transparent 40%);
+            color: #e2e2e2;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #7b9fff;
+            margin-bottom: 10px;
+            font-size: 28px;
+            text-shadow: 0 0 10px rgba(100, 150, 255, 0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #aac4ff;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: normal;
+            font-style: italic;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: rgba(18, 31, 61, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0, 174, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        .timeline-header {
+            display: flex;
+            margin-bottom: 10px;
+            padding-left: 240px;
+            position: sticky;
+            top: 0;
+            background-color: rgba(18, 31, 61, 0.95);
+            z-index: 10;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            margin-top: -15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .year-marker {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            color: #7b9fff;
+            transition: color 0.3s;
+        }
+        .current-year-marker {
+            color: #ffcc00;
+            position: relative;
+        }
+        .current-year-marker::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 0;
+            background-color: #ffcc00;
+            animation: currentYearIndicator 2s forwards;
+            z-index: 1;
+        }
+        @keyframes currentYearIndicator {
+            0% { height: 0; }
+            100% { height: 500px; opacity: 0.3; }
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+            position: relative;
+        }
+        .timeline-label {
+            width: 240px;
+            padding-right: 15px;
+            text-align: right;
+            font-weight: bold;
+            color: #e2e2e2;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+        .timeline-bar-container {
+            flex: 1;
+            display: flex;
+            height: 35px;
+            position: relative;
+            z-index: 2;
+        }
+        .timeline-bar {
+            height: 100%;
+            border-radius: 4px;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+            animation-delay: calc(var(--animation-order) * 0.1s);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .timeline-bar:hover {
+            z-index: 10;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        .tooltip {
+            position: absolute;
+            background-color: rgba(10, 17, 40, 0.95);
+            color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 174, 255, 0.4);
+            z-index: 100;
+            width: 280px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 14px;
+            border: 1px solid #3d5a9d;
+            transform: translateY(10px);
+            pointer-events: none;
+            backdrop-filter: blur(5px);
+        }
+        .tooltip.visible {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tooltip-title {
+            color: #7b9fff;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(123, 159, 255, 0.3);
+            padding-bottom: 5px;
+        }
+        .tooltip-category {
+            color: #aac4ff;
+            font-style: italic;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+        .tooltip-description {
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .tooltip-quote {
+            font-style: italic;
+            border-left: 3px solid #7b9fff;
+            padding-left: 10px;
+            margin-top: 10px;
+            color: #aac4ff;
+            font-size: 13px;
+        }
+        .milestone {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background-color: #ffcc00;
+            border-radius: 50%;
+            bottom: -22px;
+            transform: translateX(-50%) scale(0);
+            cursor: pointer;
+            z-index: 5;
+            border: 2px solid #0a1128;
+            animation: pulseIn 1s forwards;
+            animation-delay: calc(var(--animation-order) * 0.2s + 0.5s);
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+        }
+        @keyframes pulseIn {
+            0% { transform: translateX(-50%) scale(0); }
+            50% { transform: translateX(-50%) scale(1.2); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        .milestone::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: rgba(255, 204, 0, 0.4);
+            animation: pulse 2s infinite;
+            left: 0;
+            top: 0;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+        .timeline-grid {
+            display: flex;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .grid-line {
+            flex: 1;
+            border-right: 1px dashed rgba(123, 159, 255, 0.15);
+            height: 100%;
+        }
+        .grid-line:last-child {
+            border-right: none;
+        }
+        .phase-header {
+            margin-top: 50px;
+            margin-bottom: 25px;
+            color: #7b9fff;
+            font-size: 22px;
+            border-bottom: 1px solid #3d5a9d;
+            padding-bottom: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .category-label {
+            font-style: italic;
+            color: #aac4ff;
+            margin-left: 15px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0 20px;
+            gap: 20px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 1.5s;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+        .legend-item:hover {
+            transform: translateY(-2px);
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .control-btn {
+            background-color: #1a2649;
+            color: #aac4ff;
+            border: 1px solid #3d5a9d;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .control-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        .control-btn:hover {
+            background-color: #263563;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .control-btn:hover::after {
+            left: 100%;
+        }
+        .control-btn.active {
+            background-color: #3d5a9d;
+            color: white;
+            box-shadow: 0 0 15px rgba(123, 159, 255, 0.3);
+        }
+        .time-focus {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+            color: #7b9fff;
+            font-size: 18px;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+            animation-delay: 0.3s;
+        }
+        .intro-text {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-align: center;
+            font-style: italic;
+            color: #aac4ff;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+            animation-delay: 0.1s;
+        }
+        .historical-item .timeline-bar {
+            position: relative;
+            overflow: visible;
+        }
+        .historical-item .timeline-bar::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .projected-item .timeline-bar {
+            border: 1px dashed rgba(255, 255, 255, 0.4);
+            background-image: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.1) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                rgba(255, 255, 255, 0.1) 75%, 
+                transparent 75%, 
+                transparent);
+            background-size: 10px 10px;
+            animation: moveStripes 30s linear infinite;
+        }
+        @keyframes moveStripes {
+            from { background-position: 0 0; }
+            to { background-position: 100px 0; }
+        }
+        .timeline-bar[data-category="Theoretical Physics"] {
+            background-color: #4e76e5;
+        }
+        .timeline-bar[data-category="Experimental Physics"] {
+            background-color: #30bf78;
+        }
+        .timeline-bar[data-category="Engineering Development"] {
+            background-color: #d957f8; 
+        }
+        .timeline-bar[data-category="Material Science"] {
+            background-color: #f27935;
+        }
+        .quote-indicator {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-left: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            vertical-align: middle;
+            position: relative;
+            cursor: help;
+        }
+        .quote-indicator::after {
+            content: '"';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .present-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255, 204, 0, 0.5);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 1.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Young Explorer's Warp Drive Development Timeline</h1>
+        <h2>From Theoretical Breakthrough to Potential Future Reality</h2>
+        
+        <p class="intro-text">*This enhanced interactive timeline illustrates humanity's journey toward warp drive technology, from Miguel Alcubierre's groundbreaking 1994 paper to projected future developments. Explore both historical achievements and theoretical milestones that may one day transform our relationship with space and time.*</p>
+        
+        <div class="controls">
+            <button class="control-btn" onclick="focusTimeline('past')">Historical Progress</button>
+            <button class="control-btn" onclick="focusTimeline('near')">Near Term (2025-2035)</button>
+            <button class="control-btn" onclick="focusTimeline('mid')">Mid Term (2035-2060)</button>
+            <button class="control-btn" onclick="focusTimeline('far')">Long Term (2060+)</button>
+            <button class="control-btn active" onclick="focusTimeline('all')">View All</button>
+        </div>
+        
+        <div class="time-focus" id="time-focus">Full Timeline View (1994-2080)</div>
+        
+        <div class="timeline-container" id="timeline-container">
+            <!-- Timeline content will be generated by JavaScript -->
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #4e76e5;"></div>
+                <span>Theoretical Physics</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #30bf78;"></div>
+                <span>Experimental Physics</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #d957f8;"></div>
+                <span>Engineering Development</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #f27935;"></div>
+                <span>Material Science</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ffcc00;"></div>
+                <span>Milestone</span>
+            </div>
+            <div class="legend-item">
+                <div class="quote-indicator"></div>
+                <span>Literary Quote Available</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timeline data structure
+        const timelineData = {
+            historical: [
+                {
+                    phase: "Historical Progress",
+                    items: [
+                        {
+                            label: "Alcubierre Metric",
+                            category: "Theoretical Physics",
+                            start: 1994,
+                            end: 1994,
+                            color: "#4e76e5",
+                            description: "Miguel Alcubierre publishes his groundbreaking paper describing a spacetime metric that would allow for faster-than-light travel without violating special relativity.",
+                            quote: "Remember Alcubierre? 1994—mathematics dancing on the edge of reality, equations carving tunnels through the fabric we call Now.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Van Den Broeck Refinement",
+                            category: "Theoretical Physics",
+                            start: 1999,
+                            end: 2000,
+                            color: "#4e76e5",
+                            description: "Chris Van Den Broeck proposes modifications to the Alcubierre metric that reduced energy requirements from greater than the mass of the universe to approximately solar mass.",
+                            quote: "From universe's mass to Jupiter's might, to mountain's weight—requirements grow light with every breakthrough theory that we make.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Early NASA BPP Program",
+                            category: "Experimental Physics",
+                            start: 1996,
+                            end: 2002,
+                            color: "#30bf78",
+                            description: "NASA's Breakthrough Propulsion Physics program investigates speculative physics concepts including warp drive theories.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Natário Contribution",
+                            category: "Theoretical Physics",
+                            start: 2002,
+                            end: 2002,
+                            color: "#4e76e5",
+                            description: "José Natário demonstrates that the Alcubierre drive could be modified to avoid the frontal horizon expansion that would capture high-energy particles.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Thin-Shell Optimization",
+                            category: "Theoretical Physics",
+                            start: 2011,
+                            end: 2012,
+                            color: "#4e76e5",
+                            description: "Theoretical work showing that making the bubble walls 'thinner' could dramatically reduce negative energy requirements.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "White's Energy Calculations",
+                            category: "Theoretical Physics",
+                            start: 2012,
+                            end: 2013,
+                            color: "#4e76e5",
+                            description: "Harold White at NASA recalculates energy requirements using oscillating bubble geometries, suggesting dramatic reductions in negative energy needs.",
+                            quote: "Contract the space ahead, expand what lies behind, create a bubble of flat spacetime—a surfboard on the quantum ocean.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Early Interferometer Tests",
+                            category: "Experimental Physics",
+                            start: 2013,
+                            end: 2018,
+                            color: "#30bf78",
+                            description: "White-Juday Warp Field Interferometer experiments at NASA attempt to detect microscopic spacetime distortions created in laboratory conditions.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Casimir Effect Experiments",
+                            category: "Experimental Physics",
+                            start: 2014,
+                            end: 2020,
+                            color: "#30bf78",
+                            description: "Advanced Casimir effect experiments demonstrate sustained negative energy density in increasingly larger regions of space.",
+                            quote: "Negative energy, exotic matter, the universe's forbidden ingredients hidden in the Casimir effect, quantum foam bubbling beneath reality.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "White-Bobrick Framework",
+                            category: "Theoretical Physics",
+                            start: 2021,
+                            end: 2021,
+                            color: "#4e76e5",
+                            description: "Alexey Bobrick and Gianni Martire publish a comprehensive classification of all possible warp drives, showing that some sub-light variants might be possible with positive energy.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "DARPA 'Accidental Bubble'",
+                            category: "Experimental Physics",
+                            start: 2021,
+                            end: 2021,
+                            color: "#30bf78",
+                            description: "Researchers at Limitless Space Institute accidentally detect what appears to be a microscopic spacetime distortion consistent with a tiny warp bubble during Casimir effect experiments.",
+                            quote: "Scientists in white coats peering through interferometers, measuring distortions smaller than atoms, catching glimpses of tomorrow.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Soliton Warp Shell Theory",
+                            category: "Theoretical Physics",
+                            start: 2022,
+                            end: 2022,
+                            color: "#4e76e5",
+                            description: "Development of the soliton-based warp field theory, suggesting self-reinforcing solitary waves could maintain stable warp bubbles with less energy input.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Bobrick-Lentz Reconfiguration",
+                            category: "Theoretical Physics",
+                            start: 2023,
+                            end: 2023,
+                            color: "#4e76e5",
+                            description: "Breakthrough paper proposing modified warp metrics using 'solitonic wave configurations' of positive energy to create effective spacetime distortion without negative energy.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Quantum Foam Leverage Hypothesis",
+                            category: "Theoretical Physics",
+                            start: 2023,
+                            end: 2023,
+                            color: "#4e76e5",
+                            description: "Dr. Viola Chen's team publishes findings suggesting quantum foam might be temporarily 'borrowed against' to create macroscopic negative energy regions.",
+                            quote: "Quantum foam bubbling beneath reality.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "NASA BPP Program Revival",
+                            category: "Experimental Physics",
+                            start: 2023,
+                            end: 2024.5,
+                            color: "#30bf78",
+                            description: "NASA reestablishes funding for speculative propulsion physics research, including warp drive concepts and experimental tests.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Quantum Field Anchoring",
+                            category: "Theoretical Physics",
+                            start: 2024,
+                            end: 2024.5,
+                            color: "#4e76e5",
+                            description: "Development of quantum field anchoring theory suggesting methods to stabilize warp bubbles using quantum entanglement between the bubble's outer edge and reference frames.",
+                            itemClass: "historical-item"
+                        },
+                        {
+                            label: "Casimir Cavity Array Experiment",
+                            category: "Experimental Physics",
+                            start: 2024,
+                            end: 2024.5,
+                            color: "#30bf78",
+                            description: "Successful generation of measurable spacetime curvature using an array of nanoscale Casimir cavities combined with electromagnetic fields. The distortion was approximately one billionth of required warp effect.",
+                            itemClass: "historical-item"
+                        }
+                    ]
+                }
+            ],
+            near: [
+                {
+                    phase: "Near Term (2025-2035)",
+                    items: [
+                        {
+                            label: "Advanced Metamaterials",
+                            category: "Material Science",
+                            start: 2025,
+                            end: 2030,
+                            color: "#f27935",
+                            description: "Development of metamaterials with negative refractive index to simulate properties of exotic matter for experimental warp field tests.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Quantum Vacuum Manipulation Program",
+                            category: "Experimental Physics",
+                            start: 2025,
+                            end: 2032,
+                            color: "#30bf78",
+                            description: "Consortium research using advanced Casimir cavity geometries, squeezed quantum states of light, and superconducting metamaterials to create and sustain regions of negative energy density.",
+                            quote: "From now to '35—microscopic waves.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Spacetime Metrics Collaboration",
+                            category: "Theoretical Physics",
+                            start: 2025,
+                            end: 2035,
+                            color: "#4e76e5",
+                            description: "International initiative to find 'loopholes' in general relativity permitting viable warp solutions with reduced exotic matter requirements.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Applied Quantum Gravity Project",
+                            category: "Theoretical Physics",
+                            start: 2026,
+                            end: 2033,
+                            color: "#4e76e5",
+                            description: "Research exploring how quantum gravity theories might enable warp effects through manipulation of microscopic spacetime structure.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Q-Drive Prototypes",
+                            category: "Engineering Development",
+                            start: 2027,
+                            end: 2034,
+                            color: "#d957f8",
+                            description: "Development of Quantum Vacuum Plasma Thrusters attempting to leverage quantum vacuum effects for propulsion, generating small but measurable forces.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Next-Gen Interferometry",
+                            category: "Experimental Physics",
+                            start: 2028,
+                            end: 2031,
+                            color: "#30bf78",
+                            description: "Advanced versions of the White-Juday Interferometer with sensitivity to detect spacetime distortions smaller than a proton's width.",
+                            quote: "White coats measure light smaller than atom's heartbeat, tomorrow peeks through.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "High-Intensity Field Generators",
+                            category: "Engineering Development",
+                            start: 2029,
+                            end: 2034,
+                            color: "#d957f8",
+                            description: "Development of ultra-high electromagnetic field generators to test spacetime manipulation theories in laboratory settings.",
+                            itemClass: "projected-item"
+                        }
+                    ],
+                    milestones: [
+                        {
+                            position: 2028.5,
+                            label: "First Sustained Negative Energy",
+                            description: "First laboratory demonstration of sustained negative energy density for more than 1 second in a region larger than molecular scale.",
+                            quote: "Negative energy bubbling beneath surface, forbidden secrets."
+                        },
+                        {
+                            position: 2031,
+                            label: "Macro Spacetime Distortion",
+                            description: "First reproducible macroscopic spacetime distortion measurable with standard equipment, though far too small for propulsion applications.",
+                            quote: "Space contracts, expands, flat bubble riding quantum waves between nowhere."
+                        },
+                        {
+                            position: 2034,
+                            label: "Quantum Vacuum Engineering",
+                            description: "Development of reliable methods to engineer quantum vacuum states with specific properties, a fundamental prerequisite for warp field generation.",
+                            quote: "From mountain's subtle essence, distance shrinks to thought."
+                        }
+                    ]
+                }
+            ],
+            mid: [
+                {
+                    phase: "Mid Term (2035-2060)",
+                    items: [
+                        {
+                            label: "Quantum Gravity Unification",
+                            category: "Theoretical Physics",
+                            start: 2035,
+                            end: 2045,
+                            color: "#4e76e5",
+                            description: "Theoretical work toward a unified theory of quantum gravity with specific focus on implications for spacetime engineering and warp physics.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Exotic Matter Synthesis",
+                            category: "Material Science",
+                            start: 2036,
+                            end: 2048,
+                            color: "#f27935",
+                            description: "Research into creating stable materials with exotic properties like negative mass-energy density through advanced quantum vacuum manipulation techniques.",
+                            quote: "The universe's forbidden ingredients.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Warp Field Stabilization",
+                            category: "Theoretical Physics",
+                            start: 2038,
+                            end: 2047,
+                            color: "#4e76e5",
+                            description: "Development of mathematical frameworks to ensure stable warp bubbles that don't collapse catastrophically once formed.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Sub-light Warp Field Tests",
+                            category: "Experimental Physics",
+                            start: 2040,
+                            end: 2052,
+                            color: "#30bf78",
+                            description: "Laboratory experiments testing limited 'sub-light' warp field technologies that distort spacetime without achieving FTL capabilities.",
+                            quote: "To '60—warp effects that space-time paves.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Micro-Warp Bubble Prototype",
+                            category: "Engineering Development",
+                            start: 2042,
+                            end: 2055,
+                            color: "#d957f8",
+                            description: "Engineering work to create the first microscopic but stable warp bubble capable of moving test particles with measurable spacetime distortion effects.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Warp Field Control Systems",
+                            category: "Engineering Development",
+                            start: 2045,
+                            end: 2058,
+                            color: "#d957f8",
+                            description: "Development of precise control systems capable of initiating, maintaining, and safely collapsing experimental warp fields.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Bubble Geometry Optimization",
+                            category: "Theoretical Physics",
+                            start: 2048,
+                            end: 2055,
+                            color: "#4e76e5",
+                            description: "Refinement of warp bubble geometry to minimize exotic matter requirements and maximize stability across varying energy conditions.",
+                            itemClass: "projected-item"
+                        }
+                    ],
+                    milestones: [
+                        {
+                            position: 2043,
+                            label: "Laboratory Warp Effect",
+                            description: "First demonstration of a proper 'warp effect' where spacetime itself is manipulated to move an object, even if only at microscopic scales.",
+                            quote: "In that breath between your doubts and dreams, feel the warp bubble forming, or so it seems."
+                        },
+                        {
+                            position: 2050,
+                            label: "Warp Field Propagation",
+                            description: "First controlled propagation of a stable warp field moving at measurable velocity through laboratory apparatus.",
+                            quote: "Reality quivers, stretches at our touch."
+                        },
+                        {
+                            position: 2058,
+                            label: "Macroscopic Transport",
+                            description: "First macroscopic object (>1cm) transported using limited warp field technology, potentially enabling revolutionary sub-light propulsion systems.",
+                            quote: "Cosmic surfboard rides between breaths, between starlight, secrets unfurling."
+                        }
+                    ]
+                }
+            ],
+            far: [
+                {
+                    phase: "Long Term (2060+)",
+                    items: [
+                        {
+                            label: "Warp Probe Development",
+                            category: "Engineering Development",
+                            start: 2060,
+                            end: 2068,
+                            color: "#d957f8",
+                            description: "Engineering program to develop the first instrumented probe capable of surviving inside a warp bubble for scientific measurements.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Causality Protection Protocols",
+                            category: "Theoretical Physics",
+                            start: 2062,
+                            end: 2070,
+                            color: "#4e76e5",
+                            description: "Theoretical and practical work to ensure FTL warp technology cannot create causality paradoxes that violate physical laws.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Interstellar Communication",
+                            category: "Engineering Development",
+                            start: 2065,
+                            end: 2075,
+                            color: "#d957f8",
+                            description: "Application of limited warp field technology to enable near-instantaneous communication with distant spacecraft through quantum entanglement enhanced by spacetime manipulation.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Full-Scale Warp Drive",
+                            category: "Engineering Development",
+                            start: 2070,
+                            end: 2080,
+                            color: "#d957f8",
+                            description: "Development of the first full-scale warp drive capable of transporting significant mass (>1 ton) through a stable warp bubble.",
+                            quote: "And though the stars still seem distant, their light taking years to reach us, the quantum whispers grow louder: The impossible is merely difficult; the difficult merely takes time.",
+                            itemClass: "projected-item"
+                        },
+                        {
+                            label: "Solar System Warp Transit",
+                            category: "Engineering Development",
+                            start: 2075,
+                            end: 2080,
+                            color: "#d957f8",
+                            description: "Development of first practical warp transit system for rapid transport between distant points in the solar system, reducing travel times from years to days.",
+                            itemClass: "projected-item"
+                        }
+                    ],
+                    milestones: [
+                        {
+                            position: 2065,
+                            label: "First Warp Bubble Transport",
+                            description: "First experimental transport of a probe within a true warp bubble, potentially achieving speeds exceeding conventional limits.",
+                            quote: "Beyond that threshold—stars within our reach, no longer distant lights that only teach but worlds to touch, to feel, to know, to see."
+                        },
+                        {
+                            position: 2073,
+                            label: "FTL Milestone",
+                            description: "First potential demonstration of apparent faster-than-light effect through spacetime manipulation rather than conventional motion.",
+                            quote: "Carrying hopes faster than light can soar across the cosmic sea to distant shore."
+                        },
+                        {
+                            position: 2080,
+                            label: "Interstellar Capability",
+                            description: "Development of theoretical capability to reach nearby stars within human timescales, pending resolution of remaining engineering challenges.",
+                            quote: "So when you look up at the night sky, remember—there's a folded path between here and there, waiting for us to learn its secrets."
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Enhanced Literary quotes dictionary - organized by theme
+        const literaryQuotes = {
+            alcubierre: [
+                "Remember Alcubierre? 1994—mathematics dancing on the edge of reality, equations carving tunnels through the fabric we call Now.",
+                "Alcubierre dreams, mathematics carving paths through spacetime's fabric.",
+                "Remember Alcubierre's revelation? '94 mathematics, a cosmic creation, equations carving tunnels through the Now."
+            ],
+            warpBubble: [
+                "Contract the space ahead, expand what lies behind, create a bubble of flat spacetime—a surfboard on the quantum ocean.",
+                "Space contracts, expands, flat bubble riding quantum waves between nowhere.",
+                "Can you see it shimmer, can you feel it breathe? Contract the space before, expand behind, a bubble of flat spacetime, intertwined—a quantum surfboard on reality's tide."
+            ],
+            negativeEnergy: [
+                "Negative energy, exotic matter, the universe's forbidden ingredients hidden in the Casimir effect, quantum foam bubbling beneath reality.",
+                "Negative energy bubbling beneath surface, forbidden secrets.",
+                "Negative energy, exotic matter's call, the forbidden ingredients of it all, hidden in the Casimir's subtle force, quantum foam bubbling beneath our course."
+            ],
+            timeline: [
+                "The timeline stretches before us: 1994-2024: Theory and whispered possibilities, 2025-2035: Microscopic bubbles, negative energy sustained, 2035-2060: First warp effects in laboratory conditions, Beyond 2060: The stars no longer out of reach",
+                "Timelines stretch and fold, 1994 to beyond, stars wait, breathless, still.",
+                "The timeline stretches, shimmers, calls our name: From '94 to now—theoretical flame; From now to '35—microscopic waves; To '60—warp effects that space-time paves; Beyond that threshold—stars within our reach."
+            ],
+            possibility: [
+                "And though the stars still seem distant, their light taking years to reach us, the quantum whispers grow louder: The impossible is merely difficult; the difficult merely takes time.",
+                "Impossible realm becomes merely difficult, time solves every ridge.",
+                "Though starlight travels years to reach our eyes, the quantum whispers louder now arise: 'Impossible is difficult, that's all, and difficult just takes time to enthrall.'"
+            ],
+            conclusion: [
+                "So when you look up at the night sky, remember—there's a folded path between here and there, waiting for us to learn its secrets.",
+                "Cosmic surfboard rides between breaths, between starlight, secrets unfurling.",
+                "So when you gaze into the endless night, remember—folded paths connect with light the here and there, the now and distant then, the secrets waiting for the minds of men."
+            ]
+        };
+
+        // Function to generate the enhanced timeline HTML
+        function generateTimelineHTML(startYear, endYear, phases) {
+            // Calculate date ranges and grid
+            const yearRange = endYear - startYear;
+            const yearWidth = 100 / yearRange; // percentage width for each year
+            
+            let timelineHTML = '';
+            
+            // Generate year markers with highlight for current year
+            timelineHTML += '<div class="timeline-header">';
+            for (let year = startYear; year <= endYear; year++) {
+                const currentYear = new Date().getFullYear();
+                if (year === currentYear) {
+                    timelineHTML += `<div class="year-marker current-year-marker">${year}</div>`;
+                } else {
+                    timelineHTML += `<div class="year-marker">${year}</div>`;
+                }
+            }
+            timelineHTML += '</div>';
+            
+            // Keep track of animation order for staggered animations
+            let animationOrder = 0;
+            
+            // Generate timeline content for each phase
+            phases.forEach(phase => {
+                timelineHTML += `<h2 class="phase-header" style="animation-delay: ${animationOrder * 0.1}s">${phase.phase}</h2>`;
+                animationOrder++;
+                
+                // Generate timeline items
+                phase.items.forEach(item => {
+                    const startPosition = ((item.start - startYear) / yearRange) * 100;
+                    const endPosition = ((item.end - startYear) / yearRange) * 100;
+                    const width = endPosition - startPosition;
+                    const itemClass = item.itemClass || "";
+                    
+                    timelineHTML += `
+                        <div class="timeline-item ${itemClass}">
+                            <div class="timeline-label">
+                                ${item.label} 
+                                <span class="category-label">${item.category}</span>
+                                ${item.quote ? '<span class="quote-indicator" title="Has literary quote"></span>' : ''}
+                            </div>
+                            <div class="timeline-bar-container">
+                                <div class="timeline-grid">
+                                    ${Array(yearRange + 1).fill().map(() => '<div class="grid-line"></div>').join('')}
+                                </div>
+                                ${item.start <= new Date().getFullYear() && item.end >= new Date().getFullYear() ? 
+                                    `<div class="present-line"></div>` : ''}
+                                <div class="timeline-bar" 
+                                    style="left: ${startPosition}%; width: ${width}%; --animation-order: ${animationOrder};"
+                                    data-label="${item.label}"
+                                    data-category="${item.category}"
+                                    data-description="${item.description}"
+                                    data-quote="${item.quote || ''}"
+                                    onmouseover="showTooltip(event, this.getAttribute('data-label'), this.getAttribute('data-category'), this.getAttribute('data-description'), this.getAttribute('data-quote'))"
+                                    onmouseout="hideTooltip()">
+                                    ${item.label}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    animationOrder++;
+                });
+                
+                // Generate milestones if they exist
+                if (phase.milestones) {
+                    timelineHTML += '<div class="timeline-item">';
+                    timelineHTML += '<div class="timeline-label">Milestones</div>';
+                    timelineHTML += '<div class="timeline-bar-container">';
+                    timelineHTML += '<div class="timeline-grid">';
+                    for (let i = 0; i <= yearRange; i++) {
+                        timelineHTML += '<div class="grid-line"></div>';
+                    }
+                    timelineHTML += '</div>';
+                    
+                    // Add milestone markers
+                    phase.milestones.forEach(milestone => {
+                        const position = ((milestone.position - startYear) / yearRange) * 100;
+                        timelineHTML += `
+                            <div class="milestone" 
+                                style="left: ${position}%; --animation-order: ${animationOrder};"
+                                data-label="${milestone.label}"
+                                data-description="${milestone.description}"
+                                data-quote="${milestone.quote || ''}"
+                                onmouseover="showTooltip(event, this.getAttribute('data-label'), 'Milestone', this.getAttribute('data-description'), this.getAttribute('data-quote'))"
+                                onmouseout="hideTooltip()">
+                            </div>
+                        `;
+                        animationOrder++;
+                    });
+                    
+                    timelineHTML += '</div></div>';
+                }
+            });
+            
+            return timelineHTML;
+        }
+
+        // Enhanced tooltip function to include literary quotes
+        function showTooltip(event, title, category, description, quote) {
+            // Remove any existing tooltips
+            hideTooltip();
+            
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            
+            let tooltipContent = `<div class="tooltip-title">${title}</div>`;
+            tooltipContent += `<div class="tooltip-category">${category}</div>`;
+            tooltipContent += `<div class="tooltip-description">${description}</div>`;
+            
+            // Add quote if available
+            if (quote && quote !== 'undefined' && quote !== '') {
+                tooltipContent += `<div class="tooltip-quote">"${quote}"</div>`;
+            }
+            
+            tooltip.innerHTML = tooltipContent;
+            document.body.appendChild(tooltip);
+            
+            // Position the tooltip
+            const rect = event.target.getBoundingClientRect();
+            
+            // Default position above the item
+            let topPosition = rect.top - tooltip.offsetHeight - 15;
+            
+            // If tooltip would go off the top of the screen, position it below instead
+            if (topPosition < 10) {
+                topPosition = rect.bottom + 15;
+            }
+            
+            tooltip.style.top = `${topPosition}px`;
+            
+            // Position horizontally
+            let leftPosition = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
+            
+            // Ensure tooltip doesn't go off the left or right edges of the screen
+            const rightEdge = leftPosition + tooltip.offsetWidth;
+            const windowWidth = window.innerWidth;
+            
+            if (leftPosition < 10) {
+                leftPosition = 10;
+            } else if (rightEdge > windowWidth - 10) {
+                leftPosition = windowWidth - tooltip.offsetWidth - 10;
+            }
+            
+            tooltip.style.left = `${leftPosition}px`;
+            
+            // Make it visible with a small delay for smoother interaction
+            setTimeout(() => {
+                tooltip.classList.add('visible');
+            }, 50);
+        }
+
+        // Function to hide tooltip
+        function hideTooltip() {
+            const tooltips = document.querySelectorAll('.tooltip');
+            tooltips.forEach(tooltip => {
+                tooltip.classList.remove('visible');
+                // Remove after transition completes
+                setTimeout(() => {
+                    if (tooltip.parentNode) {
+                        tooltip.parentNode.removeChild(tooltip);
+                    }
+                }, 300);
+            });
+        }
+
+        // Function to change timeline focus with enhanced transitions
+        function focusTimeline(focus) {
+            const container = document.getElementById('timeline-container');
+            const timeFocus = document.getElementById('time-focus');
+            const buttons = document.querySelectorAll('.control-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.control-btn[onclick="focusTimeline('${focus}')"]`).classList.add('active');
+            
+            let timelineHTML = '';
+            let startYear, endYear, phases;
+            
+            switch(focus) {
+                case 'past':
+                    startYear = 1994;
+                    endYear = 2025;
+                    phases = timelineData.historical;
+                    timeFocus.textContent = 'Historical Progress (1994-2025)';
+                    break;
+                case 'near':
+                    startYear = 2025;
+                    endYear = 2035;
+                    phases = timelineData.near;
+                    timeFocus.textContent = 'Near Term (2025-2035)';
+                    break;
+                case 'mid':
+                    startYear = 2035;
+                    endYear = 2060;
+                    phases = timelineData.mid;
+                    timeFocus.textContent = 'Mid Term (2035-2060)';
+                    break;
+                case 'far':
+                    startYear = 2060;
+                    endYear = 2080;
+                    phases = timelineData.far;
+                    timeFocus.textContent = 'Long Term (2060+)';
+                    break;
+                case 'all':
+                default:
+                    startYear = 1994;
+                    endYear = 2080;
+                    phases = [...timelineData.historical, ...timelineData.near, ...timelineData.mid, ...timelineData.far];
+                    timeFocus.textContent = 'Full Timeline View (1994-2080)';
+                    break;
+            }
+            
+            // Fade out current content
+            container.style.opacity = '0';
+            
+            // After brief transition, update content and fade back in
+            setTimeout(() => {
+                timelineHTML = generateTimelineHTML(startYear, endYear, phases);
+                container.innerHTML = timelineHTML;
+                container.style.opacity = '1';
+            }, 300);
+        }
+
+        // Function to find the most relevant literary quote for an event
+        function findRelevantQuote(event) {
+            // Logic to match event keywords with quote themes
+            // This could be enhanced with more sophisticated matching
+            let bestQuote = null;
+            
+            if (event.toLowerCase().includes('alcubierre') || event.toLowerCase().includes('metric')) {
+                bestQuote = literaryQuotes.alcubierre[Math.floor(Math.random() * literaryQuotes.alcubierre.length)];
+            } else if (event.toLowerCase().includes('bubble') || event.toLowerCase().includes('warp field')) {
+                bestQuote = literaryQuotes.warpBubble[Math.floor(Math.random() * literaryQuotes.warpBubble.length)];
+            } else if (event.toLowerCase().includes('energy') || event.toLowerCase().includes('exotic')) {
+                bestQuote = literaryQuotes.negativeEnergy[Math.floor(Math.random() * literaryQuotes.negativeEnergy.length)];
+            } else if (event.toLowerCase().includes('star') || event.toLowerCase().includes('ftl')) {
+                bestQuote = literaryQuotes.possibility[Math.floor(Math.random() * literaryQuotes.possibility.length)];
+            } else {
+                // Get a random quote if no specific match
+                const allQuotes = [].concat(...Object.values(literaryQuotes));
+                bestQuote = allQuotes[Math.floor(Math.random() * allQuotes.length)];
+            }
+            
+            return bestQuote;
+        }
+
+        // Check if a year is historical, current or future
+        function getTimeframeClass(startYear, endYear) {
+            const currentYear = new Date().getFullYear();
+            
+            if (endYear < currentYear) {
+                return "historical-item";
+            } else if (startYear > currentYear) {
+                return "projected-item";
+            } else {
+                return "current-item";
+            }
+        }
+
+        // Add modal functionality to show literary excerpts
+        function showLiteraryExcerpt(theme) {
+            // This would display a modal with the full literary excerpt for the selected theme
+            console.log("Show literary excerpt for theme: " + theme);
+        }
+
+        // Initialize the timeline with all phases on load with a brief entrance animation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Slight delay for entrance effect
+            setTimeout(() => {
+                focusTimeline('all');
+            }, 200);
+        });
+    </script>
+</body>
+</html>
