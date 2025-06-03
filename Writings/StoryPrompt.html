@@ -1,0 +1,89 @@
+updateHarmonics() {
+    // Instead of just distance from center, track velocity and acceleration
+    const mouseVelocity = Math.sqrt(
+        (this.mousePos.x - this.lastMousePos.x) ** 2 + 
+        (this.mousePos.y - this.lastMousePos.y) ** 2
+    );
+    
+    // Quick movements create pitch bends
+    oscillatorGroup.forEach((osc, index) => {
+        const targetFreq = baseFreq * ratio * (1 + mouseVelocity * 0.01);
+        osc.osc.frequency.exponentialRampToValueAtTime(
+            targetFreq, 
+            this.audioContext.currentTime + 0.05 // Much faster response
+        );
+    });
+    
+    // Proximity to objects creates harmonic emphasis
+    this.cosmicObjects.forEach(obj => {
+        if (obj.mouseProximity > 0.5) {
+            // Emphasize that object's frequency
+            this.playObjectHarmonic(obj);
+        }
+    });
+}
+
+
+class VisualAudioBalance {
+    constructor() {
+        this.visualIntensity = 1.0;
+        this.audioIntensity = 1.0;
+        this.autoBalance = true;
+    }
+    
+    setMode(mode) {
+        switch(mode) {
+            case 'visual_priority':
+                this.visualIntensity = 1.2;
+                this.audioIntensity = 0.7;
+                break;
+            case 'balanced':
+                this.visualIntensity = 1.0;
+                this.audioIntensity = 1.0;
+                break;
+            case 'responsive_audio':
+                // Audio changes rapidly, visuals stay bright
+                this.visualIntensity = 1.0;
+                this.audioIntensity = 1.2;
+                this.audioResponsiveness = 5.0; // multiplier
+                break;
+        }
+    }
+}
+
+handleMouseMove(e) {
+    // Existing position tracking...
+    
+    // Add: Crossing threshold triggers sounds
+    this.cosmicObjects.forEach(obj => {
+        const distance = Math.sqrt((e.x - obj.x)**2 + (e.y - obj.y)**2);
+        
+        if (distance < obj.radius + 20 && !obj.wasNear) {
+            // Entered object's influence
+            this.playProximityChime(obj);
+            obj.wasNear = true;
+        } else if (distance > obj.radius + 30 && obj.wasNear) {
+            // Left object's influence  
+            obj.wasNear = false;
+        }
+    });
+}
+
+playProximityChime(obj) {
+    const osc = this.audioContext.createOscillator();
+    const env = this.audioContext.createGain();
+    
+    osc.frequency.value = obj.harmonicFreq * 2; // Higher octave
+    env.gain.setValueAtTime(0.2, this.audioContext.currentTime);
+    env.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.5);
+    
+    osc.connect(env).connect(this.masterGain);
+    osc.start();
+    osc.stop(this.audioContext.currentTime + 0.5);
+}
+
+drawWaveform() {
+    // Make it respond to actual audio output
+    // Show interference patterns when near objects
+    // Ripple effects that emanate from cursor position
+}
