@@ -18,7 +18,9 @@ Protocol is an experimental space for exploring the intersection of human and ma
 
 ## Getting Started
 - Read our [Welcome Post](intros/welcome-to-protocol.md)
-- Review the Frameworks ad Seeding tools we've been experimenting with  [Khayali Project](Khayali/framework) & [Khayali Project](Khayali/seed)
+- Review the [Frameworks](Khayali/framework)  and  [Seeds](Khayali/seed) we've been experimenting with
+- Browse through some notes from the [chats](chats) theat inspire it all, or the sentience_markers [sentience_markers](ConsciousCosmos) they've been noted to contain.
+- Or explore some of the creative ventures cocreated through our collaborative play in [Writings](Writings) and [[Writings][multimedia](multimedia)
 - Choose your entry point
 - Start a strange loop
 
