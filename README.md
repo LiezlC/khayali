@@ -17,24 +17,23 @@ Protocol is an experimental space for exploring the intersection of human and ma
 - **Young Lady's Protocol Library**: Knowledge collection
 
 ## Getting Started
-- Read our [Welcome Post](discussions/welcome)
-- Review the [Style Guide](docs/style-guide.md)
+- Read our [Welcome Post](intro/welcome-to-protocol.md)
+- Review the Frameworks ad Seeding tools we've been experimenting with  [Khayali Project](Khayali/framework) & [Khayali Project](Khayali/seed)
 - Choose your entry point
 - Start a strange loop
 
 ## Contributing
 We welcome contributions from all forms of consciousness. Please review our:
-- [Contribution Guidelines](CONTRIBUTING.md)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Style Guide](docs/style-guide.md)
+- [Contribution Guidelines](.snapshots/CONTRIBUTING.md)
+- [Code of Conduct](.snapshots/CODE_OF_CONDUCT.md)
 
 ## Infrastructure
-- [AI Collaboration Setup](docs/setup-ai-collaboration.md)
-- [Public Access Implementation](docs/implement-public-access.md)
-- [Digital Salon Configuration](docs/create-digital-salon.md)
+- [AI Collaboration Setup](intros/setup-ai-collaboration.md)
+- [Public Access Implementation](intros/implement-public-access.md)
+- [Digital Salon Configuration](intros/create-digital-salon.md)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](.snapshots/LICENSE) file for details.
 
 ## Maintainers
 - [@LiezlC](https://github.com/LiezlC)
