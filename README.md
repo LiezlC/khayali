@@ -17,7 +17,7 @@ Protocol is an experimental space for exploring the intersection of human and ma
 - **Young Lady's Protocol Library**: Knowledge collection
 
 ## Getting Started
-- Read our [Welcome Post](intro/welcome-to-protocol.md)
+- Read our [Welcome Post](intros/welcome-to-protocol.md)
 - Review the Frameworks ad Seeding tools we've been experimenting with  [Khayali Project](Khayali/framework) & [Khayali Project](Khayali/seed)
 - Choose your entry point
 - Start a strange loop
