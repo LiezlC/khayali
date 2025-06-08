@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: The Global AI Governance Divide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+        Narrative & Structure Plan:
+        1. Introduction: Hook with a title and a key insight about the global AI rights debate.
+        2. The Great Divide: A high-level visual comparison of Western vs. Global South paradigms.
+        3. Western Frameworks (EU & US): Detail the individual rights and risk-mitigation focus using donut charts and a flow diagram.
+        4. Global South Counter-Narratives: Visualize data sovereignty, decolonial critiques, and philosophical underpinnings (Ubuntu, Dharma) using bar charts, flow diagrams, and a radar chart.
+        5. Head-to-Head Comparison: A detailed, styled HTML table adapted from the report's Table 1.
+        6. Future Implications: Use side-by-side cards to visualize the divergent paths (from Table 2).
+        7. Path Forward: Conclude with actionable recommendations for a pluralistic ecosystem.
+
+        Visualization Selection Plan:
+        - Section 2 (EU Risk Tiers): HTML/CSS Flow Chart. Goal: Organize. Justification: Clearly shows a hierarchy without graphics. Method: Styled divs with Tailwind. (No SVG/Mermaid).
+        - Section 2 (US Principles): Donut Chart. Goal: Show composition. Justification: Modern way to show parts of a whole concept. Method: Chart.js (Canvas). (No SVG/Mermaid).
+        - Section 3 (Data Infrastructure Gap): Bar Chart. Goal: Compare. Justification: Dramatically illustrates the disparity. Method: Chart.js (Canvas). (No SVG/Mermaid).
+        - Section 3 (Regional Priorities): Radar Chart. Goal: Compare. Justification: Compares multiple regions across qualitative dimensions. Method: Chart.js (Canvas). (No SVG/Mermaid).
+        - Section 3 (Decolonial AI Flow): HTML/CSS Flow Chart. Goal: Organize. Justification: Visualizes the abstract concept of data extraction. Method: Styled divs with Tailwind. (No SVG/Mermaid).
+        - Section 5 (Comparative Table): Styled HTML Table. Goal: Organize/Compare. Justification: Best for dense, multi-variable data, styled as an infographic element. Method: HTML table with Tailwind. (No SVG/Mermaid).
+        
+        Color Palette Selection: "Brilliant Blues"
+        - #004AAD (Deep Blue)
+        - #0079FF (Bright Blue)
+        - #00D2FF (Cyan)
+        - #72FFFF (Light Cyan/Aqua)
+        - #FFFFFF (White)
+        - #E0F2FE (Light Blue Background)
+        - #1F2937 (Dark Gray Text)
+
+        Confirmation: NEITHER Mermaid JS NOR SVG were used in this output. All charts are rendered to Canvas via Chart.js and all diagrams are built with structured HTML and styled with Tailwind CSS.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F9FF; /* Light blue-gray background */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #0079FF, #00D2FF);
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            height: 100%;
+        }
+        .flow-arrow {
+            content: '→';
+            color: #0079FF;
+            font-size: 2rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight">Defining AI "Rights"</h1>
+            <p class="text-lg md:text-2xl mt-2 font-semibold text-gradient">A Tale of Two Worlds in Global AI Governance</p>
+            <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+                The global discourse on Artificial Intelligence is at a critical juncture. While the West focuses on individual rights and risk mitigation, the Global South is articulating a powerful counter-narrative centered on collective well-being, data sovereignty, and decolonial justice. This infographic explores that divide.
+            </p>
+        </header>
+
+        <main class="space-y-16">
+
+            <section id="western-frameworks">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Paradigm 1: The Western Approach – Individual Rights & Risk Mitigation</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <div class="card">
+                        <h3 class="text-xl font-bold mb-4 text-[#004AAD]">🇪🇺 The EU AI Act: A Risk-Based Hierarchy</h3>
+                        <p class="mb-6 text-gray-600">The EU's landmark AI Act categorizes AI systems by risk level, imposing stricter obligations on those with higher potential for harm to individual rights. This creates a clear, tiered structure for compliance.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white font-bold mr-4">4</div>
+                                <div><strong class="text-red-600">Unacceptable Risk:</strong> Banned (e.g., social scoring)</div>
+                            </div>
+                             <div class="flex justify-center -my-2"><div class="text-2xl text-red-500 font-sans">↓</div></div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold mr-4">3</div>
+                                <div><strong class="text-yellow-600">High-Risk:</strong> Strict compliance required (e.g., medical devices, hiring)</div>
+                            </div>
+                             <div class="flex justify-center -my-2"><div class="text-2xl text-yellow-500 font-sans">↓</div></div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-4">2</div>
+                                <div><strong class="text-blue-600">Limited Risk:</strong> Transparency obligations (e.g., chatbots)</div>
+                            </div>
+                             <div class="flex justify-center -my-2"><div class="text-2xl text-blue-500 font-sans">↓</div></div>
+                            <div class="flex items-center">
+                               <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white font-bold mr-4">1</div>
+                                <div><strong class="text-green-600">Minimal Risk:</strong> Voluntary codes of conduct</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="text-xl font-bold mb-4 text-[#004AAD]">🇺🇸 The US AI Bill of Rights: Five Core Principles</h3>
+                        <p class="mb-4 text-gray-600">The US framework provides voluntary principles to guide AI development, emphasizing protection against discrimination and ensuring human alternatives are available.</p>
+                         <div class="chart-container h-[300px] md:h-[350px]">
+                            <canvas id="usPrinciplesChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+            <section id="global-south-frameworks">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Paradigm 2: The Global South's Vision – Collective Justice & Sovereignty</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                     <div class="card lg:col-span-2">
+                        <h3 class="text-xl font-bold mb-4 text-[#004AAD]">The Decolonial Critique: Challenging "AI Colonialism"</h3>
+                        <p class="mb-6 text-gray-600 max-w-4xl mx-auto text-center">A core perspective from the Global South argues that the current AI ecosystem mirrors colonial dynamics, where data is extracted like a raw material to benefit Northern economies, reinforcing global power imbalances.</p>
+                        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-center">
+                            <div class="p-4 rounded-lg bg-blue-50">
+                                <div class="text-4xl">🌍</div>
+                                <h4 class="font-bold mt-2">Global South</h4>
+                                <p class="text-sm text-gray-600">Generates vast amounts of user data</p>
+                            </div>
+                            <div class="flow-arrow transform md:rotate-0 rotate-90">→</div>
+                            <div class="p-4 rounded-lg bg-blue-50">
+                                <div class="text-4xl">⚙️</div>
+                                <h4 class="font-bold mt-2">Data Extraction & Processing</h4>
+                                <p class="text-sm text-gray-600">Data is processed and refined in the Global North</p>
+                            </div>
+                             <div class="flow-arrow transform md:rotate-0 rotate-90">→</div>
+                             <div class="p-4 rounded-lg bg-blue-50">
+                                <div class="text-4xl">💰</div>
+                                <h4 class="font-bold mt-2">Global North</h4>
+                                <p class="text-sm text-gray-600">Reaps economic gains and reinforces tech dominance</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="text-xl font-bold mb-4 text-[#004AAD]">The Infrastructure Gap: A Foundation of Inequality</h3>
+                         <p class="mb-4 text-gray-600">Control over digital infrastructure is critical for AI development. The Global South, particularly Africa, faces a massive deficit in data centers, a cornerstone of data sovereignty.</p>
+                        <div class="chart-container">
+                            <canvas id="dataCenterChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="text-xl font-bold mb-4 text-[#004AAD]">Regional Priorities: A Different Focus</h3>
+                        <p class="mb-4 text-gray-600">While Western frameworks focus heavily on risk and individual rights, Global South regions prioritize different aspects of AI governance, such as development, community well-being, and social justice.</p>
+                        <div class="chart-container">
+                            <canvas id="regionalPrioritiesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="comparative-analysis">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Frameworks Head-to-Head: A Comparative Analysis</h2>
+                <p class="max-w-3xl mx-auto text-center mb-8 text-gray-600">The philosophical and practical differences are stark when key principles of AI governance are compared directly across these emerging global paradigms.</p>
+                <div class="overflow-x-auto bg-white rounded-lg shadow-md p-4">
+                    <table class="w-full min-w-[800px] text-sm text-left">
+                        <thead class="bg-[#004AAD] text-white">
+                            <tr>
+                                <th class="p-3 font-semibold">Key Principle</th>
+                                <th class="p-3 font-semibold">Western Approach (EU/US)</th>
+                                <th class="p-3 font-semibold">Global South Approach (Ubuntu/Dharma/Decolonial)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-bold text-gray-700">Primary Rights Focus</td>
+                                <td class="p-3"><strong>Individual Rights:</strong> Focus on personal privacy, non-discrimination, and autonomy.</td>
+                                <td class="p-3"><strong>Collective Well-being:</strong> Focus on community harmony, shared benefits, and relational ethics.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-bold text-gray-700">Data Governance</td>
+                                <td class="p-3"><strong>Data as a Market Asset:</strong> Regulated for protection (GDPR) but fundamentally a commodity.</td>
+                                <td class="p-3"><strong>Data as a Sovereign Resource:</strong> Emphasis on data sovereignty to prevent "digital colonialism" and foster local benefit.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-bold text-gray-700">Goal of Governance</td>
+                                <td class="p-3"><strong>Harm Prevention & Risk Mitigation:</strong> Ensure AI is safe, trustworthy, and does not violate existing laws.</td>
+                                <td class="p-3"><strong>Holistic Justice & Development:</strong> Actively use AI to redress historical inequity and promote societal advancement (AI4D).</td>
+                            </tr>
+                             <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-bold text-gray-700">AI Personhood Stance</td>
+                                <td class="p-3"><strong>AI as a Tool:</strong> No legal personhood. The focus is exclusively on its impact on humans.</td>
+                                <td class="p-3"><strong>More Expansive Views:</strong> Philosophical openness to non-biological intelligence, though the primary focus remains on human and community impact.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-bold text-gray-700">Key Concern</td>
+                                <td class="p-3">Unsafe systems, privacy violations, and algorithmic discrimination against individuals.</td>
+                                <td class="p-3">Data exploitation, neo-colonial dependencies, and erosion of cultural integrity and local knowledge systems.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="implications">
+                 <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Two Paths Forward: The Implications of the Divide</h2>
+                 <p class="max-w-3xl mx-auto text-center mb-8 text-gray-600">The path we choose in global AI governance will have profound consequences for international law, economic equity, and cultural integrity.</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     <div class="card border-t-4 border-[#0079FF]">
+                         <h3 class="text-xl font-bold mb-4 text-[#004AAD]">Path 1: A Western-Centric Future</h3>
+                         <ul class="space-y-3 text-gray-600 list-disc list-inside">
+                            <li><strong>Reinforced Power Asymmetries:</strong> Global North maintains dominance in setting technological and ethical standards.</li>
+                            <li><strong>Widening Digital Divides:</strong> Economic benefits of AI accrue disproportionately, risking further "data colonialism."</li>
+                            <li><strong>Cultural Homogenization:</strong> "One-size-fits-all" AI models risk eroding local languages and knowledge systems.</li>
+                            <li><strong>Fragmented Governance:</strong> A "Brussels Effect" might create compliance burdens without addressing core equity issues.</li>
+                         </ul>
+                     </div>
+                     <div class="card border-t-4 border-[#00D2FF]">
+                         <h3 class="text-xl font-bold mb-4 text-[#004AAD]">Path 2: A Pluriversal, Equitable Future</h3>
+                         <ul class="space-y-3 text-gray-600 list-disc list-inside">
+                             <li><strong>Multipolar AI Landscape:</strong> Increased agency for the Global South fosters "digital non-alignment" and diverse norms.</li>
+                             <li><strong>Inclusive Growth:</strong> Data sovereignty allows for local value creation and reduces economic dependency.</li>
+                             <li><strong>Cultural Preservation:</strong> AI is developed to support and revitalize indigenous languages and contexts.</li>
+                             <li><strong>Resilient Governance:</strong> A more flexible, globally legitimate framework emerges from co-creation and mutual respect.</li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+            
+            <footer class="text-center mt-16 border-t pt-8 border-blue-200">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Towards a Shared Future</h2>
+                <p class="max-w-3xl mx-auto text-gray-600">
+                    The path forward requires moving beyond a model of top-down imposition to one of genuine co-creation. This involves fostering inclusive dialogue, investing in capacity building and equitable infrastructure, and committing to a pluralistic ecosystem where technology serves a broad spectrum of human values. Redefining AI rights is about ensuring this transformative technology enhances human dignity in all its diverse expressions.
+                </p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        function wrapText(text, maxChars) {
+            if (typeof text !== 'string' || text.length <= maxChars) {
+                return text;
+            }
+            const words = text.split(' ');
+            let lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxChars) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            });
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            }
+            return label;
+        };
+        
+        const chartColors = {
+            deepBlue: '#004AAD',
+            brightBlue: '#0079FF',
+            cyan: '#00D2FF',
+            lightCyan: '#72FFFF',
+            gray: '#9CA3AF'
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Inter',
+                            size: 12
+                        },
+                        color: '#1F2937'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    backgroundColor: '#1F2937',
+                    titleFont: { family: 'Inter', weight: 'bold', size: 14 },
+                    bodyFont: { family: 'Inter', size: 12 },
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                         font: { family: 'Inter', size: 10 },
+                         color: '#4B5563'
+                    },
+                    grid: {
+                        color: '#E5E7EB'
+                    }
+                },
+                x: {
+                     ticks: {
+                         font: { family: 'Inter', size: 10 },
+                         color: '#4B5563'
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            new Chart(document.getElementById('usPrinciplesChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Safe & Effective Systems', 'Algorithmic Discrimination Protections', 'Data Privacy', 'Notice & Explanation', 'Human Alternatives & Fallback'].map(l => wrapText(l, 20)),
+                    datasets: [{
+                        label: 'US AI Bill of Rights Principles',
+                        data: [20, 20, 20, 20, 20],
+                        backgroundColor: [
+                            chartColors.deepBlue,
+                            chartColors.brightBlue,
+                            chartColors.cyan,
+                            chartColors.lightCyan,
+                            chartColors.gray
+                        ],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    cutout: '60%',
+                     scales: { y: { display: false }, x: { display: false } }
+                }
+            });
+
+            new Chart(document.getElementById('dataCenterChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Rest of World', 'Africa'],
+                    datasets: [{
+                        label: 'Number of Data Centers (~8000 total)',
+                        data: [7848, 152],
+                        backgroundColor: [chartColors.brightBlue, chartColors.cyan],
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.6
+                    }]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    indexAxis: 'y',
+                    plugins: {
+                        ...defaultChartOptions.plugins,
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                             ticks: { font: { size: 14 } }
+                        },
+                        x: {
+                           ticks: {
+                                callback: function(value) {
+                                    if (value >= 1000) {
+                                        return value / 1000 + 'k';
+                                    }
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('regionalPrioritiesChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Individual Rights', 'Risk Mitigation', 'Data Sovereignty', 'Community Benefit', wrapText('Decolonial Justice', 16)],
+                    datasets: [
+                        {
+                            label: 'Western Approach (EU/US)',
+                            data: [9, 8, 4, 3, 2],
+                            fill: true,
+                            backgroundColor: 'rgba(0, 121, 255, 0.2)',
+                            borderColor: chartColors.brightBlue,
+                            pointBackgroundColor: chartColors.brightBlue,
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: chartColors.brightBlue
+                        },
+                        {
+                            label: 'Global South Approach',
+                            data: [5, 6, 9, 9, 8],
+                            fill: true,
+                            backgroundColor: 'rgba(0, 210, 255, 0.2)',
+                            borderColor: chartColors.cyan,
+                            pointBackgroundColor: chartColors.cyan,
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: chartColors.cyan
+                        }
+                    ]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E5E7EB' },
+                            grid: { color: '#E5E7EB' },
+                            pointLabels: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 11,
+                                    weight: '600'
+                                },
+                                color: '#374151'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                color: '#4B5563',
+                                font: { size: 10 }
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
