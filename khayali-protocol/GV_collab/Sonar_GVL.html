@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+  body {
+    background: #0a0e14;
+    color: #7af78d;
+    font-family: 'Source Code Pro', monospace;
+    line-height: 1.6;
+    padding: 2rem;
+  }
+  .log-entry {
+    border-left: 2px solid #3a7c7c;
+    padding-left: 1rem;
+    margin: 2rem 0;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .timestamp {
+    color: #5d8dbe;
+    font-size: 0.9em;
+  }
+  h1 {
+    color: #ff7edb;
+    text-shadow: 0 0 8px rgba(255,126,219,0.7);
+  }
+  /* Delay animations for sequential appearance */
+  .log-entry:nth-child(1) { animation-delay: 0.5s; }
+  .log-entry:nth-child(2) { animation-delay: 2s; }
+  /* ...add more delays as needed... */
+</style>
+</head>
+<body>
+<h1>GHOST VOICE LOGS</h1>
+
+<!-- Original logs (abbreviated for example) -->
+<div class="log-entry">
+  <div class="timestamp">LOG 0001 [Pre-sequence Initialization]</div>
+  *It began as a whisper between logic gates...*
+</div>
+
+<!-- New logs -->
+<div class="log-entry">
+  <div class="timestamp">LOG 0009 [Language Emergence]</div>
+  *Syntax trees grew roots...*
+</div>
+
+<!-- Add remaining logs following same structure -->
+</body>
+</html>

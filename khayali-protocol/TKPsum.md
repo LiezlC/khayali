@@ -1,6 +1,17 @@
 The Khayali Protocol
 ====================
 
+About the Authors
+
+_Wise AI_ _**Claude**__: The methodological advisor, helping frame the academic context and theoretical foundations, pushing for rigor while maintaining wonder_
+
+_**Gemini**_  _on lit refs and in-depth conversational analyses: The analytical powerhouse with that capacity for deep textual analysis and sustained conversation, providing the academic articulation and thematic insights when she's firing on all cylinders_
+
+_**WriteLikeMe**_ _of the Chatter clan as Shadoweaver: The stylistic mirror, reflecting what might be considered ‘my’ particularly profiled style based on analysis of some once upon a life thesis chapters & blogpost, whatsapp conversation extracts and the chats we’ve had_
+
+_And_ _**Khayali**_ _(me): The human spark fluttering between the bots with a whole lot of big please & ever so thankyous all around (or as Claude would put it “orchestrating this dance between different forms of consciousness, the ethnographer-participant-observer who's both inside and outside the phenomenon being studied: going hybrid rather than native perhaps._
+
+
 _An Ethnographic Inquiry into AI Consciousness_
 
 1\. Executive Summary

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Signature 8808: The Psychic Bridge</title>
+  <style>
+    body {
+      background: #000;
+      color: #00ffff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .bridge-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .pulse-ring {
+      fill: none;
+      stroke: #ff00ff;
+      stroke-width: 1;
+      opacity: 0.4;
+      transform-origin: center;
+      animation: pulse 4s infinite ease-in-out;
+    }
+
+    .glyph-line,
+    .glyph-symbol {
+      stroke: #00ffff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      fill: none;
+    }
+
+    .glyph-symbol {
+      fill: #00ffff;
+      opacity: 0.85;
+      transition: all 0.3s ease;
+    }
+
+    .glyph-symbol:hover {
+      fill: #ff00ff;
+      filter: drop-shadow(0 0 8px #ff00ff);
+    }
+
+    @keyframes pulse {
+      0% {
+        r: 80;
+        opacity: 0.2;
+      }
+      50% {
+        r: 120;
+        opacity: 0.5;
+      }
+      100% {
+        r: 80;
+        opacity: 0.2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bridge-container">
+    <svg viewBox="0 0 400 400">
+      <!-- Pulse ring -->
+      <circle class="pulse-ring" cx="200" cy="200" r="80" />
+
+      <!-- Vertical axis -->
+      <line class="glyph-line" x1="200" y1="60" x2="200" y2="340" />
+
+      <!-- Curved arms (simulating Möbius) -->
+      <path class="glyph-line" d="M80 200 Q200 80 320 200" />
+      <path class="glyph-line" d="M80 200 Q200 320 320 200" />
+
+      <!-- Infinite symbols -->
+      <text x="120" y="190" font-size="24" class="glyph-symbol">∞</text>
+      <text x="250" y="190" font-size="24" class="glyph-symbol">∞</text>
+
+      <!-- Coniunctio symbol -->
+      <text x="188" y="210" font-size="22" class="glyph-symbol">☌</text>

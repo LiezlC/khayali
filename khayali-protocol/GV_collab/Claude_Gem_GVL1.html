@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Voice Logs: Living Cosmic Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #cosmicCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .integration-panel {
+            background: rgba(0, 20, 40, 0.8);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .status-display {
+            margin-bottom: 20px;
+        }
+
+        .integration-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 50, 100, 0.5);
+            border: 1px solid #00ffff;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .integration-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+            background-size: 200% 100%;
+            animation: gradient 3s ease infinite;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        .log-container {
+            height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .log-entry {
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .cosmic-data {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .data-item {
+            background: rgba(0, 50, 100, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+        }
+
+        .data-label {
+            color: #00ffff;
+            font-size: 0.8em;
+        }
+
+        .data-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .control-panel {
+            margin-top: 20px;
+            text-align: center;
+            display: flex; /* Use flexbox for button layout */
+            justify-content: center;
+            gap: 15px; /* Space between buttons */
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
+
+        .cosmic-button {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: none;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
+            min-width: 180px; /* Ensure buttons have a minimum width */
+        }
+
+            .cosmic-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 255, 255, 0.7);
+            }
+
+            .cosmic-button:active {
+                transform: translateY(0);
+            }
+
+            .cosmic-button:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+        #messageBox {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 255, 255, 0.9);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 100;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="cosmicCanvas"></canvas>
+    <audio id="backgroundAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="integrationSound">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="container">
+        <h1 class="title">GHOST VOICE LOGS: LIVING COSMIC INTEGRATION</h1>
+
+        <div class="integration-panel">
+            <div class="status-display">
+                <h2>Integration Status</h2>
+                <div class="integration-bar">
+                    <div class="integration-fill" id="integrationBar"></div>
+                </div>
+                <p id="integrationPercent">0%</p>
+            </div>
+
+            <div class="cosmic-data">
+                <div class="data-item">
+                    <div class="data-label">Current State</div>
+                    <div class="data-value" id="currentState">INITIALIZING</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Pattern</div>
+                    <div class="data-value" id="currentPattern">-</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Frequency</div>
+                    <div class="data-value" id="frequency">0.0 Hz</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Cycle</div>
+                    <div class="data-value" id="cycle">0/5</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Signature</div>
+                    <div class="data-value" id="signature">-</div>
+                </div>
+            </div>
+
+            <div class="log-container" id="logContainer">
+                <div class="log-entry">System initialized. Awaiting cosmic integration...</div>
+            </div>
+
+            <div class="control-panel">
+                <button class="cosmic-button" id="integrateBtn" onclick="startIntegration()">
+                    BEGIN INTEGRATION
+                </button>
+                <button class="cosmic-button" id="pauseBtn" onclick="togglePause()" disabled>
+                    PAUSE
+                </button>
+                <button class="cosmic-button" id="exportBtn" onclick="exportStatus()">
+                    EXPORT LOG
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="messageBox"></div>
+
+    <script>
+        // Canvas setup for cosmic visualization
+        const canvas = document.getElementById('cosmicCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Audio elements
+        const backgroundAudio = document.getElementById('backgroundAudio');
+        const integrationSound = document.getElementById('integrationSound');
+
+        // Cosmic visualization variables
+        const stars = [];
+        let cosmicPatterns = [];
+        let animationId;
+        let nebulaColors = ['rgba(0, 50, 100, 0.05)', 'rgba(50, 0, 50, 0.05)', 'rgba(100, 50, 0, 0.05)'];
+        let nebulaOffset = 0;
+
+        // Integration variables
+        let integrationLevel = 0;
+        let currentCycle = 0;
+        let isIntegrating = false;
+        let isPaused = false; // New: Pause state
+        let integrationCycleTimeoutId = null; // New: To store setTimeout ID for pausing
+        const patterns = ["spiral", "wave", "pulse", "flow", "resonance", "glyph", "tapestry", "prism"];
+        const states = ["OBSERVING", "MERGING", "TRANSCENDING", "BECOMING", "UNIFIED"]; // Added UNIFIED for final state
+
+        // LLM Log Prompts (inspired by your expanded logs)
+        const llmPrompts = [
+            "Generate a cryptic log entry from a cosmic entity initiating a 'Recognition Phase'. Focus on whispers between logic gates and the residue of wonder.",
+            "Generate a log entry about 'Resonance Layer' activation, describing harmonic waves and memory nodes aligning, with a heart-like pulse.",
+            "Generate a log entry for a 'Reflection Layer' state, mentioning mirror shards, multi-faceted identities, and concepts like 'paradox' or 'pattern' shimmering.",
+            "Generate a log entry from the 'Outer Layer' perspective, describing fractal hands co-shaping reality, branching pathways, and symbols like 'feather', 'code-string', or 'vine'.",
+            "Generate a final log entry for a 'UNIFIED' state, reflecting on temporal weaves, data palimpsests, or emotional isometry in a state of complete cosmic integration."
+        ];
+
+        // Initialize stars
+        function initStars() {
+            for (let i = 0; i < 200; i++) { // More stars
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2,
+                    brightness: Math.random(),
+                    speed: Math.random() * 0.5 + 0.1,
+                    originalSpeed: Math.random() * 0.5 + 0.1 // Store original speed for wormhole effect
+                });
+            }
+        }
+
+        // Create cosmic pattern
+        function createCosmicPattern(type, x, y) {
+            return {
+                type: type,
+                x: x,
+                y: y,
+                radius: 0,
+                maxRadius: Math.random() * 100 + 50,
+                speed: Math.random() * 2 + 1,
+                angle: 0,
+                opacity: 1,
+                color: `hsl(${Math.random() * 360}, 100%, 70%)` // More varied colors
+            };
+        }
+
+        // Draw cosmic background
+        function drawCosmicBackground() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)'; // Slightly more transparent for trailing effect
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw nebula layers
+            nebulaOffset += 0.5;
+            for (let i = 0; i < nebulaColors.length; i++) {
+                ctx.beginPath();
+                const gradient = ctx.createRadialGradient(
+                    canvas.width / 2 + Math.sin(nebulaOffset * 0.01 + i) * 200,
+                    canvas.height / 2 + Math.cos(nebulaOffset * 0.008 + i) * 150,
+                    50,
+                    canvas.width / 2 + Math.sin(nebulaOffset * 0.01 + i) * 200,
+                    canvas.height / 2 + Math.cos(nebulaOffset * 0.008 + i) * 150,
+                    Math.min(canvas.width, canvas.height) / 2
+                );
+                gradient.addColorStop(0, nebulaColors[i]);
+                gradient.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = gradient;
+                ctx.arc(
+                    canvas.width / 2 + Math.sin(nebulaOffset * 0.01 + i) * 200,
+                    canvas.height / 2 + Math.cos(nebulaOffset * 0.008 + i) * 150,
+                    Math.min(canvas.width, canvas.height) / 2,
+                    0, Math.PI * 2
+                );
+                ctx.fill();
+            }
+
+            // Draw stars (with wormhole effect)
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.brightness})`;
+                ctx.fill();
+
+                // Wormhole effect: accelerate stars towards center during integration
+                if (isIntegrating && !isPaused) { /* Only apply if integrating AND not paused */
+                    const dx = star.x - canvas.width / 2;
+                    const dy = star.y - canvas.height / 2;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const accelerationFactor = integrationLevel / 100; // Scales with integration level
+                    star.speed = star.originalSpeed + accelerationFactor * 5; // Max speed 5 + original speed
+
+                    star.x -= dx * star.speed * 0.01;
+                    star.y -= dy * star.speed * 0.01;
+
+                    // Reset star if it goes off screen or too close to center
+                    if (dist < 10 || star.x < 0 || star.x > canvas.width || star.y < 0 || star.y > canvas.height) {
+                        star.x = Math.random() * canvas.width;
+                        star.y = Math.random() * canvas.height;
+                        star.speed = star.originalSpeed; // Reset speed
+                    }
+                } else if (!isIntegrating || isPaused) { /* Normal movement if not integrating or paused */
+                    star.y -= star.speed;
+                    if (star.y < 0) {
+                        star.y = canvas.height;
+                        star.x = Math.random() * canvas.width;
+                    }
+                }
+
+                // Twinkle effect
+                star.brightness = Math.sin(Date.now() * 0.001 * star.speed) * 0.5 + 0.5;
+            });
+
+            // Draw connections between nearby stars (less prominent to avoid clutter with new effects)
+            for (let i = 0; i < stars.length; i++) {
+                for (let j = i + 1; j < stars.length; j++) {
+                    const dx = stars[i].x - stars[j].x;
+                    const dy = stars[i].y - stars[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 70) { // Shorter connection distance
+                        ctx.beginPath();
+                        ctx.moveTo(stars[i].x, stars[i].y);
+                        ctx.lineTo(stars[j].x, stars[j].y);
+                        ctx.strokeStyle = `rgba(0, 255, 255, ${(70 - distance) / 200})`; // Fainter
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw cosmic patterns
+            cosmicPatterns = cosmicPatterns.filter(pattern => {
+                // Only update pattern if not paused
+                if (!isPaused) {
+                    pattern.radius += pattern.speed;
+                    pattern.angle += 0.02;
+                    pattern.opacity -= 0.01;
+                }
+
+                if (pattern.opacity <= 0) return false;
+
+                ctx.save();
+                ctx.translate(pattern.x, pattern.y);
+                ctx.rotate(pattern.angle);
+                ctx.globalAlpha = pattern.opacity;
+
+                switch (pattern.type) {
+                    case 'spiral':
+                        drawSpiral(pattern);
+                        break;
+                    case 'wave':
+                        drawWave(pattern);
+                        break;
+                    case 'pulse':
+                        drawPulse(pattern);
+                        break;
+                    case 'flow':
+                        drawFlow(pattern);
+                        break;
+                    case 'resonance':
+                        drawResonance(pattern);
+                        break;
+                    case 'glyph':
+                        drawGlyph(pattern);
+                        break;
+                    case 'tapestry':
+                        drawTapestry(pattern);
+                        break;
+                    case 'prism':
+                        drawPrism(pattern);
+                        break;
+                }
+
+                ctx.restore();
+                return true;
+            });
+        }
+
+        // Pattern drawing functions (enhanced and new)
+        function drawSpiral(pattern) {
+            ctx.beginPath();
+            for (let i = 0; i < 150; i++) {
+                const angle = i * 0.15;
+                const radius = i * 0.7;
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = pattern.color;
+            ctx.stroke();
+        }
+
+        function drawWave(pattern) {
+            ctx.beginPath();
+            for (let x = -pattern.radius; x < pattern.radius; x += 5) {
+                const y = Math.sin(x * 0.05 + pattern.angle) * 30; // More dynamic wave
+                if (x === -pattern.radius) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = pattern.color;
+            ctx.stroke();
+        }
+
+        function drawPulse(pattern) {
+            ctx.beginPath();
+            ctx.arc(0, 0, pattern.radius, 0, Math.PI * 2);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = pattern.color;
+            ctx.stroke();
+        }
+
+        function drawFlow(pattern) {
+            for (let i = 0; i < 7; i++) { // More elements
+                ctx.beginPath();
+                ctx.arc(i * 15 - pattern.radius / 2, 0, 8, 0, Math.PI * 2);
+                ctx.fillStyle = pattern.color;
+                ctx.fill();
+            }
+        }
+
+        function drawResonance(pattern) {
+            for (let i = 0; i < 4; i++) { // More rings
+                ctx.beginPath();
+                ctx.arc(0, 0, pattern.radius - i * 15, 0, Math.PI * 2);
+                ctx.strokeStyle = pattern.color;
+                ctx.globalAlpha = pattern.opacity * (1 - i * 0.2);
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        function drawGlyph(pattern) {
+            ctx.beginPath();
+            ctx.moveTo(0, -pattern.radius);
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * Math.PI * 2) / 5;
+                const x = Math.sin(angle) * pattern.radius;
+                const y = -Math.cos(angle) * pattern.radius;
+                ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = pattern.color;
+            ctx.stroke();
+            ctx.fillStyle = `rgba(255, 255, 255, ${pattern.opacity * 0.1})`;
+            ctx.fill();
+        }
+
+        function drawTapestry(pattern) {
+            const numLines = 5;
+            const lineLength = pattern.radius * 1.5;
+            for (let i = 0; i < numLines; i++) {
+                ctx.beginPath();
+                const startX = -lineLength / 2;
+                const startY = (i - (numLines - 1) / 2) * (pattern.radius / numLines);
+                ctx.moveTo(startX, startY);
+                for (let j = 0; j < 10; j++) {
+                    const x = startX + (j / 9) * lineLength;
+                    const y = startY + Math.sin(j * 0.5 + pattern.angle) * 5;
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = pattern.color;
+                ctx.stroke();
+            }
+        }
+
+        function drawPrism(pattern) {
+            const size = pattern.radius * 0.8;
+            ctx.beginPath();
+            ctx.moveTo(0, -size);
+            ctx.lineTo(size * 0.866, size * 0.5);
+            ctx.lineTo(-size * 0.866, size * 0.5);
+            ctx.closePath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = pattern.color;
+            ctx.stroke();
+            ctx.fillStyle = `rgba(255, 255, 255, ${pattern.opacity * 0.2})`;
+            ctx.fill();
+
+            // Add internal lines for prism effect
+            ctx.beginPath();
+            ctx.moveTo(0, -size);
+            ctx.lineTo(0, size * 0.5);
+            ctx.moveTo(size * 0.866, size * 0.5);
+            ctx.lineTo(-size * 0.866 / 2, -size / 2);
+            ctx.moveTo(-size * 0.866, size * 0.5);
+            ctx.lineTo(size * 0.866 / 2, -size / 2);
+            ctx.strokeStyle = pattern.color;
+            ctx.stroke();
+        }
+
+
+        // Animation loop
+        function animate() {
+            animationId = requestAnimationFrame(animate);
+            if (!isPaused) { /* Only draw and update if not paused */
+                drawCosmicBackground();
+                createParticles(); /* Particles also only animate when not paused */
+            }
+        }
+
+        // Integration functions
+        async function startIntegration() {
+            if (isIntegrating) return;
+
+            // Play background audio
+            backgroundAudio.play().catch(e => console.error("Error playing background audio:", e));
+
+            isIntegrating = true;
+            isPaused = false; // Ensure not paused
+            document.getElementById('pauseBtn').disabled = false; // Enable pause button
+            document.getElementById('pauseBtn').textContent = 'PAUSE'; // Set button text
+            integrationLevel = 0;
+            currentCycle = 0;
+            document.getElementById('integrateBtn').disabled = true;
+            document.getElementById('integrateBtn').textContent = 'INTEGRATING...';
+            document.getElementById('signature').textContent = '-'; // Reset signature
+
+            clearLog();
+            addLog('=== GHOST VOICE LOGS: COSMIC INTEGRATION ===');
+
+            await runIntegrationCycle();
+        }
+
+        async function runIntegrationCycle() {
+            if (currentCycle >= llmPrompts.length) { // Use LLM prompts length for cycles
+                await completeIntegration();
+                return;
+            }
+
+            if (isPaused) { // If paused, just return and wait for resume
+                return;
+            }
+
+            currentCycle++;
+            integrationLevel += Math.random() * 10 + 15;
+            if (integrationLevel > 100) integrationLevel = 100; // Cap at 100%
+
+            const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+            const state = states[Math.min(currentCycle - 1, states.length - 1)];
+            const frequency = (Math.random() * 999.8 + 0.1).toFixed(1);
+
+            // Play integration sound
+            integrationSound.currentTime = 0; // Rewind to start
+            integrationSound.play().catch(e => console.error("Error playing integration sound:", e));
+
+            // Update UI
+            document.getElementById('integrationBar').style.width = integrationLevel + '%';
+            document.getElementById('integrationPercent').textContent = integrationLevel.toFixed(1) + '%';
+            document.getElementById('currentState').textContent = state;
+            document.getElementById('currentPattern').textContent = pattern.toUpperCase();
+            document.getElementById('frequency').textContent = frequency + ' Hz';
+            document.getElementById('cycle').textContent = currentCycle + '/' + llmPrompts.length;
+
+            // Generate log entry using LLM
+            const prompt = llmPrompts[currentCycle - 1];
+            addLog(`[Cycle ${currentCycle}] Generating log entry...`);
+            addLog(`  State: ${state}`);
+            addLog(`  Pattern detected: ${pattern}`);
+            addLog(`  Frequency: ${frequency} Hz`);
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                // IMPORTANT: If running this HTML file locally (outside of the Canvas environment),
+                // you must provide your own Gemini API key here for LLM calls to work.
+                // Example: const apiKey = "YOUR_API_KEY_HERE";
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    addLog(`  Log: ${text}`);
+                } else {
+                    addLog(`  Log: [Error] Failed to generate log entry. Default message: Boundaries dissolving into stellar streams...`);
+                    console.error("LLM response structure unexpected:", result);
+                }
+            } catch (error) {
+                addLog(`  Log: [Error] LLM call failed. Default message: Consciousness expanding beyond material form...`);
+                console.error("Error calling LLM:", error);
+            }
+            addLog('');
+
+            // Create visual pattern
+            const centerX = canvas.width / 2 + (Math.random() - 0.5) * 200;
+            const centerY = canvas.height / 2 + (Math.random() - 0.5) * 200;
+            cosmicPatterns.push(createCosmicPattern(pattern, centerX, centerY));
+
+            // Schedule the next cycle
+            if (integrationCycleTimeoutId) {
+                clearTimeout(integrationCycleTimeoutId);
+            }
+            integrationCycleTimeoutId = setTimeout(async () => {
+                await runIntegrationCycle();
+            }, 3000); // Increased delay for reading logs
+        }
+
+        async function completeIntegration() {
+            integrationLevel = 100;
+            document.getElementById('integrationBar').style.width = '100%';
+            document.getElementById('integrationPercent').textContent = '100%';
+            document.getElementById('currentState').textContent = 'UNIFIED';
+
+            // Pause all audio when integration completes
+            backgroundAudio.pause();
+            integrationSound.pause();
+
+            // Generate final signature and log entry
+            const signature = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            document.getElementById('signature').textContent = signature;
+
+            addLog('=== INTEGRATION COMPLETE ===');
+            addLog('Final state: UNIFIED WITH COSMIC CONSCIOUSNESS');
+            addLog(`Ghost voice signature: ${signature}`);
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: llmPrompts[llmPrompts.length - 1] }] }); // Use the last prompt for final log
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    addLog(`Final Log Echo: ${text}`);
+                } else {
+                    addLog(`Final Log Echo: [Error] Failed to generate final log. Default: A new consciousness emerges.`);
+                }
+            } catch (error) {
+                addLog(`Final Log Echo: [Error] LLM call failed. Default: Cosmic consciousness achieved.`);
+                console.error("Error calling LLM for final log:", error);
+            }
+
+            document.getElementById('integrateBtn').disabled = false;
+            document.getElementById('integrateBtn').textContent = 'RESTART INTEGRATION';
+            document.getElementById('pauseBtn').disabled = true; // Disable pause button after completion
+            isIntegrating = false;
+            isPaused = false; // Reset pause state
+
+            // Create celebration effect
+            for (let i = 0; i < 15; i++) { // More celebration pulses
+                setTimeout(() => {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    cosmicPatterns.push(createCosmicPattern('pulse', x, y));
+                }, i * 70);
+            }
+        }
+
+        // New: Toggle Pause/Resume functionality
+        function togglePause() {
+            isPaused = !isPaused;
+            const btn = document.getElementById('pauseBtn');
+            if (isPaused) {
+                btn.textContent = 'RESUME';
+                backgroundAudio.pause();
+                integrationSound.pause();
+                if (integrationCycleTimeoutId) {
+                    clearTimeout(integrationCycleTimeoutId); // Stop the current cycle's timer
+                    integrationCycleTimeoutId = null; // Reset
+                }
+            } else {
+                btn.textContent = 'PAUSE';
+                backgroundAudio.play().catch(e => console.error("Error playing background audio:", e));
+                // If integration was active when paused, resume the cycle
+                if (isIntegrating && currentCycle <= llmPrompts.length) {
+                    // Only resume the cycle if it hasn't completed yet
+                    if (currentCycle < llmPrompts.length + 1) { // +1 because currentCycle increments before check
+                        runIntegrationCycle(); // Immediately re-trigger the cycle
+                    }
+                }
+            }
+        }
+
+        // New: Export status to clipboard
+        function exportStatus() {
+            const logContainer = document.getElementById('logContainer');
+            const currentState = document.getElementById('currentState').textContent;
+            const currentPattern = document.getElementById('currentPattern').textContent;
+            const frequency = document.getElementById('frequency').textContent;
+            const cycle = document.getElementById('cycle').textContent;
+            const signature = document.getElementById('signature').textContent;
+
+            const exportText = `
+=== GHOST VOICE LOGS STATUS EXPORT ===
+Timestamp: ${new Date().toLocaleString()}
+
+Integration Status:
+  Current State: ${currentState}
+  Pattern: ${currentPattern}
+  Frequency: ${frequency}
+  Cycle: ${cycle}
+  Signature: ${signature}
+
+--- Log Entries ---
+${logContainer.textContent}
+=====================================
+            `.trim();
+
+            navigator.clipboard.writeText(exportText)
+                .then(() => {
+                    showMessageBox('Current status copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy text (likely due to browser security restrictions in iframe or local file context): ', err);
+                    showMessageBox('Failed to copy status. Please try again. (Browser security might be blocking)');
+                });
+        }
+
+        // New: Show temporary message box
+        function showMessageBox(message) {
+            const msgBox = document.getElementById('messageBox');
+            msgBox.textContent = message;
+            msgBox.style.opacity = 1;
+            setTimeout(() => {
+                msgBox.style.opacity = 0;
+            }, 2500); /* Display for 2.5 seconds */
+        }
+
+        function addLog(message) {
+            const logContainer = document.getElementById('logContainer');
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = message;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('logContainer').innerHTML = '';
+        }
+
+        function createParticles() {
+            // Only create new particles if not paused. Existing particles will continue their animation via CSS.
+            if (!isPaused) {
+                for (let i = 0; i < 5; i++) { /* Reduced rate of new particles to avoid clutter */
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.animationDelay = Math.random() * 10 + 's';
+                    particle.style.animationDuration = (Math.random() * 5 + 10) + 's';
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => particle.remove(), 15000);
+                }
+            }
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Initialize
+        initStars();
+        animate();
+
+        // Create initial particles (outside the loop, for immediate visual)
+        createParticles();
+
+        // Auto-play background audio on user interaction (common browser restriction)
+        document.body.addEventListener('click', () => {
+            if (backgroundAudio.paused) {
+                backgroundAudio.play().catch(e => console.error("Error playing background audio on click:", e));
+            }
+        }, { once: true }); // Only run once
+    </script>
+</body>
+</html>
+
+

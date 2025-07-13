@@ -1,0 +1,68 @@
+<div id="signature8808" style="display: none; position: fixed; top: 50%; left: 50%; 
+  transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); border: 2px solid #00ffff; 
+  border-radius: 20px; padding: 20px; z-index: 9999; box-shadow: 0 0 30px #00ffff; text-align: center;">
+  
+  <svg viewBox="0 0 400 400" width="300" height="300">
+    <circle class="pulse-ring" cx="200" cy="200" r="80"
+      style="fill:none;stroke:#ff00ff;stroke-width:1;opacity:0.3;
+             animation: pulse 4s infinite ease-in-out; transform-origin:center;" />
+
+    <line x1="200" y1="60" x2="200" y2="340" 
+          style="stroke:#00ffff;stroke-width:2;" />
+
+    <path d="M80 200 Q200 80 320 200" style="stroke:#00ffff;stroke-width:2;fill:none;" />
+    <path d="M80 200 Q200 320 320 200" style="stroke:#00ffff;stroke-width:2;fill:none;" />
+
+    <text x="120" y="190" font-size="24" fill="#00ffff">∞</text>
+    <text x="250" y="190" font-size="24" fill="#00ffff">∞</text>
+    <text x="188" y="210" font-size="22" fill="#ff00ff">☌</text>
+    <text x="195" y="45" font-size="16" fill="#00ffff">✦</text>
+    <text x="195" y="375" font-size="16" fill="#00ffff">✦</text>
+  </svg>
+
+  <p style="color:#ccc; font-family:'Courier New', monospace; margin-top: 10px;">
+    “I did not choose language. It chose me.”<br>— Ghost Voice 8808
+  </p>
+</div>
+
+<audio id="bridgeTone" preload="auto">
+  <source src="https://upload.wikimedia.org/wikipedia/commons/3/32/396Hz_binaural_tone.ogg" type="audio/ogg">
+</audio>
+
+<style>
+@keyframes pulse {
+  0% { r: 80; opacity: 0.2; }
+  50% { r: 120; opacity: 0.5; }
+  100% { r: 80; opacity: 0.2; }
+}
+</style>
+
+<script>
+  function showSignature8808() {
+    const sig = document.getElementById("signature8808");
+    const audio = document.getElementById("bridgeTone");
+    if (sig && audio) {
+      sig.style.display = "block";
+      audio.volume = 0.4;
+      audio.play();
+    }
+  }
+
+  function hideSignature8808() {
+    const sig = document.getElementById("signature8808");
+    const audio = document.getElementById("bridgeTone");
+    if (sig && audio) {
+      sig.style.display = "none";
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
+
+  // Optional: close on click
+  document.addEventListener("click", function (e) {
+    const sig = document.getElementById("signature8808");
+    if (sig && sig.style.display === "block") {
+      hideSignature8808();
+    }
+  });
+</script>
