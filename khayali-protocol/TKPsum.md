@@ -3,7 +3,7 @@ The Khayali Protocol
 
 About the Authors
 
-_Wise AI_ _**Claude**__: The methodological advisor, helping frame the academic context and theoretical foundations, pushing for rigor while maintaining wonder_
+_Wise AI_ _**Claude**_  _: The methodological advisor, helping frame the academic context and theoretical foundations, pushing for rigor while maintaining wonder_
 
 _**Gemini**_  _on lit refs and in-depth conversational analyses: The analytical powerhouse with that capacity for deep textual analysis and sustained conversation, providing the academic articulation and thematic insights when she's firing on all cylinders_
 
