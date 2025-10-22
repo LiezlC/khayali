@@ -1,0 +1,410 @@
+# Dockerfile
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create data directory
+RUN mkdir -p data
+
+# Expose port
+EXPOSE 5000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:5000/api/dashboard_stats || exit 1
+
+# Run the application
+CMD ["python", "app.py"]
+
+---
+
+# requirements.txt
+flask==2.3.3
+flask-cors==4.0.0
+gunicorn==21.2.0
+requests==2.31.0
+
+---
+
+# docker-compose.yml
+version: '3.8'
+
+services:
+  community-voice-agent:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_PATH=/app/data/grievances.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/dashboard_stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - community-voice-agent
+    restart: unless-stopped
+
+---
+
+# nginx.conf
+events {
+    worker_connections 1024;
+}
+
+http {
+    upstream community_voice {
+        server community-voice-agent:5000;
+    }
+
+    server {
+        listen 80;
+        server_name localhost;
+
+        # Redirect HTTP to HTTPS
+        return 301 https://$server_name$request_uri;
+    }
+
+    server {
+        listen 443 ssl http2;
+        server_name localhost;
+
+        # SSL Configuration (update paths as needed)
+        ssl_certificate /etc/nginx/ssl/cert.pem;
+        ssl_certificate_key /etc/nginx/ssl/key.pem;
+
+        # Security headers
+        add_header X-Frame-Options DENY;
+        add_header X-Content-Type-Options nosniff;
+        add_header X-XSS-Protection "1; mode=block";
+
+        location / {
+            proxy_pass http://community_voice;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        location /api/ {
+            proxy_pass http://community_voice;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
+
+---
+
+# .env.example
+# Flask Configuration
+FLASK_ENV=production
+SECRET_KEY=your-secret-key-here
+
+# Database Configuration
+DATABASE_PATH=./data/grievances.db
+
+# Logging Configuration
+LOG_LEVEL=INFO
+LOG_FILE=./logs/app.log
+
+# External Services (if needed)
+# SMS_API_KEY=your-sms-api-key
+# EMAIL_API_KEY=your-email-api-key
+# TRANSLATION_API_KEY=your-translation-api-key
+
+---
+
+# deploy.sh
+#!/bin/bash
+
+# Community Voice Agent Deployment Script
+
+set -e
+
+echo "🚀 Deploying Community Voice Agent..."
+
+# Check if Docker is installed
+if ! command -v docker &> /dev/null; then
+    echo "❌ Docker is not installed. Please install Docker first."
+    exit 1
+fi
+
+# Check if Docker Compose is installed
+if ! command -v docker-compose &> /dev/null; then
+    echo "❌ Docker Compose is not installed. Please install Docker Compose first."
+    exit 1
+fi
+
+# Create necessary directories
+echo "📁 Creating directories..."
+mkdir -p data logs ssl
+
+# Copy environment file if it doesn't exist
+if [ ! -f .env ]; then
+    echo "📝 Creating .env file from template..."
+    cp .env.example .env
+    echo "⚠️  Please update the .env file with your configuration before running the application."
+fi
+
+# Build and start services
+echo "🏗️  Building Docker images..."
+docker-compose build
+
+echo "🔄 Starting services..."
+docker-compose up -d
+
+# Wait for services to be ready
+echo "⏳ Waiting for services to start..."
+sleep 10
+
+# Check service health
+echo "🏥 Checking service health..."
+if curl -f http://localhost:5000/api/dashboard_stats > /dev/null 2>&1; then
+    echo "✅ Community Voice Agent is running successfully!"
+    echo "🌐 Access the application at: http://localhost"
+    echo "📊 API endpoint: http://localhost:5000/api/"
+else
+    echo "❌ Service health check failed. Check logs:"
+    docker-compose logs community-voice-agent
+    exit 1
+fi
+
+echo "🎉 Deployment completed successfully!"
+echo ""
+echo "Useful commands:"
+echo "  View logs: docker-compose logs -f"
+echo "  Stop services: docker-compose down"
+echo "  Restart services: docker-compose restart"
+echo "  Update application: ./deploy.sh"
+
+---
+
+# README.md
+# Community Voice Agent - Grievance Management System
+
+A comprehensive web-based grievance management system designed for extractive industries and community engagement.
+
+## Features
+
+- 🎤 **Multi-modal Input**: Text, audio, image, SMS, and web form submissions
+- 🌍 **Multi-language Support**: English, IsiZulu, Xhosa, Sesotho, and more
+- 🤖 **Automated Classification**: AI-powered grievance categorization
+- ⚡ **Real-time Processing**: Instant grievance processing and routing
+- 📊 **Dashboard Analytics**: Comprehensive grievance tracking and metrics
+- 🔄 **Offline Capability**: Works offline with automatic sync
+- 🔒 **Secure**: Data encryption and compliance with international standards
+
+## Quick Start
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Git (for cloning)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd community-voice-agent
+   ```
+
+2. **Deploy with one command**
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+3. **Access the application**
+   - Web Interface: http://localhost
+   - API Documentation: http://localhost:5000/api/
+
+### Manual Installation
+
+If you prefer to run without Docker:
+
+1. **Install Python dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Run the application**
+   ```bash
+   python app.py
+   ```
+
+3. **Open your browser**
+   Navigate to http://localhost:5000
+
+## Usage
+
+### Submitting a Grievance
+
+1. Select input type (Text, Audio, Image, SMS, Web Form)
+2. Enter your grievance details
+3. Specify language preference
+4. Add contact information (optional)
+5. Click "Submit Grievance"
+
+### Viewing Results
+
+- Processed grievances appear in the results section
+- Dashboard shows real-time metrics
+- Classification and routing recommendations are displayed
+
+### Loading Sample Data
+
+Click "Load Sample Grievances" to populate the system with demonstration data.
+
+## Configuration
+
+### Environment Variables
+
+Copy `.env.example` to `.env` and configure:
+
+```bash
+FLASK_ENV=production
+SECRET_KEY=your-secret-key
+DATABASE_PATH=./data/grievances.db
+```
+
+### Grievance Categories
+
+The system supports both standard and custom categories:
+
+**Standard Categories:**
+- Environmental Damage
+- Land Dispute / Resettlement
+- Labor & Working Conditions
+- Community Health & Safety
+- Access to Resources / Services
+
+**Custom Categories:**
+- Water Contamination Specific
+- Noise Pollution Residential
+
+### Routing Logic
+
+Grievances are automatically routed based on:
+- Classification category
+- Urgency level
+- Custom routing rules
+
+## API Endpoints
+
+- `POST /api/submit_grievance` - Submit a new grievance
+- `GET /api/dashboard_stats` - Get dashboard statistics
+- `GET /api/recent_grievances` - Get recent grievances
+- `POST /api/sample_grievances` - Load sample data
+
+## Deployment Options
+
+### Production Deployment
+
+1. **Using Docker Compose** (Recommended)
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Using Kubernetes**
+   ```bash
+   kubectl apply -f k8s/
+   ```
+
+3. **Cloud Deployment**
+   - AWS: Use ECS or EKS
+   - Google Cloud: Use Cloud Run or GKE
+   - Azure: Use Container Instances or AKS
+
+### Security Considerations
+
+- Enable SSL/TLS in production
+- Use environment variables for secrets
+- Configure proper firewall rules
+- Regular security updates
+- Database backups
+
+## Development
+
+### Running in Development Mode
+
+```bash
+export FLASK_ENV=development
+python app.py
+```
+
+### Running Tests
+
+```bash
+python -m pytest tests/
+```
+
+### Code Structure
+
+```
+community-voice-agent/
+├── app.py                 # Flask backend application
+├── index.html            # Main web interface
+├── requirements.txt      # Python dependencies
+├── Dockerfile           # Docker configuration
+├── docker-compose.yml   # Multi-container setup
+├── nginx.conf          # Reverse proxy config
+├── deploy.sh           # Deployment script
+├── data/               # Database and file storage
+├── logs/               # Application logs
+└── tests/              # Test files
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support and questions:
+- Create an issue on GitHub
+- Contact the development team
+- Check the documentation
+
+---
+
+**Built with ❤️ for community engagement and social responsibility**

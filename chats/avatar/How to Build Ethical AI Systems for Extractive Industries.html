@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Build Ethical AI Systems for Extractive Industries</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1f6 100%);
+        }
+        .slide {
+            width: 1280px;
+            min-height: 3000px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #003049 0%, #005f73 100%);
+            color: white;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .nav-item {
+            background-color: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .nav-item:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        .section {
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(0,48,73,0.1);
+        }
+        .section-title {
+            color: #003049;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-icon {
+            color: #0a9396;
+            margin-right: 1rem;
+            font-size: 2.5rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .card-title {
+            color: #005f73;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .card-icon {
+            color: #0a9396;
+            margin-right: 0.75rem;
+        }
+        .highlight {
+            color: #0a9396;
+            font-weight: 600;
+        }
+        .key-point {
+            background-color: rgba(10,147,150,0.1);
+            border-left: 4px solid #0a9396;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .footer {
+            background-color: #003049;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .quote {
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #005f73;
+            margin: 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid #0a9396;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl font-bold text-center">How to Build Ethical AI Systems for Extractive Industries</h1>
+                <p class="text-xl text-center mt-2 text-blue-100">Expert Implementation Guide</p>
+                
+                <nav class="nav-menu">
+                    <div class="nav-item">Introduction</div>
+                    <div class="nav-item">Efficiency Benefits</div>
+                    <div class="nav-item">Accountability Gap</div>
+                    <div class="nav-item">Transparency Paradox</div>
+                    <div class="nav-item">Human-Centered Design</div>
+                    <div class="nav-item">Implementation Challenges</div>
+                    <div class="nav-item">Community Engagement</div>
+                    <div class="nav-item">Post-Deployment Ethics</div>
+                    <div class="nav-item">Key Principles</div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-6">
+            <!-- Introduction Section -->
+            <section class="section" id="introduction">
+                <h2 class="section-title">
+                    <i class="fas fa-balance-scale section-icon"></i>
+                    The Dual Nature of AI in Extractive Industries
+                </h2>
+                
+                <div class="card">
+                    <div class="grid-2">
+                        <div>
+                            <h3 class="card-title">
+                                <i class="fas fa-rocket card-icon"></i>
+                                The Promise
+                            </h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>AI promises <span class="highlight">efficiency and safety improvements</span> worth trillions</li>
+                                <li>Optimizes resource extraction and operational processes</li>
+                                <li>Enhances predictive maintenance and risk assessment</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="card-title">
+                                <i class="fas fa-exclamation-triangle card-icon"></i>
+                                The Challenge
+                            </h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Critical decisions about <span class="highlight">community relocation</span> made by algorithms</li>
+                                <li>Mathematical authority lacking transparency</li>
+                                <li>Risk of burying accountability in complexity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <p class="text-lg">Core Challenge: Ensuring AI systems <span class="highlight">enhance human judgment</span> rather than replace it with unexplainable decisions</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Efficiency Benefits Section -->
+            <section class="section" id="efficiency">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line section-icon"></i>
+                    The Efficiency Seduction
+                </h2>
+                
+                <div class="card">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-money-bill-wave text-4xl text-blue-700 mr-4"></i>
+                        <div>
+                            <h3 class="text-3xl font-bold text-blue-700">$760 Million</h3>
+                            <p class="text-gray-600">Invested by mining companies in AI in 2021</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="card-title mt-6">
+                        <i class="fas fa-cogs card-icon"></i>
+                        Machine Learning Applications
+                    </h3>
+                    <div class="grid-3 mt-3">
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <i class="fas fa-mountain text-3xl text-blue-600 mb-2"></i>
+                            <p class="font-semibold">Geological Surveys</p>
+                        </div>
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <i class="fas fa-gem text-3xl text-blue-600 mb-2"></i>
+                            <p class="font-semibold">Deposit Identification</p>
+                        </div>
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <i class="fas fa-truck text-3xl text-blue-600 mb-2"></i>
+                            <p class="font-semibold">Autonomous Hauling</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="card-title mt-6">
+                        <i class="fas fa-trophy card-icon"></i>
+                        Success Stories
+                    </h3>
+                    <div class="grid-3 mt-3">
+                        <div class="card">
+                            <h4 class="font-bold text-blue-700">BHP</h4>
+                            <p>Saved <span class="highlight">billions</span> in water and energy at Escondida</p>
+                        </div>
+                        <div class="card">
+                            <h4 class="font-bold text-blue-700">Rio Tinto</h4>
+                            <p>Operates <span class="highlight">200</span> driverless trains and automated trucks</p>
+                        </div>
+                        <div class="card">
+                            <h4 class="font-bold text-blue-700">Fortescue</h4>
+                            <p><span class="highlight">$2.8B</span> investment in electric autonomous vehicles</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Accountability Gap Section -->
+            <section class="section" id="accountability">
+                <h2 class="section-title">
+                    <i class="fas fa-question-circle section-icon"></i>
+                    The Accountability Gap
+                </h2>
+                
+                <div class="card">
+                    <div class="bg-red-50 p-4 rounded-lg mb-4">
+                        <h3 class="text-2xl font-bold text-red-700 flex items-center">
+                            <i class="fas fa-exclamation-circle mr-3"></i>
+                            Who bears responsibility for AI decisions?
+                        </h3>
+                    </div>
+                    
+                    <div class="grid-2 mt-4">
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-route card-icon"></i>
+                                Sacred Sites & Bias
+                            </h3>
+                            <p>Algorithms route trucks around <span class="highlight">sacred sites</span> or perpetuate <span class="highlight">historical biases</span> without clear accountability</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-bar card-icon"></i>
+                                Masked Concerns
+                            </h3>
+                            <p>Efficiency metrics mask crucial concerns about <span class="highlight">responsibility</span> and <span class="highlight">transparency</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <p class="text-lg">Critical decisions about <span class="highlight">displacement</span> and <span class="highlight">environmental impact</span> require explainable systems</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transparency Paradox Section -->
+            <section class="section" id="transparency">
+                <h2 class="section-title">
+                    <i class="fas fa-search-dollar section-icon"></i>
+                    The Transparency Paradox
+                </h2>
+                
+                <div class="card">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-coins text-4xl text-blue-700 mr-4"></i>
+                        <div>
+                            <h3 class="text-3xl font-bold text-blue-700">$2.63 Trillion</h3>
+                            <p class="text-gray-600">EITI's experience tracking revenues across 54 countries</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2 mb-6">
+                        <div class="card bg-green-50">
+                            <h3 class="card-title text-green-700">
+                                <i class="fas fa-search card-icon text-green-700"></i>
+                                AI as Detective
+                            </h3>
+                            <p>Uncovers patterns humans miss, detects fraud, identifies reporting discrepancies</p>
+                        </div>
+                        
+                        <div class="card bg-red-50">
+                            <h3 class="card-title text-red-700">
+                                <i class="fas fa-user-secret card-icon text-red-700"></i>
+                                AI as Disguise
+                            </h3>
+                            <p>Creates opacity in decision-making, buries accountability in complexity</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="card-title">
+                        <i class="fas fa-globe-americas card-icon"></i>
+                        Success Stories
+                    </h3>
+                    <div class="grid-3 mt-3">
+                        <div class="card">
+                            <h4 class="font-bold text-blue-700">Brazil</h4>
+                            <p><span class="highlight">Alice bot</span> screens tender submissions for fraud</p>
+                        </div>
+                        <div class="card">
+                            <h4 class="font-bold text-blue-700">Nigeria</h4>
+                            <p>Flagged <span class="highlight">500+</span> extractive sector concerns</p>
+                        </div>
+                        <div class="card">
+                            <h4 class="font-bold text-blue-700">Ghana</h4>
+                            <p><span class="highlight">Revoked mining licenses</span> after fraud detection</p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <p class="text-lg">AI requires <span class="highlight">transparent data infrastructure</span> to be effective</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Human-Centered Design Section -->
+            <section class="section" id="human-centered">
+                <h2 class="section-title">
+                    <i class="fas fa-users-cog section-icon"></i>
+                    Building Systems That Remember They Serve Humans
+                </h2>
+                
+                <div class="card">
+                    <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+                        <p class="text-xl font-semibold text-yellow-700 flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-3"></i>
+                            Most "human-centered" AI still treats people as optimization variables
+                        </p>
+                    </div>
+                    
+                    <h3 class="card-title">
+                        <i class="fas fa-architecture card-icon"></i>
+                        Three Key Pillars of Human-Centered Systems
+                    </h3>
+                    <div class="grid-3 mt-3">
+                        <div class="card text-center">
+                            <i class="fas fa-clipboard-check text-4xl text-blue-600 mb-3"></i>
+                            <h4 class="font-bold text-blue-700">Impact Assessment</h4>
+                            <p>Evaluate consequences before deployment</p>
+                        </div>
+                        <div class="card text-center">
+                            <i class="fas fa-balance-scale text-4xl text-blue-600 mb-3"></i>
+                            <h4 class="font-bold text-blue-700">Justice</h4>
+                            <p>Fair outcomes for all stakeholders</p>
+                        </div>
+                        <div class="card text-center">
+                            <i class="fas fa-users text-4xl text-blue-600 mb-3"></i>
+                            <h4 class="font-bold text-blue-700">Community Autonomy</h4>
+                            <p>Meaningful control over systems</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2 mt-6">
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-sync-alt card-icon"></i>
+                                Human-Machine Balance
+                            </h3>
+                            <p>Strategic intervention points maintain accountability through <span class="highlight">human ethical judgment</span> and <span class="highlight">AI data processing</span></p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-database card-icon"></i>
+                                Data Quality First
+                            </h3>
+                            <p><span class="highlight">Poor data leads to harmful outcomes</span> regardless of algorithm complexity</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Implementation Challenges Section -->
+            <section class="section" id="challenges">
+                <h2 class="section-title">
+                    <i class="fas fa-tasks section-icon"></i>
+                    The Implementation Reality Check
+                </h2>
+                
+                <div class="card">
+                    <div class="grid-2 mb-6">
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-wifi card-icon"></i>
+                                Limited Infrastructure
+                            </h3>
+                            <p>Remote mining locations lack connectivity and computing resources</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-graduation-cap card-icon"></i>
+                                Skills Democratization
+                            </h3>
+                            <p>Technical expertise concentrated in few hands, limiting oversight</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-history card-icon"></i>
+                                Biased Historical Data
+                            </h3>
+                            <p>Past decisions reflect existing power structures and inequalities</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-gavel card-icon"></i>
+                                Regulatory Fragmentation
+                            </h3>
+                            <p>Inconsistent standards across jurisdictions create compliance challenges</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                        <h3 class="text-xl font-bold text-blue-700 flex items-center">
+                            <i class="fas fa-lightbulb mr-3"></i>
+                            Technology Selection
+                        </h3>
+                        <p class="mt-2">Complex AI isn't always optimal — <span class="highlight">simpler systems</span> that can explain decisions to communities often work better</p>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-balance-scale-right card-icon"></i>
+                                Strategic Intervention Points
+                            </h3>
+                            <p>Maintain accountability through human ethical judgment and AI data processing</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-eye card-icon"></i>
+                                Transparency Scales with Impact
+                            </h3>
+                            <p><span class="highlight">High-stakes decisions</span> require more oversight and explainability</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Engagement Section -->
+            <section class="section" id="engagement">
+                <h2 class="section-title">
+                    <i class="fas fa-comments section-icon"></i>
+                    Beyond Consultation Theater
+                </h2>
+                
+                <div class="card">
+                    <div class="bg-green-50 p-4 rounded-lg mb-6">
+                        <p class="text-xl font-semibold text-green-700 flex items-center">
+                            <i class="fas fa-users mr-3"></i>
+                            Community engagement must be <span class="highlight">foundational</span>, not superficial
+                        </p>
+                    </div>
+                    
+                    <div class="grid-2 mb-6">
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-microphone card-icon"></i>
+                                Decision-Making Power
+                            </h3>
+                            <p>Indigenous voices need <span class="highlight">real authority</span> in AI system design, not just consultation</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-gavel card-icon"></i>
+                                Community Audits
+                            </h3>
+                            <p>Community oversight should have <span class="highlight">authority to stop</span> harmful systems</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-hand-holding-heart card-icon"></i>
+                                Resource Investment
+                            </h3>
+                            <p>Meaningful engagement is resource-intensive but creates systems <span class="highlight">serving communities</span></p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-diversity card-icon"></i>
+                                Inclusive Design
+                            </h3>
+                            <p>AI systems must incorporate diverse perspectives from the <span class="highlight">earliest design stages</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-blue-700 flex items-center">
+                            <i class="fas fa-globe-americas mr-3"></i>
+                            Latin America Case
+                        </h3>
+                        <p class="mt-2">Where extractive sectors generate <span class="highlight">4% of GDP</span>, community oversight is crucial for sustainable development</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Post-Deployment Ethics Section -->
+            <section class="section" id="ethics">
+                <h2 class="section-title">
+                    <i class="fas fa-shield-alt section-icon"></i>
+                    When the Watchers Need Watching
+                </h2>
+                
+                <div class="card">
+                    <div class="bg-red-50 p-4 rounded-lg mb-6">
+                        <p class="text-xl font-semibold text-red-700 flex items-center">
+                            <i class="fas fa-chart-line mr-3"></i>
+                            Post-deployment ethics often fade as <span class="highlight">market pressures rise</span>
+                        </p>
+                    </div>
+                    
+                    <div class="grid-2 mb-6">
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-user-times card-icon"></i>
+                                Human-in-the-Loop Illusion
+                            </h3>
+                            <p>Often becomes <span class="highlight">rubber-stamping</span>, with meaningful oversight impossible at scale</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-balance-scale card-icon"></i>
+                                The Regulatory Shuffle
+                            </h3>
+                            <p>AI Act and GDPR aim to build trust, but compliance often becomes a <span class="highlight">superficial exercise</span></p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-clipboard-check card-icon"></i>
+                                Third-Party Audit Barriers
+                            </h3>
+                            <p>Independent audits face obstacles including access restrictions and technical complexity</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-memory card-icon"></i>
+                                Technical Debt
+                            </h3>
+                            <p>Systems become increasingly <span class="highlight">opaque</span> with each modification, making oversight harder</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-blue-700 flex items-center">
+                            <i class="fas fa-users mr-3"></i>
+                            Civil Society: The Last Line of Defense
+                        </h3>
+                        <p class="mt-2">Civil society organizations provide real accountability, yet lack resources to effectively engage in AI policy</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Principles Section -->
+            <section class="section" id="principles">
+                <h2 class="section-title">
+                    <i class="fas fa-compass section-icon"></i>
+                    The Choice Point
+                </h2>
+                
+                <div class="card">
+                    <div class="grid-2 mb-6">
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-code card-icon"></i>
+                                Show Your Work
+                            </h3>
+                            <p>Algorithms affecting communities need <span class="highlight">explainable logic</span>, not vague claims about sophisticated modeling</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-brain card-icon"></i>
+                                Human Judgment in the Loop
+                            </h3>
+                            <p>Decision-makers must remain <span class="highlight">accountable</span>, not just approve AI recommendations</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-vote-yea card-icon"></i>
+                                Community Veto Power
+                            </h3>
+                            <p>Those affected deserve <span class="highlight">participation and control</span> over systems impacting their lives</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-database card-icon"></i>
+                                Data Quality First
+                            </h3>
+                            <p><span class="highlight">Poor data leads to harmful outcomes</span> regardless of algorithm sophistication</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">
+                                <i class="fas fa-eye card-icon"></i>
+                                Transparency Scales with Impact
+                            </h3>
+                            <p><span class="highlight">High-stakes decisions</span> require more oversight and explainability</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-700 to-teal-600 p-6 rounded-lg text-white text-center">
+                        <h3 class="text-2xl font-bold mb-3">The Moral Choice</h3>
+                        <p class="text-xl">Build accountable systems or let responsibility fade behind algorithms.</p>
+                        <p class="text-xl mt-3">Your excavators await. What will you unearth?</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container mx-auto px-6">
+                <p class="text-lg">© 2025 Ethical AI in Extractive Industries Initiative</p>
+                <p class="mt-2 text-blue-200">Building accountable systems for a sustainable future</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
