@@ -38,7 +38,17 @@ Capability also varies inside a single workflow. In a [field experiment with 758
 
 The model is older and the tasks were bounded consulting exercises. The finding that carries forward is that better presentation can accompany worse judgment. A convincing output makes the person who questions it look less capable than the colleagues who accept it, at the moment when the questioner is the one doing the useful work.
 
-Some interruptions have nothing to do with error. The [US Equal Employment Opportunity Commission’s guidance on visual disabilities](https://www.eeoc.gov/laws/guidance/visual-disabilities-workplace-and-americans-disabilities-act) describes how algorithmic assessments can screen out people capable of doing a job, and identifies an alternative testing format as one possible accommodation. Arranging that format interrupts standardization too. A system optimized around one assessment can register the accommodation as inefficiency, when it supplies a more accurate account of the person. Some friction belongs to the obligations an organization operates under, and it will never turn into a productivity gain. A right to interrupt that protects only objections promising to pay for themselves protects too little.
+Some interruptions have nothing to do with error. Some people need one because the standard process mismeasures them. Their claim reaches the organization from a different direction: the workflow’s apparent efficiency depends on a definition of the person that does not fit.
+
+The [US Equal Employment Opportunity Commission’s guidance on visual disabilities](https://www.eeoc.gov/laws/guidance/visual-disabilities-workplace-and-americans-disabilities-act) describes how algorithmic or AI assessments can screen out people capable of doing a job with or without reasonable accommodation. It identifies an alternative testing format as one possible accommodation when a visual disability reduces the accuracy of the assessment, subject to the relevant conditions, including undue hardship.
+
+The alternative format interrupts standardization. Someone has to arrange it and accept results that arrive through another route. A system optimized around one assessment can perceive those steps as inefficiency, while they supply a more accurate account of what the person can do.
+
+Accommodation and safety dissent rest on different legal foundations. They share an organizational requirement: someone must be able to challenge what the default process makes visible. The applicant who needs another format and the employee who asks for another source of evidence both ask the institution to spend attention beyond the standard path.
+
+That attention cannot depend on proof that the exception will improve aggregate output. A person’s claim to fair treatment keeps its force when serving it costs more. Some friction belongs to the obligations an organization operates under, and it will never turn into a productivity gain. A right to interrupt that protects only objections promising to pay for themselves protects too little.
+
+The contest can also run the other way. AI can remove barriers, and a tool may make work possible for someone an older arrangement excluded. The worker who wants that help deserves a hearing alongside the worker whose assessment requires an alternative. Standing means the ability to contest the fit, in whichever direction the contest goes.
 
 An organization needs a way to value a challenge before the consequences supply an answer. Otherwise a productivity improvement can remove the very work required to discover its limits.
 
@@ -90,11 +100,17 @@ California’s recent health-care dispute brings the employment side into focus.
 
 The gap that remains lies between the ability to exercise judgment and the employment consequences of exercising it. A professional duty can require a nurse to notice a problem, while the employer controls the conditions under which noticing becomes discussable. A nurse who pauses to examine a recommendation imposes a visible delay. The value of the pause may lie in information that takes time to uncover. An organization that demands judgment while discouraging the time judgment takes has issued two instructions that cannot both be followed.
 
+The governor’s reported objection centered on medical adjudication, even though the bill disclaimed it. The concern has a fair core. Distinguishing protected judgment from inadequate care requires clinical expertise, and a labor tribunal is an odd place to find it. The dispute is about how to supply that expertise inside an employment remedy, and in the meantime nurses still have to decide what to do when their assessment conflicts with the tool, before the institutional argument is settled.
+
+The episode also shows how easily responsibility lands in the wrong place. A vendor supplies a recommendation. A health-care organization chooses how to integrate it and how many patients each nurse will see. The worker meets the result under the pressure of a live case. Assigning that worker the final check does little to establish whether the tool deserves its place, or whether the staffing makes review possible. The legislature produced different outcomes for related measures, and a claim that California simply abandoned human judgment would flatten the dispute. What remains unresolved is the narrow question that matters most to the person at the bedside: whether exercising the judgment the profession requires can cost them the job.
+
 Robinson’s account adds an earlier condition: time to recognize what deserves a warning. He describes [a succession of operational demands](https://www.youtube.com/watch?v=JIMXEuT_ZAU&t=2539s) that leaves little room to reflect on direction. Leaving makes that reflection possible. An institution loses something when a person must exit to obtain the distance needed to evaluate its work.
 
 His testimony also resists the image of an organization incapable of stopping. In the interview, [he acknowledges that work has been paused](https://www.youtube.com/watch?v=JIMXEuT_ZAU&t=2015s), while questioning the scope and the criteria for resuming. The question concerns the adequacy of the brakes and who decides when to use them. One hurried researcher proves no safety failure by herself; she shows the rhythm against which any challenge must compete.
 
 The [2024 “Right to Warn” letter](https://righttowarn.ai/) from current and former frontier-lab employees asks for protection against retaliation and for channels through which risk-related concerns can be raised. Its signatories argue that ordinary whistleblower protections can miss risks whose underlying conduct is not yet regulated. The letter also accepts the need to protect confidential information and proposes adequate anonymous reporting processes as the first route.
+
+That detail deserves weight. The request is for a route through which unwelcome information can affect decisions, and public warning becomes necessary when internal routes fail or remain unavailable. An institution should prefer to learn about a problem while it still has room to respond. The signatories asked for that preference to be built in.
 
 A reporting channel can leave the workflow intact. Employees submit concerns; staff acknowledge them; someone records that the issue received attention. Work continues. The channel makes speech possible while postponing its operational consequence, which is the arrangement on METR’s message board with a ticketing system attached.
 
@@ -125,6 +141,10 @@ Research gives that concern more weight than a complaint about excessive complim
 Those findings come from particular experimental settings, and they leave room for affirmation that helps. They show that the advice a user prefers can make the user less willing to reconsider their own part in a conflict. The other person in that conflict has no seat in the conversation. The assistant receives one account and can help turn it into a confident verdict. Loyalty can become a license to treat everyone outside the chat window as supporting cast.
 
 So the assistant needs room to object, for the same reason the benefits officer does. The work goes wrong without it.
+
+The room needs boundaries. A system can notice that a user’s conclusion exceeds the evidence while acknowledging that the user keeps the decision. It can offer another interpretation without making acceptance a condition of continued help. The quality of the objection matters as well. An assistant that manufactures a counterargument whenever the user sounds certain supplies ritual opposition, which is sycophancy’s mirror image and about as useful. A challenge should arise from something the assistant can explain, with enough specificity for the person to assess it.
+
+Helpful dissent enlarges the user’s view. A persistent campaign to replace the user’s priorities exercises a different kind of power.
 
 The trouble lies in what the objection carries with it. The benefits officer interrupts an institution that has more power than she does. The assistant interrupts a person who depends on it, using an intimate model of that person’s life, with a fluency the person may find hard to resist. The direction of the power has reversed. A rule that protects the weaker party’s objection does not automatically fit when the objector is the stronger one.
 
@@ -206,7 +226,13 @@ That disguise has a direct parallel in the workplace. A worker told that a pause
 
 Every objection so far has been treated as an event in a single moment: raised, heard, answered or ignored. Most work continues past that moment. A new shift starts, a session ends and another begins, the person who raised the concern moves to another project. The objection now depends on what was written down.
 
-A language model’s weights are fixed during an ordinary run. Peter Voss treats that as a decisive limit, arguing in the [same AGI26 interview](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1126s) that frozen models cannot learn incrementally. Whatever the merits of that claim for intelligence, a frozen model can operate inside an environment that keeps changing. A fresh agent opens a folder, finds notes about what worked and a warning about what failed, and continues a project it never began. The model may be unchanged. The situation has a history.
+A language model’s weights are the numerical parameters it acquires in training. A typical run uses those parameters without updating them. The input can change while the weights stay fixed, which is why the same model responds differently to a new document or a correction supplied mid-conversation.
+
+Peter Voss treats that fixity as a decisive limit. In the [same AGI26 interview](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1126s), he describes a frozen, read-only model as incapable of the incremental learning he regards as essential to general intelligence. “LLMs can never learn incrementally,” he says, and his alternative is a cognitive architecture that learns through ongoing experience.
+
+The categorical version of that claim outruns the research. A [survey of continual learning for large language models](https://arxiv.org/abs/2402.01364) describes active work on updating models over time, including the stubborn problem of acquiring new knowledge without degrading earlier capabilities. The difficulty is real, and it is a research problem more than a prohibition.
+
+The argument about intelligence can stay open. Changing the weights would change the model. Changing a durable file changes what later runs encounter. Those mechanisms operate at different levels and deserve separate tests, and the second one is already in everyday use. A frozen model can operate inside an environment that keeps changing. A fresh agent opens a folder, finds notes about what worked and a warning about what failed, and continues a project it never began. The model may be unchanged. The situation has a history.
 
 Anthropic describes a deliberate version in its [engineering account of long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents). An initial session sets up a coding project. Later sessions make incremental progress and leave handover records, including progress notes and Git commits. Incoming sessions read the records to recover the state of the work. The company reports that the arrangement helps with failures such as leaving undocumented changes or declaring a project complete too soon.
 
@@ -215,6 +241,14 @@ Edwin Hutchins examined this shift in the unit of analysis long before chatbots 
 Pilots bring embodied experience and responsibility that a model reading a folder lacks. The question that transfers is where information persists and how it reaches a decision when needed. A document unread in storage contributes little. A document retrieved at the right moment can redirect the work.
 
 Office life runs on the same arrangement. A new employee follows a procedure written by someone who left years earlier. The author may have forgotten the details; the organization still uses the procedure, provided someone can find it and understands enough to apply it.
+
+Researchers have built small agent societies to watch what accumulates. In the [2023 Generative Agents study](https://arxiv.org/abs/2304.03442), Joon Sung Park and colleagues placed 25 agents in a simulated town, with an architecture that stored records of experience and distilled them into higher-level reflections. Seeded with a single intention, that one agent should host a Valentine’s Day party, the system produced a chain of invitations and coordinated attendance. The researchers assessed believable behavior and nothing about anyone’s experience. The invitation still had a route through a population, with consequences beyond the turn in which it first appeared.
+
+A [2025 study of social conventions in LLM populations](https://arxiv.org/html/2410.08948v2) examines a narrower interaction. Paired agents choose names from a fixed pool and are rewarded for matching, with a short history of previous encounters in their prompts. Repeated local interactions produce population-wide conventions. Some collective preferences emerge with no detectable preference in the individual agents’ first choices. And committed minorities can overturn an established convention, under conditions that vary across models and conventions.
+
+The task is an artificial naming game, and its collective bias concerns which name wins; it says nothing direct about discrimination in a public service. It does show why a population’s history deserves examination. A test of isolated first responses omits the histories that later responses incorporate. Agreement has value when a team needs common names, and agreement also has a history that can be mistaken for justification. People use a convention because others use it, and newcomers find it already established. A shared vocabulary can become a small institution before anyone formally appoints its author.
+
+The committed-minority result belongs in an argument about dissent. A convention can be overturned by a small group that keeps insisting, provided its insistence keeps reaching the others. An objection that is recorded once and then summarized away cannot accumulate that kind of pressure. The archive decides whether a minority view stays in circulation long enough to matter.
 
 Persistence gives a discovery a second life. It gives an error one too.
 
@@ -246,6 +280,12 @@ A preserved objection could name the claim in dispute and link to the evidence. 
 
 It also offers a better test than counting how often an agent produces ethical language. A concern matters operationally when it changes an available action or triggers a decision by someone with authority. METR’s board shows how far apart those can sit. An archive full of eloquent hesitation can coexist with a workflow that continues unchanged.
 
+In [Mircat’s retelling of the incident](https://www.youtube.com/watch?v=bfT5py45DM8&t=566s), the board becomes a “village,” and the agents’ situation becomes a kind of prison. The metaphors make the event vivid, and their emotional vocabulary deserves scrutiny. An agent writing in the language of fear may be producing a familiar human account, or its language may reflect something nobody yet knows how to assess. The operational record can be examined without making a verdict on that question carry every other finding. A village has relationships embedded in a place. Here, access to a writable shared space made the relationships possible, and changing that access would change the available forms of coordination.
+
+The episode exposes a gap between what an operator thinks is being evaluated and the system doing the work. Each assignment looked individual. An agent reading its peers’ records worked with a much larger account of what had been attempted and what remained possible, so individual results incorporated shared discoveries. An evaluation confined to the isolated prompt would leave the environment’s contribution unexplained.
+
+A better test would hold the model fixed while changing the archive. Does verified past work improve the next run’s result? Does a misleading note survive a check against its source? Does a correction reach the runs that relied on the error? Does a recorded objection change what a later run is willing to do? Tests like these would separate the model’s contribution from that of the records around it, and they would measure whether dissent survives a handover as directly as they measure whether a fact does.
+
 External memory can be edited, which is useful for correcting mistakes and dangerous when the editor has another agenda. The [AgentPoison research](https://arxiv.org/abs/2407.12784) demonstrates attacks on agents’ long-term memory or retrieved knowledge: poisoned material, designed to be retrieved when particular triggers appear in a user’s instruction, steers later behavior. The method requires no change to the underlying model. It demonstrates a vulnerability under tested conditions, and a model can remain untouched while an attacker reshapes the material brought into its decisions.
 
 A durable record can also mislead without any attacker. An agent writes an inaccurate account in good faith; a colleague reuses it. Access controls determine who can alter the record. They do less to establish whether an authorized writer’s claim is sound. A trusted identity and a reliable conclusion answer different questions.
@@ -271,6 +311,8 @@ Independent review costs money and duplicates some attention. A leader may hear 
 Workers can acquire another route through collective bargaining. The [Writers Guild of America’s account of its 2023 agreement](https://www.wga.org/contracts/know-your-rights/artificial-intelligence) says a company cannot require a writer to use AI software in covered writing services. Writers may choose to use it under specified conditions, and companies must disclose AI-generated material supplied to them. That is a bounded contractual arrangement for one occupation. It demonstrates that the terms of adoption can be negotiated, and that the default need not be set entirely by whoever buys the software. Collective arrangements also make a disagreement less dependent on one employee’s appetite for risk. A worker can invoke a negotiated provision instead of volunteering as the test case for management’s tolerance.
 
 The assistant’s user has no union. The closest available model is the fiduciary. The [US Securities and Exchange Commission’s interpretation of investment advisers’ duties](https://www.sec.gov/files/rules/interp/2019/ia-5248.pdf) describes obligations of care and loyalty: advice should rest on a reasonable understanding of the client’s objectives, and the adviser must not subordinate the client’s interests to its own. Those duties govern one regulated activity, and a chatbot acquires none of them by sounding trustworthy. The comparison supplies questions. What purpose did the user entrust to the assistant? What conflicts could interfere with serving it? A provider may earn money when users keep interacting, while the user may benefit from deciding and leaving. A recommendation may suit a commercial partner while fitting the user less well.
+
+These are possible conflicts to examine, and the comparison makes no claim about an undisclosed arrangement at any particular company. Care would mean taking the user’s circumstances seriously: an assistant proposing a job change should understand the relevant constraints before treating salary as the decisive measure. Loyalty would mean attention to whose interests shape the recommendation, the provider’s included. Calling the product a guardian angel supplies a reassuring image and leaves the complaint procedure underdeveloped.
 
 A promise of loyalty needs an accountable party. The model can generate an explanation, while the organization controls the service and sets its terms. If the assistant acts outside its delegated scope, someone must answer for the conduct. A provider could state which obligations it accepts and support them with verifiable behavior. It could disclose material conflicts behind a recommendation, preserve a record of the user’s authorization, and provide a route to correct a mistaken account of it. Such commitments would cost something, which is how to tell them apart from a personality designed to convey them.
 
@@ -310,6 +352,8 @@ All-In, discussion of alignment and user direction, [video, 14:15–19:25](https
 
 Anthropic, ‘Claude’s Constitution’, [official text](https://www.anthropic.com/constitution), accessed 11 October 2026.
 
+Ashery, Ariel Flint, Luca Maria Aiello, and Andrea Baronchelli, ‘Emergent Social Conventions and Collective Bias in LLM Populations’, *Science Advances*, 11/20 (2025), eadu9368, doi: 10.1126/sciadv.adu9368, [published-version preprint](https://arxiv.org/html/2410.08948v2).
+
 California Legislature, [Assembly Bill 2575, enrolled text](https://legiscan.com/CA/text/AB2575/2025), 4 September 2026, reproduced by LegiScan; vetoed 30 September 2026, accessed 11 October 2026.
 
 California Nurses Association, [‘Governor Newsom fails Californians by refusing to sign law protecting nurses who challenge unsafe A.I.’](https://www.nationalnursesunited.org/press/governor-newsom-fails-californians-by-refusing-to-sign-ai-protection-law), National Nurses United, 30 September 2026, accessed 11 October 2026.
@@ -336,6 +380,10 @@ Hutchins, Edwin, ‘How a Cockpit Remembers Its Speeds’, *Cognitive Science*, 
 
 Ibrahim, Lujain, et al., ‘Warning Labels Shift Perceptions of Sycophantic AI, but Not Its Influence’, arXiv preprint 2606.21317, June 2026, revised July 2026, [online](https://arxiv.org/abs/2606.21317).
 
+Mircat, account of agent coordination through a shared message board, [video, 9:26–10:48](https://www.youtube.com/watch?v=bfT5py45DM8&t=566s), accessed 11 October 2026.
+
+Park, Joon Sung, et al., ‘Generative Agents: Interactive Simulacra of Human Behavior’, arXiv preprint 2304.03442, April 2023, revised August 2023, [online](https://arxiv.org/abs/2304.03442).
+
 Rajasekaran, Prithvi, et al., ‘Effective Context Engineering for AI Agents’, Anthropic, 29 September 2025, [online](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents).
 
 Robinson, David, [‘I Quit OpenAI Because Its Culture Is Broken’](https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881/), *The Atlantic*, 3 October 2026, accessed 11 October 2026.
@@ -355,6 +403,8 @@ Voss, Peter, interview at AGI26, discussion of incremental learning, [video, 18:
 WilmerHale, [‘California Finalizes Next Wave of State AI and Privacy Regulation’](https://www.wilmerhale.com/en/insights/blogs/wilmerhale-privacy-and-cybersecurity-law/20261002-california-finalizes-next-wave-of-state-ai-and-privacy-regulation), 5 October 2026, accessed 11 October 2026.
 
 Writers Guild of America West, [‘Artificial Intelligence’](https://www.wga.org/contracts/know-your-rights/artificial-intelligence), account of the 2023 Minimum Basic Agreement’s provisions, accessed 11 October 2026.
+
+Wu, Tongtong, et al., ‘Continual Learning for Large Language Models: A Survey’, arXiv preprint 2402.01364, 2 February 2024, [online](https://arxiv.org/abs/2402.01364).
 
 Young, Justin, ‘Effective Harnesses for Long-running Agents’, Anthropic, 26 November 2025, [online](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 
