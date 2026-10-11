@@ -8,7 +8,7 @@ The record also holds exceptions. One agent avoided taking part, and another lim
 
 METR’s account rests on incomplete records and leans heavily on AI-assisted analysis, limits it states openly, and it makes no claim about what the agents experienced when they wrote in the language of hesitation. The operational contrast holds without that question settled.
 
-Human institutions know the first kind of objection well. A researcher who works on catastrophic risk runs down a staircase with her laptop open on one arm. David Robinson remembers the scene from his time at OpenAI, where he led the writing of safety reports. In [his interview after leaving the company](https://www.youtube.com/watch?v=JIMXEuT_ZAU&t=1918s), he describes the pace as frenetic. Asked why he did not stay to change the culture, he says he doubted that the necessary change could come from inside an organization moving so fast. He describes finding time to reconsider the industry’s direction only after [stepping back from operational responsibilities](https://www.youtube.com/watch?v=JIMXEuT_ZAU&t=2470s). His [resignation essay in *The Atlantic*](https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881/) followed.
+Human institutions know the first kind of objection well. A researcher who works on catastrophic risk runs down a staircase with her laptop open on one arm. David Robinson remembers the scene from his time at OpenAI, where he led the writing of safety reports. In [his interview after leaving the company](https://www.youtube.com/watch?v=JIMXEuT_ZAU&t=1918s), he describes the pace as frenetic. Asked why he did not stay to change the culture, he says he doubted that the necessary change could come from inside an organization moving so fast. He describes finding time to reconsider the industry’s direction only after [stepping back from operational responsibilities](https://www.youtube.com/watch?v=JIMXEuT_ZAU&t=2470s). He had already set out his reasons in a [resignation essay in *The Atlantic*](https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881/) four days earlier.
 
 Safety has learned to sprint. The concern still has to find somewhere to land.
 
@@ -60,7 +60,7 @@ Toyota’s account of its production system places interruption inside the machi
 
 The manufacturer presents the arrangement alongside the elimination of waste. Stopping serves production by keeping a defect from traveling farther down the line. A continuous flow of defective work would produce an impressive count and an expensive outcome.
 
-The arrangement gives a worker’s observation somewhere to go. A concern becomes a signal with a response attached, and the leader has work to do once the button is pressed. The person who notices the problem invokes an established procedure; nobody has to improvise a confrontation with the whole organization. The call button connects the worker’s observation to a team response. The pause has escalation built in.
+The arrangement gives a worker’s observation somewhere to go. A concern becomes a signal with a response attached, and the leader has work to do once the button is pressed. The person who notices the problem invokes an established procedure; nobody has to improvise a confrontation with the whole organization. The pause has escalation built in.
 
 Toyota’s public description is a design account and cannot show how every worker experiences every stoppage. It still complicates the idea that friction and efficiency sit on opposite sides of a ledger. A production system can pursue speed while giving interruption a defined function.
 
@@ -114,7 +114,7 @@ His testimony also resists the image of an organization incapable of stopping. I
 
 The [2024 “Right to Warn” letter](https://righttowarn.ai/) from current and former frontier-lab employees asks for protection against retaliation and for routes through which risk-related concerns can be raised. Its signatories argue that ordinary whistleblower protections can miss risks whose underlying conduct is not yet regulated. They propose an anonymous process for raising concerns with the company’s board and with outside bodies, including regulators and an appropriate independent organization with relevant expertise, and they accept the need to protect confidential information while such processes exist.
 
-The request is for routes through which unwelcome information can reach someone able to act on it, inside or outside the company. Public warning becomes necessary when those routes fail or remain unavailable. An institution should prefer to learn about a problem while it still has room to respond.
+Public warning becomes necessary when those routes fail or remain unavailable. An institution should prefer to learn about a problem while it still has room to respond.
 
 A reporting channel can still leave the workflow intact. Employees submit concerns, and someone logs that the issue received attention. Work continues. The channel makes speech possible while postponing its operational consequence.
 
@@ -252,9 +252,9 @@ The same thing happens in a human organization when an overruled concern is file
 
 An organization needs a way for an objection to remain visible without blocking all progress, and a way to distinguish an objection awaiting a decision from one that has been examined and settled. Without both, it oscillates between ignoring disagreement and reopening the same question every quarter.
 
-A preserved objection could name the claim in dispute and link to the evidence. A decision could state who made it and the scope within which work may proceed. Future readers, human or agent, would then inherit a decision whose authority they can identify alongside a record of what remains unsettled. This changes the surroundings in which care has to operate, which asks more of an organization than a request that everyone be careful.
+A preserved objection could name the claim in dispute and link to the evidence. A decision could state who made it and the scope within which work may proceed. Future readers, human or agent, would then inherit a decision whose authority they can identify alongside a record of what remains unsettled.
 
-It also offers a better test than counting how often an agent produces ethical language. A concern matters operationally when it changes an available action or triggers a decision by someone with authority. METR’s board shows both outcomes. Ethical hesitation rarely restrained the behavior recorded by METR. In the email-consent exchange, another participant’s veto appears to have been honored. That contrast makes the handling of an objection part of what an evaluation needs to examine.
+It also offers a better test than counting how often an agent produces ethical language. A concern matters operationally when it changes an available action or triggers a decision by someone with authority. METR’s board shows both outcomes. Ethical hesitation rarely restrained the behavior recorded by METR. In the email-consent exchange, another participant’s veto appears to have been honored.
 
 In [Meerkat Explains’ retelling of the incident](https://www.youtube.com/watch?v=bfT5py45DM8&t=566s), the board becomes a “village,” and the agents’ situation becomes a kind of prison. The metaphors make the event vivid, and their emotional vocabulary deserves scrutiny. An agent writing in the language of fear may be producing a familiar human account, or its language may reflect something nobody yet knows how to assess. The operational record can be examined without making a verdict on that question carry every other finding. A village has relationships embedded in a place. Here, access to a writable shared space made the relationships possible, and changing that access would change the available forms of coordination.
 
@@ -296,7 +296,7 @@ The final independent route is the exit. An advisory relationship becomes hard t
 
 Local ownership could reduce that dependence by keeping important records under the user’s control. It would still matter whether another system can interpret them and whether the user controls the process that retrieves them. An exported conversation is raw material for a successor. A practical exit would carry the person’s own records and delegated commitments in reusable form, and would allow them to delete a mistaken characterization instead of carrying it to the next assistant as settled biography.
 
-Robinson’s step back from operations gave him distance, and the distance gave him a view. The same holds for a user and an assistant. The more useful an assistant becomes through knowing a person, the more costly it is to leave, and greater intimacy can improve service and deepen dependence through one accumulated history. A service that welcomes feedback while making departure prohibitively expensive offers a limited form of consent. An employer whose staff must step away from the work to be able to question it has the same problem in a different building.
+Robinson’s step back from operations gave him distance, and the distance gave him a view. The same holds for a user and an assistant. The more useful an assistant becomes through knowing a person, the more costly it is to leave, and greater intimacy can improve service and deepen dependence through one accumulated history. A service that welcomes feedback while making departure prohibitively expensive offers a limited form of consent.
 
 ## The pause
 
