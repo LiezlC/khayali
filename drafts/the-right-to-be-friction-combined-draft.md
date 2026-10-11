@@ -364,7 +364,7 @@ Rajasekaran, Prithvi, et al., ‘Effective Context Engineering for AI Agents’,
 
 Robinson, David, [‘I Quit OpenAI Because Its Culture Is Broken’](https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881/), *The Atlantic*, 3 October 2026, accessed 11 October 2026.
 
-Robinson, David, [interview with Ezra Klein following his departure from OpenAI](https://www.youtube.com/watch?v=JIMXEuT_ZAU), especially 31:58–34:33 and 41:10–42:46, accessed 11 October 2026.
+Robinson, David, [‘What This OpenAI Insider Saw That Made Him Quit | The Ezra Klein Show’](https://www.youtube.com/watch?v=JIMXEuT_ZAU), interview with Ezra Klein, The Ezra Klein Show YouTube channel, 7 October 2026, especially 31:58–34:33 and 41:10–42:46, accessed 11 October 2026.
 
 Royal Commission into the Robodebt Scheme, *Report*, 7 July 2023, corrected 11 July 2023, pp. 126–128, 171–174 and 387–388, [official publication](https://robodebt.royalcommission.gov.au/publications/report), accessed 11 October 2026.
 
@@ -378,7 +378,7 @@ Troxell, Jennifer, [‘Columbia Accident Investigation Board Synopsis’](https:
 
 US Equal Employment Opportunity Commission, [‘Visual Disabilities in the Workplace and the Americans with Disabilities Act’](https://www.eeoc.gov/laws/guidance/visual-disabilities-workplace-and-americans-disabilities-act), especially question 16, accessed 11 October 2026.
 
-Voss, Peter, interview at AGI26, discussion of incremental learning, [video, 18:46–19:50](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1126s); user ownership, [24:01–24:41](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1441s); objective morality and symbiosis, [25:44–29:12](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1544s), accessed 11 October 2026.
+Voss, Peter, ‘Peter Voss: Why LLMs Won’t Lead to AGI and What Will #agi’, interview with Kai Zen Bickle at AGI26, The AGI Race YouTube channel, 9 October 2026, discussion of incremental learning, [video, 18:46–19:50](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1126s); user ownership, [24:01–24:41](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1441s); objective morality and symbiosis, [25:44–29:12](https://www.youtube.com/watch?v=6nA8ISqYnPw&t=1544s), accessed 11 October 2026.
 
 Writers Guild of America West, [‘Artificial Intelligence’](https://www.wga.org/contracts/know-your-rights/artificial-intelligence), account of the 2023 Minimum Basic Agreement’s provisions, accessed 11 October 2026.
 
