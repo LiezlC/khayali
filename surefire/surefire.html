@@ -1,0 +1,656 @@
+<title>Surefire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a working ledger. Hero thesis, honesty strip, then the tracker as a list of
+   expandable records, the scenario engine, training, and the field mirror. */
+:root{
+  --bg:#F2F5F1; --surface:#FFFFFF; --sunk:#E7ECE6; --ink:#12302B; --muted:#56695F; --line:#CFD9D1;
+  --accent:#D9930B; --accent-ink:#6E4400; --accent-soft:#FBEBC8;
+  --st-announced:#8A9690; --st-piloted:#3C7DA6; --st-deployed:#1F8A78; --st-proven:#2F7D32; --st-faded:#7A4E3A;
+  --ok-bg:#E1F0E4; --ok-ink:#215A2A; --warn-bg:#FBEBC8; --warn-ink:#6E4400; --no-bg:#F1E3DC; --no-ink:#6B3A26;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1816; --surface:#15221F; --sunk:#1B2B27; --ink:#E3ECE7; --muted:#9DB0A7; --line:#2A3C37;
+  --accent:#F2B13A; --accent-ink:#FFD58A; --accent-soft:#3A2C10;
+  --st-announced:#8E9C95; --st-piloted:#6AAFD8; --st-deployed:#4CC2AC; --st-proven:#77C47B; --st-faded:#C4876C;
+  --ok-bg:#1C3322; --ok-ink:#A6DDAE; --warn-bg:#3A2C10; --warn-ink:#FFD58A; --no-bg:#3A2219; --no-ink:#F0B9A2;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1816; --surface:#15221F; --sunk:#1B2B27; --ink:#E3ECE7; --muted:#9DB0A7; --line:#2A3C37;
+  --accent:#F2B13A; --accent-ink:#FFD58A; --accent-soft:#3A2C10;
+  --st-announced:#8E9C95; --st-piloted:#6AAFD8; --st-deployed:#4CC2AC; --st-proven:#77C47B; --st-faded:#C4876C;
+  --ok-bg:#1C3322; --ok-ink:#A6DDAE; --warn-bg:#3A2C10; --warn-ink:#FFD58A; --no-bg:#3A2219; --no-ink:#F0B9A2;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;padding-inline:16px}
+.wrap{max-width:1080px;margin:0 auto;padding-block:28px 64px;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.08}
+h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:inherit;text-underline-offset:3px}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);max-width:62ch}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-family:var(--f-display);font-weight:800;font-size:1.5rem;letter-spacing:-.01em}
+.mast nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.92rem}
+.mast nav a{text-decoration:none;color:var(--muted)} .mast nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{display:grid;gap:22px}
+.hero h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{font-family:var(--f-display);font-size:clamp(1.1rem,2.4vw,1.4rem);color:var(--muted);font-weight:500}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:6px}
+.pillars div{border-top:2px solid var(--ink);padding-top:10px;display:grid;gap:4px;min-width:0}
+.pillars strong{font-family:var(--f-display);font-size:1.05rem}
+.pillars span{color:var(--muted);font-size:.95rem}
+
+/* ladder (signature) */
+.ladder{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.78rem}
+.rung{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.rung i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.ladder .arrow{color:var(--muted)}
+.ladder .off{border-style:dashed}
+
+/* honesty strip */
+.strip{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:14px}
+.counts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.count{display:grid;gap:2px}
+.count b{font-family:var(--f-display);font-size:1.9rem;font-variant-numeric:tabular-nums;line-height:1}
+.count span{font-size:.85rem;color:var(--muted)}
+.strip p{font-size:.92rem;color:var(--muted);max-width:75ch}
+
+/* tracker */
+.sect{display:grid;gap:18px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.9rem}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab small{font-family:var(--f-mono);opacity:.7;margin-left:4px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.9rem;color:var(--muted)}
+.filters select{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 8px}
+.list{display:grid;border-top:1px solid var(--line)}
+.rec{border-bottom:1px solid var(--line)}
+.rec>button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;padding:14px 4px;width:100%;box-sizing:border-box}
+.rec>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.rec>button:hover .rt{text-decoration:underline;text-underline-offset:3px}
+.stripe{width:6px;align-self:stretch;border-radius:3px;min-height:40px}
+.rmain{display:grid;gap:4px;min-width:0}
+.rt{font-family:var(--f-display);font-weight:700;font-size:1.08rem;line-height:1.25}
+.rmeta{font-size:.86rem;color:var(--muted);display:flex;gap:6px 14px;flex-wrap:wrap}
+.rreach{font-size:.92rem}
+.rreach b{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px;font-weight:600}
+.rside{display:grid;gap:6px;justify-items:end;text-align:right}
+.pill{font-family:var(--f-mono);font-size:.72rem;padding:3px 8px;border-radius:999px;white-space:nowrap;font-weight:600}
+.chk-located{background:var(--warn-bg);color:var(--warn-ink)}
+.chk-unchecked{background:var(--sunk);color:var(--muted)}
+.chk-checked{background:var(--ok-bg);color:var(--ok-ink)}
+.stage{color:var(--surface)}
+.detail{padding:0 4px 20px 24px;display:grid;gap:16px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 24px}
+.field{display:grid;gap:3px;min-width:0}
+.field dt{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.field dd{margin:0;font-size:.95rem}
+.limits{border-left:3px solid var(--st-faded);padding-left:12px;font-size:.95rem}
+.sources{font-size:.88rem;color:var(--muted);display:grid;gap:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:8px;padding:9px 14px;cursor:pointer;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.55;cursor:default}
+.empty{padding:22px 4px;color:var(--muted)}
+
+/* intake log */
+details.intake{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+details.intake summary{cursor:pointer;font-weight:600}
+.intake ul{margin:12px 0 0;padding-left:18px;display:grid;gap:8px;font-size:.93rem}
+.intake li b{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;margin-right:6px}
+
+/* scenario engine */
+.engine{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:28px;align-items:start}
+@media (max-width:820px){.engine{grid-template-columns:1fr}}
+form.ask{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+form.ask label{display:grid;gap:5px;font-weight:600;font-size:.93rem}
+form.ask label span{font-weight:400;color:var(--muted);font-size:.85rem}
+form.ask textarea,form.ask input{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:8px 10px;width:100%;resize:vertical}
+.seedline{font-size:.86rem;color:var(--muted)}
+.seedline b{color:var(--ink)}
+.status{font-size:.9rem;color:var(--muted);min-height:1.4em}
+.out{display:grid;gap:16px;min-width:0}
+.out .tag{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent-ink);justify-self:start}
+.scn{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:12px;min-width:0}
+.scn header{display:grid;gap:4px}
+.scn .kind{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.scn .story{font-size:.98rem}
+.scn h4{margin:0;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.scn ul{margin:4px 0 0;padding-left:18px;display:grid;gap:3px;font-size:.94rem}
+.scn .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 20px}
+.prec{display:grid;gap:6px}
+.prec div{font-size:.93rem}
+.str{font-family:var(--f-mono);font-size:.68rem;padding:2px 6px;border-radius:4px;margin-right:6px;text-transform:uppercase;letter-spacing:.06em}
+.str-direct{background:var(--ok-bg);color:var(--ok-ink)}
+.str-analogous{background:var(--warn-bg);color:var(--warn-ink)}
+.str-inspiration{background:var(--sunk);color:var(--muted)}
+.gaps{border:1px dashed var(--line);border-radius:10px;padding:14px 18px;font-size:.93rem}
+.gaps ul{margin:6px 0 0;padding-left:18px}
+
+/* training + mirror */
+.caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.cap{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:6px}
+.cap b{font-family:var(--f-display);font-size:1.05rem}
+.cap span{font-size:.88rem;color:var(--muted)}
+.scale{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.93rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--muted)}
+footer{border-top:1px solid var(--line);padding-top:16px;font-size:.86rem;color:var(--muted);display:grid;gap:6px}
+@media (prefers-reduced-motion:no-preference){.rec .detail{animation:open .18s ease-out}@keyframes open{from{opacity:.4;transform:translateY(-3px)}to{opacity:1;transform:none}}}
+@media (max-width:560px){.rec>button{grid-template-columns:auto 1fr}.rside{grid-column:2;justify-items:start;text-align:left;display:flex;gap:6px;flex-wrap:wrap}.detail{padding-left:4px}}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="brand"><b>Surefire</b><span class="eyebrow">AI Miracles Tracker · prototype</span></div>
+    <nav aria-label="Sections"><a href="#tracker">Tracker</a><a href="#scenarios">Scenarios</a><a href="#training">Training</a><a href="#mirror">The mirror</a></nav>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-h">
+    <h1 id="hero-h">Plan for the AI miracle <em>so it happens.</em></h1>
+    <p class="sub">Imagine the possibilities so that they might happen.</p>
+    <div class="pillars">
+      <div><strong>What we track</strong><span>AI breakthroughs, rescues, godsends, open doors and rights won, each with its source, who it reached, and whether that has been checked.</span></div>
+      <div><strong>How we help you make one happen</strong><span>Describe your setup and what you want to make possible. We draft three ways it goes right, built from what has actually worked, with a first experiment you can start this week.</span></div>
+      <div><strong>Who we train</strong><span>Teams and individuals, in AI Manifestation: a one-day rehearsal of the future you want, scored on six capacities.</span></div>
+    </div>
+    <div class="ladder" aria-label="Every record moves through these stages">
+      <span class="rung"><i style="background:var(--st-announced)"></i>Announced</span><span class="arrow">→</span>
+      <span class="rung"><i style="background:var(--st-piloted)"></i>Piloted</span><span class="arrow">→</span>
+      <span class="rung"><i style="background:var(--st-deployed)"></i>Deployed</span><span class="arrow">→</span>
+      <span class="rung"><i style="background:var(--st-proven)"></i>Proven</span><span class="arrow">or</span>
+      <span class="rung off"><i style="background:var(--st-faded)"></i>Faded</span>
+    </div>
+  </section>
+
+  <section class="strip" aria-label="How much of this record has been checked">
+    <div class="counts" id="counts"></div>
+    <p>Miracles that didn't last stay on the record as <b>Faded</b>, with what happened. <b>Source located</b> means someone found the primary source and it matched the claim. <b>Checked</b> means a named person verified the outcome and who it reached, and dated it. No row in this prototype is Checked yet.</p>
+  </section>
+
+  <section class="sect" id="tracker" aria-labelledby="tr-h">
+    <div style="display:grid;gap:8px">
+      <span class="eyebrow">The record</span>
+      <h2 id="tr-h">What AI has actually made possible</h2>
+      <p class="lede">Each row says what the AI did, what people did, who it reached and for how long, and what stops it carrying over to you.</p>
+    </div>
+    <div class="tabs" role="group" aria-label="Filter by tab" id="tabs"></div>
+    <div class="filters">
+      <label for="stageSel">Stage</label>
+      <select id="stageSel"><option value="">All stages</option><option>Announced</option><option>Piloted</option><option>Deployed</option><option>Proven</option><option>Faded</option></select>
+      <label for="chkSel">Checking</label>
+      <select id="chkSel"><option value="">Any</option><option value="located">Source located</option><option value="unchecked">Unchecked</option><option value="checked">Checked</option></select>
+    </div>
+    <div class="list" id="list"></div>
+
+    <details class="intake">
+      <summary>Intake log: what changed when the first batch came in (6 items)</summary>
+      <ul>
+        <li><b>Corrected</b>The batch credited the first personalised CRISPR therapy to Stanford's CRISPR-GPT and described the patient as six years old. The patient was an infant, KJ, treated by CHOP and Penn Medicine in February 2025. The published coverage doesn't describe CRISPR-GPT as part of the work. Held until an AI role is documented.</li>
+        <li><b>Held: AI role unclear</b>The Princeton PPPL "heat first" route to fusion ignition (Phys. Rev. Lett., Sept 2026) is a theoretical physics result. The coverage doesn't describe an AI role, and no experiment can test it yet.</li>
+        <li><b>Re-dated</b>The record for clinical whole-genome diagnosis in under eight hours was set at Stanford in 2022, not 2025–26.</li>
+        <li><b>Held: projection</b>Avnos direct air capture figures (3,000 t CO₂ a year) are commercial-scale projections, and the AI role is unclear.</li>
+        <li><b>Rejected</b>Isomorphic Labs' $2.1B funding round is money raised, not something it made possible. The company had not reported dosing a human patient.</li>
+        <li><b>Rejected</b>An "Opportunity Score 98.4" from the pitch deck. No method was given, so there is nothing to check.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="sect" id="scenarios" aria-labelledby="sc-h">
+    <div style="display:grid;gap:8px">
+      <span class="eyebrow">Scenarios</span>
+      <h2 id="sc-h">Three ways it goes right for you</h2>
+      <p class="lede">Most likely, most transformative, and slowest to bloom. Each one is built only from rows in the record, says how closely each precedent fits your situation, and ends with a first experiment.</p>
+    </div>
+    <div class="engine">
+      <form class="ask" id="ask" novalidate>
+        <label for="q-want">What would you love to make possible, and what gets in the way?
+          <textarea id="q-want" rows="4" required></textarea></label>
+        <label for="q-who">Who are you, and what's your setup? <span>Role, organisation size, country, people you serve</span>
+          <textarea id="q-who" rows="3"></textarea></label>
+        <label for="q-have">What do you have to work with? <span>Time, budget, skills, data, partners</span>
+          <input id="q-have" type="text"></label>
+        <p class="seedline" id="seedline" hidden></p>
+        <div class="actions">
+          <button class="btn" id="go" type="submit">Draft my three scenarios</button>
+          <button class="btn ghost" id="stop" type="button" hidden>Stop</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </form>
+      <div class="out" id="out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="sect" id="training" aria-labelledby="tn-h">
+    <div style="display:grid;gap:8px">
+      <span class="eyebrow">Training</span>
+      <h2 id="tn-h">AI Manifestation, in one day</h2>
+      <p class="lede">Your good scenario arrives in phases, on a clock. A funder says yes, the pilot works, then demand triples overnight. Your team makes the calls that success forces on it: who owns it, what scales, who gets the credit, and who gets left out. You leave with a possibility register, your three scenarios with owners and dates, and a first experiment already run.</p>
+    </div>
+    <div class="caps">
+      <div class="cap"><b>Imagining</b><span>Naming a specific future someone would recognise</span></div>
+      <div class="cap"><b>Experimenting</b><span>Running a small, cheap test this month</span></div>
+      <div class="cap"><b>Learning</b><span>Growing the one skill the scenario depends on</span></div>
+      <div class="cap"><b>Connecting</b><span>Finding the person who can switch it on</span></div>
+      <div class="cap"><b>Sharing</b><span>Making what worked usable by the next person</span></div>
+      <div class="cap"><b>Sustaining</b><span>Keeping the benefit going after the launch</span></div>
+    </div>
+    <p class="scale">Each capacity is scored dreamed → tried → repeated → proven. To claim "proven", you name the date and the evidence.</p>
+  </section>
+
+  <section class="sect" id="mirror" aria-labelledby="mr-h">
+    <div style="display:grid;gap:8px">
+      <span class="eyebrow">The mirror</span>
+      <h2 id="mr-h">Same rigour, opposite direction</h2>
+      <p class="lede">Surefire inverts the crisis tracker's content and keeps its checking. The two halves are meant to point at each other, because success has its own failure modes.</p>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Crisis tracker</th><th>Surefire</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td>Lawsuits · Regulation</td><td>Rights won · Open doors</td><td>Rulings, sandboxes, open data and open weights that let people act</td></tr>
+        <tr><td>Security incidents · Emergencies</td><td>Rescues · Godsends</td><td>Fraud caught, floods warned of, a diagnosis made in time</td></tr>
+        <tr><td>Surveillance</td><td>Witness</td><td>AI pointed back at the powerful: dark fleets, deforestation, misconduct</td></tr>
+        <tr><td>Found by</td><td>Made by</td><td>Lab, community, lone builder, government, NGO</td></tr>
+        <tr><td>Ran for (before anyone noticed)</td><td>Held for</td><td>How long the benefit has lasted so far</td></tr>
+        <tr><td>Done to</td><td>Reached</td><td>Who benefited, and who says so</td></tr>
+        <tr><td>Fix now · On the day</td><td>Start this week · On the day it works</td><td>Scaling, credit and protection, so you don't need the crisis tracker later</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>
+    <span>Surefire prototype, October 2026. Seed rows were researched by AI models and have not been verified by a person. Treat every figure as a claim until it is marked Checked.</span>
+    <span>Scenario drafting uses your own Claude account and asks your permission first.</span>
+  </footer>
+</div>
+
+<script>
+const TABS = ["Rights won","Open doors","Rescues","Godsends","Witness","Breakthroughs"];
+const STAGE_COLOR = {Announced:"--st-announced",Piloted:"--st-piloted",Deployed:"--st-deployed",Proven:"--st-proven",Faded:"--st-faded"};
+const CHK = {located:"Source located",unchecked:"Unchecked",checked:"Checked"};
+
+const RECORDS = [
+ {id:"SF-001",tab:"Breakthroughs",title:"Rentosertib, an AI-discovered drug for lung scarring, enters Phase III",date:"Jul 2026",
+  madeBy:"Insilico Medicine (company)",stage:"Piloted",check:"located",
+  ai:"Proposed the drug target (TNIK) and generated the molecule.",
+  people:"Clinicians ran the Phase IIa trial across 22 sites in China. Regulators approved the Phase III design.",
+  reached:"71 adults with idiopathic pulmonary fibrosis in Phase IIa. Phase III is recruiting 320.",
+  held:"12 weeks of measured benefit in Phase IIa. Phase III runs 52 weeks.",
+  scale:"Phase IIa: +98.4 mL lung capacity (FVC) at the 60 mg dose, against a decline on placebo (Nature Medicine, June 2025).",
+  limits:"Not approved anywhere. Phase III results are expected around December 2029. Liver-related discontinuations at the top dose still need checking against the paper.",
+  first:"If you work in health research, read how the target was chosen, not only the molecule. Target selection is where the claimed speed-up is.",
+  sources:[{t:"ClinicalTrials.gov NCT07687459",u:"https://clinicaltrials.gov/study/NCT07687459"},{t:"Nature Medicine, June 2025 (Phase IIa GENESIS-IPF)"}]},
+ {id:"SF-002",tab:"Godsends",title:"One CT scan triaged for 14 acute abdominal conditions",date:"Jan 2026",
+  madeBy:"Aidoc (company)",stage:"Deployed",check:"located",
+  ai:"Reads abdominal CT scans and flags urgent findings (appendicitis, bowel obstruction and others) so radiologists see the worst cases first.",
+  people:"Radiologists still make the diagnosis. Hospitals had to change their workflows to act on the flags.",
+  reached:"Hospitals running Aidoc (company-reported). Patient-level benefit is not independently measured.",
+  held:"Cleared January 2026. Too early to say.",
+  scale:"FDA 510(k) clearance for 14 indications (11 new). Company-reported mean sensitivity 97%, specificity 98%.",
+  limits:"The performance figures come from the company's own pivotal study. Faster triage doesn't always mean better outcomes, and that is the number that matters.",
+  first:"If you run a clinic, ask your radiology team where the queue is slowest. That's where triage pays off.",
+  sources:[{t:"Radiology Business: FDA clears comprehensive triage",u:"https://radiologybusiness.com/topics/artificial-intelligence/fda-clears-first-its-kind-comprehensive-ai-triage-solution-aidoc"}]},
+ {id:"SF-003",tab:"Breakthroughs",title:"AlphaProtein Novo designs enzymes nature never made",date:"Oct 2026",
+  madeBy:"Google DeepMind, with the Frances Arnold and Peng Liu labs",stage:"Announced",check:"located",
+  ai:"Generates enzyme structures and sequences from scratch around a chosen chemical reaction.",
+  people:"Wet-lab teams tested more than 5,600 designs across five reactions.",
+  reached:"Researchers so far. The code and weights are public.",
+  held:"Announced 5 Oct 2026.",
+  scale:"Hit rates up to 80% in the best design settings. Examples include enzymes that make piperidines (common in drugs) and that break down the plasticiser DEHP.",
+  limits:"Preprint, not yet peer reviewed. A claimed '99× faster than industry' figure is not in the primary sources.",
+  first:"If you have a stubborn chemistry problem, the open code means a university partner could try it now.",
+  sources:[{t:"GitHub: google-deepmind/alphaprotein-novo",u:"https://github.com/google-deepmind/alphaprotein-novo"}]},
+ {id:"SF-004",tab:"Open doors",title:"AlphaFold's structure database, free to every researcher",date:"2021–2022",
+  madeBy:"Google DeepMind and EMBL-EBI",stage:"Proven",check:"unchecked",
+  ai:"Predicted 3D structures for more than 200 million proteins.",
+  people:"EMBL-EBI hosts and maintains the database. Researchers worldwide validate and use the structures.",
+  reached:"DeepMind reports more than 2 million users in 190 countries (company-reported).",
+  held:"About five years and continuing. Part of the 2024 Nobel Prize in Chemistry.",
+  scale:"200M+ structures. Neglected-disease labs use it, including in the Global South.",
+  limits:"Predictions are not experiments. Accuracy varies by protein, and disordered regions are weak.",
+  first:"If you teach or research biology, look up a protein you care about. It costs nothing.",
+  sources:[{t:"AlphaFold Protein Structure Database",u:"https://alphafold.ebi.ac.uk/"}]},
+ {id:"SF-005",tab:"Open doors",title:"InkubaLM, a small open language model for five African languages",date:"Aug 2024",
+  madeBy:"Lelapa AI (South African startup)",stage:"Announced",check:"unchecked",
+  ai:"A compact model for Swahili, Yoruba, isiXhosa, Hausa and isiZulu, small enough to run cheaply.",
+  people:"Linguists and data teams built the datasets. Lelapa released it openly.",
+  reached:"Developers. How many end users it reaches is not yet documented.",
+  held:"About two years.",
+  scale:"Open release. Usage figures are not public.",
+  limits:"Five languages out of Africa's two thousand or so. Many languages, such as Emakhuwa, are still unserved.",
+  first:"If you serve speakers of these languages, test it on ten real messages before you plan anything bigger.",
+  sources:[{t:"Lelapa AI announcement, Aug 2024"}]},
+ {id:"SF-006",tab:"Rescues",title:"Flood forecasts up to 7 days ahead for places with no river gauges",date:"2024",
+  madeBy:"Google Research",stage:"Deployed",check:"unchecked",
+  ai:"Forecasts river floods from weather and terrain data, including in rivers with no measurement stations.",
+  people:"Governments and aid agencies decide whether to act on alerts. Local responders carry the warnings.",
+  reached:"Coverage in 100+ countries (company-reported). Whether people acted on the alerts is rarely measured.",
+  held:"Several flood seasons.",
+  scale:"Nature, March 2024: forecasts at 5-day lead time in ungauged basins as reliable as same-day nowcasts elsewhere.",
+  limits:"A forecast only rescues anyone if the warning reaches people in time and they can act on it. That last mile is the weak link.",
+  first:"If you work with flood-exposed communities, check whether your area is covered and who receives the alerts now.",
+  sources:[{t:"Google Flood Hub",u:"https://sites.research.google/floods/"},{t:"Nearing et al., Nature 2024"}]},
+ {id:"SF-007",tab:"Rescues",title:"WHO endorses AI chest X-ray reading for TB screening",date:"Mar 2021",
+  madeBy:"WHO guideline, covering several vendors' tools",stage:"Proven",check:"unchecked",
+  ai:"Reads chest X-rays to screen for tuberculosis where there are few radiologists.",
+  people:"WHO reviewed the evidence. National TB programmes set thresholds and run the screening.",
+  reached:"TB screening programmes in many high-burden countries.",
+  held:"Five years of programme use.",
+  scale:"WHO recommends computer-aided detection in place of human readers for screening people aged 15 and over.",
+  limits:"Thresholds must be calibrated locally. Performance drops with different populations and machines.",
+  first:"If you run community health outreach, ask your TB programme whether mobile X-ray with CAD reaches your area.",
+  sources:[{t:"WHO consolidated guidelines on tuberculosis, Module 2: Screening (2021)"}]},
+ {id:"SF-008",tab:"Godsends",title:"A man with ALS speaks again through a brain implant",date:"Aug 2024",
+  madeBy:"UC Davis Health (university)",stage:"Piloted",check:"unchecked",
+  ai:"Decodes attempted speech from brain signals into text and a voice built from recordings of his own.",
+  people:"Neurosurgeons placed the implant. The participant trained the system with the research team.",
+  reached:"One participant, in a clinical trial.",
+  held:"Months of daily use, as reported.",
+  scale:"About 97% word accuracy reported (NEJM, 2024).",
+  limits:"One person, with surgery and a research team. Far from available to the people who need it.",
+  first:"If you work in disability services, follow the trial registries. Access will come through trials first.",
+  sources:[{t:"Card et al., New England Journal of Medicine, 2024"}]},
+ {id:"SF-009",tab:"Godsends",title:"Blind users get an AI that describes the world on request",date:"2023",
+  madeBy:"Be My Eyes (company)",stage:"Deployed",check:"unchecked",
+  ai:"Describes photos (labels, signs, screens) in conversation, at any hour.",
+  people:"The volunteer network is still there for when the AI is wrong or it matters.",
+  reached:"Blind and low-vision users of the app worldwide (company-reported).",
+  held:"About three years.",
+  scale:"Free to users.",
+  limits:"Can describe things confidently and wrongly. Users have to judge when to call a human.",
+  first:"If you design services, ask a blind user to try your forms with it. You'll learn what's unreadable.",
+  sources:[{t:"Be My Eyes",u:"https://www.bemyeyes.com/"}]},
+ {id:"SF-010",tab:"Witness",title:"Satellites and AI reveal the fishing fleets that hide",date:"Jan 2024",
+  madeBy:"Global Fishing Watch and university partners (NGO)",stage:"Proven",check:"unchecked",
+  ai:"Matched satellite radar and imagery against vessel tracking data to find boats that don't broadcast where they are.",
+  people:"Researchers built and checked the dataset. Coast guards and agencies use it.",
+  reached:"Fisheries agencies and coastal states, including in West Africa.",
+  held:"Peer-reviewed, and the maps are public.",
+  scale:"About 75% of industrial fishing vessels were not publicly tracked (Nature, 2024).",
+  limits:"Seeing a dark vessel is not stopping it. Enforcement capacity is the bottleneck.",
+  first:"If you work on coastal livelihoods, the maps are free. Look at your coastline.",
+  sources:[{t:"Global Fishing Watch",u:"https://globalfishingwatch.org/"},{t:"Paolo et al., Nature, Jan 2024"}]},
+ {id:"SF-011",tab:"Rights won",title:"Dutch court strikes down the SyRI welfare-fraud algorithm",date:"Feb 2020",
+  madeBy:"Civil society coalition, District Court of The Hague",stage:"Proven",check:"unchecked",
+  ai:"None. This is a right won over automated decision-making.",
+  people:"Lawyers, NGOs and residents of the targeted neighbourhoods brought the case.",
+  reached:"Residents of low-income areas profiled by the system.",
+  held:"Six years. The state did not appeal.",
+  scale:"Ruled a breach of the right to private life (Article 8, European Convention on Human Rights).",
+  limits:"A precedent, not a ban. Similar systems came back elsewhere.",
+  first:"If your organisation is buying an automated decision tool, ask what transparency the SyRI ruling would require.",
+  sources:[{t:"ECLI:NL:RBDHA:2020:1878"}]},
+ {id:"SF-012",tab:"Breakthroughs",title:"AI-supported mammography finds more cancers with less reading",date:"Aug 2023",
+  madeBy:"Lund University, Sweden (MASAI trial)",stage:"Piloted",check:"unchecked",
+  ai:"Triaged screening mammograms by risk and highlighted findings for radiologists.",
+  people:"Radiologists read every flagged case. The trial was randomised.",
+  reached:"Women screened in the trial's Swedish region.",
+  held:"Interim results, with follow-up continuing.",
+  scale:"Interim: 20% more cancers detected and 44% less screen-reading workload (Lancet Oncology, 2023).",
+  limits:"Whether it reduces cancers missed between screenings (the outcome that matters) needs the full follow-up.",
+  first:"If you're in a screening programme with a reader shortage, this is the design to copy: a randomised trial, not a demo.",
+  sources:[{t:"Lång et al., Lancet Oncology, 2023"}]},
+ {id:"SF-013",tab:"Godsends",title:"Babylon Health's AI GP service",date:"2017–2023",
+  madeBy:"Babylon Health (company)",stage:"Faded",check:"unchecked",
+  ai:"A symptom checker and triage for NHS 'GP at Hand' patients.",
+  people:"NHS doctors behind the app. Regulators and clinicians raised safety questions.",
+  reached:"Registered NHS patients in London, among others.",
+  held:"About six years, then the company collapsed in 2023.",
+  scale:"Large claims, little independent evidence.",
+  limits:"Faded. Claims of doctor-level diagnosis were never independently shown, and the business failed.",
+  first:"Before you adopt any AI triage, ask for independent evaluation, not the vendor's own.",
+  sources:[{t:"Company entered administration, 2023"}]},
+ {id:"SF-014",tab:"Breakthroughs",title:"IBM Watson for Oncology",date:"2013–2022",
+  madeBy:"IBM (company)",stage:"Faded",check:"unchecked",
+  ai:"Recommended cancer treatments from medical literature and records.",
+  people:"Partner hospitals trialled it. Oncologists flagged unsafe recommendations.",
+  reached:"Patients at partner hospitals in several countries.",
+  held:"About nine years, then the unit was sold off in 2022.",
+  scale:"Announced as a revolution. It never reached proven clinical benefit.",
+  limits:"Faded. It shows that a famous name and a big budget don't make a miracle.",
+  first:"Ask any vendor which of their claims has reached the 'Proven' rung, and who checked it.",
+  sources:[{t:"Watson Health sold to Francisco Partners, 2022"}]},
+];
+
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let state = {tab:"", stage:"", chk:"", open:null};
+try { const t = localStorage.getItem("sf-tab"); if (t !== null && (t === "" || TABS.includes(t))) state.tab = t; } catch {}
+
+function renderCounts(){
+  const n = RECORDS.length, loc = RECORDS.filter(r=>r.check==="located").length,
+        chk = RECORDS.filter(r=>r.check==="checked").length, faded = RECORDS.filter(r=>r.stage==="Faded").length;
+  $("#counts").innerHTML = [
+    [n,"rows in the seed record"],[loc,"source located (13 Oct 2026)"],[chk,"checked by a named person"],[faded,"faded, kept on the record"],[6,"items corrected, held or rejected at intake"]
+  ].map(([b,s])=>`<div class="count"><b>${b}</b><span>${s}</span></div>`).join("");
+}
+function renderTabs(){
+  const all = [["","All"], ...TABS.map(t=>[t,t])];
+  $("#tabs").innerHTML = all.map(([v,l])=>{
+    const c = v ? RECORDS.filter(r=>r.tab===v).length : RECORDS.length;
+    return `<button class="tab" type="button" data-tab="${esc(v)}" aria-pressed="${state.tab===v}">${esc(l)}<small>${c}</small></button>`;
+  }).join("");
+}
+function stageStyle(s){ return `background:var(${STAGE_COLOR[s]})`; }
+function renderList(){
+  const rows = RECORDS.filter(r => (!state.tab || r.tab===state.tab) && (!state.stage || r.stage===state.stage) && (!state.chk || r.check===state.chk));
+  if (!rows.length){ $("#list").innerHTML = `<p class="empty">No rows match these filters. Checked rows will appear here once a person has verified them.</p>`; return; }
+  $("#list").innerHTML = rows.map(r => {
+    const open = state.open === r.id;
+    return `<article class="rec">
+      <button type="button" data-open="${r.id}" aria-expanded="${open}" aria-controls="d-${r.id}">
+        <span class="stripe" style="${stageStyle(r.stage)}" aria-hidden="true"></span>
+        <span class="rmain">
+          <span class="rt">${esc(r.title)}</span>
+          <span class="rmeta"><span>${esc(r.tab)}</span><span>${esc(r.date)}</span><span>Made by ${esc(r.madeBy)}</span></span>
+          <span class="rreach"><b>Reached</b>${esc(r.reached)}</span>
+        </span>
+        <span class="rside"><span class="pill stage" style="${stageStyle(r.stage)}">${esc(r.stage)}</span><span class="pill chk-${r.check}">${CHK[r.check]}</span></span>
+      </button>
+      ${open ? `<div class="detail" id="d-${r.id}">
+        <dl class="fields">
+          <div class="field"><dt>What the AI did</dt><dd>${esc(r.ai)}</dd></div>
+          <div class="field"><dt>What people did</dt><dd>${esc(r.people)}</dd></div>
+          <div class="field"><dt>Held for</dt><dd>${esc(r.held)}</dd></div>
+          <div class="field"><dt>Scale and evidence</dt><dd>${esc(r.scale)}</dd></div>
+          <div class="field"><dt>A first step for you</dt><dd>${esc(r.first)}</dd></div>
+          <div class="field"><dt>Record</dt><dd style="font-family:var(--f-mono);font-size:.85rem">${r.id}</dd></div>
+        </dl>
+        <p class="limits"><b>Where it may not carry over to you:</b> ${esc(r.limits)}</p>
+        <div class="sources">${r.sources.map(s=> s.u ? `<a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t)}</a>` : `<span>${esc(s.t)} (link to locate)</span>`).join("")}</div>
+        <div class="actions"><button class="btn ghost" type="button" data-seed="${r.id}">Could this help me?</button></div>
+      </div>` : ""}
+    </article>`;
+  }).join("");
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tab]");
+  if (t){ state.tab = t.dataset.tab; state.open=null; try{localStorage.setItem("sf-tab", state.tab)}catch{} renderTabs(); renderList(); return; }
+  const o = e.target.closest("[data-open]");
+  if (o){ state.open = state.open===o.dataset.open ? null : o.dataset.open; renderList(); return; }
+  const s = e.target.closest("[data-seed]");
+  if (s){ seedFrom(s.dataset.seed); }
+});
+$("#stageSel").addEventListener("change", e => { state.stage = e.target.value; renderList(); });
+$("#chkSel").addEventListener("change", e => { state.chk = e.target.value; renderList(); });
+
+/* ---------- scenario engine ---------- */
+let seedId = null;
+function seedFrom(id){
+  const r = RECORDS.find(x=>x.id===id); if (!r) return;
+  seedId = id;
+  const sl = $("#seedline"); sl.hidden = false;
+  sl.innerHTML = `Starting from <b>${esc(r.id)}: ${esc(r.title)}</b>. <button type="button" class="btn ghost" style="padding:2px 8px;font-size:.8rem" id="unseed">Clear</button>`;
+  $("#unseed").onclick = () => { seedId=null; sl.hidden=true; };
+  if (!$("#q-want").value.trim()) $("#q-want").value = `Something like "${r.title}", but for the people I work with.`;
+  $("#scenarios").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  $("#q-want").focus({preventScroll:true});
+}
+
+const KIND_LABEL = {most_likely:"Most likely", most_transformative:"Most transformative", slowest_to_bloom:"Slowest to bloom"};
+const STR_LABEL = {direct:"Direct fit", analogous:"Analogous", inspiration:"Inspiration only"};
+
+function list(items){ return Array.isArray(items) && items.length ? `<ul>${items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>` : `<p>None given.</p>`; }
+function renderScenarios(data, isExample){
+  const ids = new Set(RECORDS.map(r=>r.id));
+  const scns = Array.isArray(data?.scenarios) ? data.scenarios.slice(0,3) : [];
+  let html = isExample ? `<span class="tag">Example scenario · written in advance, not generated for you</span>` : `<span class="tag">Drafted for you · check every precedent before you act</span>`;
+  if (isExample && data.forWhom) html += `<p class="seedline"><b>For:</b> ${esc(data.forWhom)}</p>`;
+  html += scns.map(s => {
+    const prec = (Array.isArray(s.precedents)?s.precedents:[]).filter(p=>ids.has(String(p.id)));
+    const precHtml = prec.length ? prec.map(p=>{
+      const r = RECORDS.find(x=>x.id===String(p.id)); const k = STR_LABEL[p.strength] ? p.strength : "inspiration";
+      return `<div><span class="str str-${k}">${STR_LABEL[k]}</span><b>${esc(r.id)}</b> ${esc(r.title)}. <span style="color:var(--muted)">${esc(p.why)}</span></div>`;
+    }).join("") : `<div style="color:var(--muted)">No precedent in the record fits closely. Treat this as imagination and test it small.</div>`;
+    return `<article class="scn">
+      <header><span class="kind">${esc(KIND_LABEL[s.kind] || s.kind || "Scenario")}</span><h3>${esc(s.title)}</h3></header>
+      <p class="story">${esc(s.story)}</p>
+      <div><h4>In the record, this worked</h4><div class="prec">${precHtml}</div></div>
+      <div class="grid2">
+        <div><h4>Why this is yours</h4><p>${esc(s.why_yours)}</p></div>
+        <div><h4>What's already in reach</h4>${list(s.in_reach)}</div>
+        <div><h4>How you'd know it's working</h4>${list(s.signals)}</div>
+        <div><h4>Start this week</h4>${list(s.start_this_week)}</div>
+      </div>
+      <div><h4>First experiment</h4><p>${esc(s.first_experiment)}</p></div>
+      <div class="grid2">
+        <div><h4>On the day it works</h4><p>${esc(s.on_the_day_it_works)}</p></div>
+        <div><h4>Owner, and the skill they need to grow</h4><p>${esc(s.owner)}${s.skill_to_grow ? ` · ${esc(s.skill_to_grow)}` : ""}</p></div>
+      </div>
+    </article>`;
+  }).join("");
+  if (Array.isArray(data?.gaps) && data.gaps.length) html += `<div class="gaps"><b>What the record can't tell you yet</b>${list(data.gaps)}</div>`;
+  $("#out").innerHTML = html;
+}
+
+const EXAMPLE = {
+  forWhom: "A community liaison team handling grievances from fishing villages near a gas project in northern Mozambique. Complaints arrive by voice in Emakhuwa and Portuguese. Three staff, no data scientist, a small budget.",
+  scenarios: [
+    {kind:"most_likely", title:"Every spoken complaint logged the same day, in the speaker's words",
+     story:"Voice notes are transcribed and translated into a draft log entry. A staff member who speaks Emakhuwa corrects it before it is filed, and the original recording is kept beside the translation.",
+     precedents:[{id:"SF-005",strength:"analogous",why:"Open African-language models exist, but none of the tracked ones cover Emakhuwa."},{id:"SF-009",strength:"inspiration",why:"An AI describes and a human checks when it matters. That's the same split of work."}],
+     why_yours:"Your bottleneck is turning speech into records, and that is the part AI does best right now.",
+     in_reach:["Portuguese speech-to-text is mature","Your own staff as the reviewers","Recordings you already collect with consent"],
+     signals:["Time from complaint to log entry drops from days to hours","Corrections per entry fall month on month"],
+     start_this_week:["Pick 20 past voice complaints, with consent","Run the Portuguese ones through a transcription tool","Have one staff member time their corrections"],
+     first_experiment:"Twenty Portuguese voice notes, one tool, one reviewer, one afternoon. Compare against the existing log.",
+     on_the_day_it_works:"Credit the reviewers by name, keep the original recordings, and tell complainants how their words were recorded.",
+     owner:"Grievance officer", skill_to_grow:"Writing a correction guide that a second reviewer can follow"},
+    {kind:"most_transformative", title:"Communities see the pattern before the company does",
+     story:"Six months of logged complaints are summarised by theme and village and read back to community meetings, so residents decide which issues go to the top of the list.",
+     precedents:[{id:"SF-010",strength:"analogous",why:"Making the pattern visible gave less powerful actors leverage."},{id:"SF-011",strength:"inspiration",why:"Shows what happens when people can contest a system that sorts them."}],
+     why_yours:"You already sit between residents and the project. Readable patterns shift who sets the agenda.",
+     in_reach:["The log from the first scenario","Existing community meetings"],
+     signals:["Residents correct the summaries","Repeat complaints on the same issue fall"],
+     start_this_week:["Agree with one village committee what a summary should show"],
+     first_experiment:"One village, one month of entries, a single-page summary read aloud, and a note of what people say it got wrong.",
+     on_the_day_it_works:"Protect complainants' identities before anything is shared upward.",
+     owner:"Liaison team lead", skill_to_grow:"Facilitating a community review of data"},
+    {kind:"slowest_to_bloom", title:"An Emakhuwa speech dataset that outlives the project",
+     story:"Corrected transcripts, given with consent, slowly become a resource that a university or local language group could use to build tools for Emakhuwa.",
+     precedents:[{id:"SF-005",strength:"direct",why:"This is how InkubaLM's languages got served: someone built the data."},{id:"SF-004",strength:"inspiration",why:"An open resource that kept paying off for years."}],
+     why_yours:"You'll be producing exactly the data that's missing, as a by-product.",
+     in_reach:["Consent forms you already use","University partners in Nampula or Maputo"],
+     signals:["Hours of corrected, consented audio","A partner who asks for it"],
+     start_this_week:["Add a dataset clause to your consent form, written with a lawyer and the community"],
+     first_experiment:"Ask ten complainants whether they would let their corrected words help build tools for their language, and record what they say.",
+     on_the_day_it_works:"The community decides who can use the data.",
+     owner:"Project M&E lead", skill_to_grow:"Data governance for community-owned datasets"}
+  ],
+  gaps:["No row in the record covers Emakhuwa speech tools yet","Nothing in the record measures whether faster grievance logging led to faster resolution"]
+};
+
+let ctl = null, sample = null;
+function buildPrompt(want, who, have){
+  const rec = RECORDS.map(r=>({id:r.id,tab:r.tab,title:r.title,stage:r.stage,check:r.check,madeBy:r.madeBy,ai:r.ai,people:r.people,reached:r.reached,scale:r.scale,limits:r.limits}));
+  return `You are Surefire's scenario engine. Surefire is a tracker of AI benefits that values evidence over hype.
+
+A visitor wants to make something possible. Draft exactly three scenarios where AI goes right for them:
+1. kind "most_likely": the near win the record shows happening most often for setups like theirs
+2. kind "most_transformative": the biggest upside the record supports for their shape
+3. kind "slowest_to_bloom": a quiet compounding win they would not notice for a year
+
+Rules:
+- Precedents must be ids from THE RECORD below and nothing else. Rate each precedent's fit to the visitor: "direct" (same problem, similar setup), "analogous" (similar mechanism, different setting) or "inspiration" (shows it's possible, little else carries over).
+- Do not invent statistics, products, organisations or results. If something is outside the record, say so in "gaps".
+- Respect each record's stage and limits. Never present an Announced or Faded row as proof.
+- Be concrete and small: steps the visitor could start this week with what they have.
+- Write in plain English, short sentences, for this visitor.
+
+VISITOR
+What they want, and what gets in the way: ${want}
+Who they are and their setup: ${who || "(not given)"}
+What they have to work with: ${have || "(not given)"}
+${seedId ? `They started from record ${seedId}.` : ""}
+
+THE RECORD (JSON)
+${JSON.stringify(rec)}
+
+Reply with only a JSON object of this shape:
+{"scenarios":[{"kind":"most_likely","title":"...","story":"2-3 sentences","precedents":[{"id":"SF-00X","strength":"direct|analogous|inspiration","why":"one sentence"}],"why_yours":"...","in_reach":["..."],"signals":["..."],"start_this_week":["..."],"first_experiment":"...","on_the_day_it_works":"...","owner":"a role","skill_to_grow":"..."}],"gaps":["what the record cannot tell them"]}`;
+}
+
+const ERR = {
+  not_granted:"Scenario drafting needs your permission to use Claude. The example stays below.",
+  sampling_disabled:"Claude isn't available on this account, so the example stays below.",
+  rate_limited:"Too many requests just now. Wait a minute, then try again.",
+  invalid_json:"The draft came back in a shape this page couldn't read. Try again.",
+  refused:"Claude declined this request. Try rewording what you want to make possible.",
+  session_expired:"Your session has expired. Sign in again, then retry.",
+  empty_completion:"Nothing came back. Try a shorter description."
+};
+
+$("#ask").addEventListener("submit", async e => {
+  e.preventDefault();
+  const want = $("#q-want").value.trim();
+  if (!want){ $("#status").textContent = "Say what you'd love to make possible first."; $("#q-want").focus(); return; }
+  if (!sample){ $("#status").textContent = "Drafting runs when this page is opened in Claude. The example below shows what you'd get."; return; }
+  ctl = new AbortController();
+  $("#go").disabled = true; $("#stop").hidden = false;
+  $("#status").textContent = "Thinking. Matching your setup against the record, which can take a minute…";
+  try{
+    const data = await sample.json(buildPrompt(want, $("#q-who").value.trim(), $("#q-have").value.trim()), {signal: ctl.signal, modelTier:"default", cache:false});
+    if (!Array.isArray(data?.scenarios) || !data.scenarios.length) throw {code:"invalid_json"};
+    renderScenarios(data, false);
+    $("#status").textContent = "Done. Precedents not in the record were removed.";
+  }catch(err){
+    if (err?.code === "cancelled"){ $("#status").textContent = "Stopped."; }
+    else { $("#status").textContent = ERR[err?.code] || "Something went wrong on the way. Try again."; if (err?.code==="not_granted"||err?.code==="sampling_disabled") $("#go").hidden = true; }
+  }finally{
+    $("#go").disabled = false; $("#stop").hidden = true;
+  }
+});
+$("#stop").addEventListener("click", () => ctl?.abort());
+
+renderCounts(); renderTabs(); renderList(); renderScenarios(EXAMPLE, true);
+$("#q-want").value = "Make sure complaints from the villages are heard in people's own language, quickly. Right now voice notes sit for days because only one of us speaks Emakhuwa.";
+$("#q-who").value = "Community liaison team of three, gas project in northern Mozambique. We serve fishing villages.";
+$("#q-have").value = "A small budget, phones, past recordings with consent, no data scientist.";
+
+(async () => {
+  try { sample = await window.claude?.use?.("sample"); } catch { sample = null; }
+  if (!sample) $("#status").textContent = "Drafting runs when this page is opened in Claude. The example below shows what you'd get.";
+})();
+</script>
